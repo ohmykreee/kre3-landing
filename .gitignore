@@ -21,10 +21,11 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-.vfox/
 
 # Version-fox
 .vfox
 
 # Temp Files
 static/assets
+# Default Config (DO NOT UPLOAD)
+src/lib/config/default
