@@ -1,42 +1,29 @@
-# sv
+# Kre3-landing
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & SvelteKit.
 
-## Creating a project
+## How to Build
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Environment
 
-```sh
-# create a new project
-npx sv create my-app
-```
+- node === 24.13.1 (higher minor version is OK, higher major version might be OK due to backwards compatibility)
+- npm (you can use your own fav package manager cause the `package.json` and `package-lock.json` are npm standardized)
 
-To recreate this project with the same configuration:
+### Setup Project
 
-```sh
-# recreate this project
-npx sv create --template minimal --types ts --install npm kre3-landing
-```
+1. run `git clone https://github.com/ohmykreee/kre3-landing` to clone the whole project,
 
-## Developing
+2. run `npm install --include=dev` to install all the deps,
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+3. copy `src/lib/config/example.ts` to `src/lib/config/default/default.ts`, and change to your own info.
 
-```sh
-npm run dev
+BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave `default.ts` empty, or the site will not work. (the `_loader.ts` will first try to load `default.ts` then `example.ts` when it isn't exist.)
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+4. change the code the config file not covered and happy hacking
 
-## Building
+5. `npm run dev -- --bind=0.0.0.0` to run a dev server binding 0.0.0.0, `npm run lint` to do lint and formart check, `npm run format` to use prettier to format, `npm run build` to generate static site file to `build` casue it's a SSG project.
 
-To create a production version of your app:
+## License & trademark
 
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+- Code: Released under the (MIT license)[https://github.com/ohmykreee/kre3-landing/blob/main/LICENSE].
+- Assets & Branding: All Rights Reserved. This includes logos, graphics, and design files which may not be reused or redistributed without permission.
