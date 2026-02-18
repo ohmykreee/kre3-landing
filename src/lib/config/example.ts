@@ -1,4 +1,5 @@
-import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import type { Config } from '$lib/config/_loader'
+
 import {
   faGithub,
   faSquareBluesky,
@@ -11,7 +12,7 @@ import { fabCustomOsu } from '$lib/utils/custom-icons.svelte'
 
 const siteconfig: Config = {
   profile: {
-    name: 'Kreee (Kre<sup>3</sup>)',
+    name: 'TurboKre (Kre<sup>3</sup>)',
     avatar: 'https://avatars.githubusercontent.com/u/76862878#how.jpg',
     species: 'Cyber Coyote',
     email: '<a href="mailto:contact@kre3.net">contact@kre3.net</a>',
@@ -32,34 +33,44 @@ const siteconfig: Config = {
         date: '2026.02.15',
         description: 'Illustration by Slimane-Kadi on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
-        theme: '#1a9598'
+        theme: '#1a9598',
+        width: 1175,
+        height: 816
       },
       {
         title: 'test2',
         date: '2026.02.16',
         description: 'Illustration by Free To Dive on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
-        theme: '#4f9822'
+        theme: '#4f9822',
+        width: 699,
+        height: 381
       },
       {
         title: 'test3',
         date: '2026.02.17',
         description: 'Illustration by Gabriele Romano on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
-        theme: '#38639f'
+        theme: '#38639f',
+        width: 698,
+        height: 698
       },
       {
         title: 'test4',
         date: '2026.02.18',
         description: 'Illustration by Annie Spratt on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
-        theme: '#755179'
+        theme: '#755179',
+        width: 1490,
+        height: 1117
       },
       {
         title: 'test5',
         date: '2026.02.19',
         description: 'Illustration by Graficon Stuff on Unsplash',
-        imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+        imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+        width: 699,
+        height: 524
       }
     ]
   },
@@ -72,31 +83,45 @@ const siteconfig: Config = {
           title: 'test1',
           date: '2026.02.15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+          theme: '#1a9598',
+          width: 1175,
+          height: 816
         },
         {
           title: 'test2',
           date: '2026.02.16',
           description: 'Illustration by Free To Dive on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+          theme: '#4f9822',
+          width: 699,
+          height: 381
         },
         {
           title: 'test3',
           date: '2026.02.17',
           description: 'Illustration by Gabriele Romano on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+          theme: '#38639f',
+          width: 698,
+          height: 698
         },
         {
           title: 'test4',
           date: '2026.02.18',
           description: 'Illustration by Annie Spratt on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+          theme: '#755179',
+          width: 1490,
+          height: 1117
         },
         {
           title: 'test5',
           date: '2026.02.19',
           description: 'Illustration by Graficon Stuff on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+          width: 699,
+          height: 524
         }
       ]
     },
@@ -108,31 +133,45 @@ const siteconfig: Config = {
           title: 'test1',
           date: '2026.02.15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+          theme: '#1a9598',
+          width: 1175,
+          height: 816
         },
         {
           title: 'test2',
           date: '2026.02.16',
           description: 'Illustration by Free To Dive on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+          theme: '#4f9822',
+          width: 699,
+          height: 381
         },
         {
           title: 'test3',
           date: '2026.02.17',
           description: 'Illustration by Gabriele Romano on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+          theme: '#38639f',
+          width: 698,
+          height: 698
         },
         {
           title: 'test4',
           date: '2026.02.18',
           description: 'Illustration by Annie Spratt on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+          theme: '#755179',
+          width: 1490,
+          height: 1117
         },
         {
           title: 'test5',
           date: '2026.02.19',
           description: 'Illustration by Graficon Stuff on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+          width: 699,
+          height: 524
         }
       ]
     },
@@ -144,31 +183,145 @@ const siteconfig: Config = {
           title: 'test1',
           date: '2026.02.15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+          theme: '#1a9598',
+          width: 1175,
+          height: 816
         },
         {
           title: 'test2',
           date: '2026.02.16',
           description: 'Illustration by Free To Dive on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+          theme: '#4f9822',
+          width: 699,
+          height: 381
         },
         {
           title: 'test3',
           date: '2026.02.17',
           description: 'Illustration by Gabriele Romano on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+          theme: '#38639f',
+          width: 698,
+          height: 698
         },
         {
           title: 'test4',
           date: '2026.02.18',
           description: 'Illustration by Annie Spratt on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+          theme: '#755179',
+          width: 1490,
+          height: 1117
         },
         {
           title: 'test5',
           date: '2026.02.19',
           description: 'Illustration by Graficon Stuff on Unsplash',
-          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+          width: 699,
+          height: 524
+        }
+      ]
+    },
+    {
+      title: 'test collection 4',
+      description: 'this is a test collection, for test only',
+      item: [
+        {
+          title: 'test1',
+          date: '2026.02.15',
+          description: 'Illustration by Slimane-Kadi on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+          theme: '#1a9598',
+          width: 1175,
+          height: 816
+        },
+        {
+          title: 'test2',
+          date: '2026.02.16',
+          description: 'Illustration by Free To Dive on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+          theme: '#4f9822',
+          width: 699,
+          height: 381
+        },
+        {
+          title: 'test3',
+          date: '2026.02.17',
+          description: 'Illustration by Gabriele Romano on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+          theme: '#38639f',
+          width: 698,
+          height: 698
+        },
+        {
+          title: 'test4',
+          date: '2026.02.18',
+          description: 'Illustration by Annie Spratt on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+          theme: '#755179',
+          width: 1490,
+          height: 1117
+        },
+        {
+          title: 'test5',
+          date: '2026.02.19',
+          description: 'Illustration by Graficon Stuff on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+          width: 699,
+          height: 524
+        }
+      ]
+    },
+    {
+      title: 'test collection 5',
+      description: 'this is a test collection, for test only',
+      item: [
+        {
+          title: 'test1',
+          date: '2026.02.15',
+          description: 'Illustration by Slimane-Kadi on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+          theme: '#1a9598',
+          width: 1175,
+          height: 816
+        },
+        {
+          title: 'test2',
+          date: '2026.02.16',
+          description: 'Illustration by Free To Dive on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+          theme: '#4f9822',
+          width: 699,
+          height: 381
+        },
+        {
+          title: 'test3',
+          date: '2026.02.17',
+          description: 'Illustration by Gabriele Romano on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+          theme: '#38639f',
+          width: 698,
+          height: 698
+        },
+        {
+          title: 'test4',
+          date: '2026.02.18',
+          description: 'Illustration by Annie Spratt on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+          theme: '#755179',
+          width: 1490,
+          height: 1117
+        },
+        {
+          title: 'test5',
+          date: '2026.02.19',
+          description: 'Illustration by Graficon Stuff on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
+          width: 699,
+          height: 524
         }
       ]
     }
@@ -184,44 +337,6 @@ const siteconfig: Config = {
     `
   },
   baseurl: 'https://kre3.net'
-}
-
-export interface Config {
-  profile: ProfileConfig
-
-  portfolio: ProtfolioCollectionConfig[]
-
-  about: {
-    title: string
-    content: string
-  }
-
-  baseurl: string
-}
-
-interface ProfileConfig {
-  name: string
-  avatar: string
-  species: string
-  email: string
-  links: { icon: IconDefinition; name: string; url: string }[]
-  props: string
-  career: string
-  bg: ArtworkInfo[]
-}
-
-interface ProtfolioCollectionConfig {
-  title: string
-  description: string
-  item: ArtworkInfo[]
-}
-
-interface ArtworkInfo {
-  title: string
-  description?: string
-  date?: string
-  imgUrl: string
-  theme?: string
 }
 
 export default siteconfig
