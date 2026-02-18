@@ -25,5 +25,5 @@ BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave
 
 ## License & trademark
 
-- Code: Released under the (MIT license)[https://github.com/ohmykreee/kre3-landing/blob/main/LICENSE].
+- Code: Released under the [MIT license](https://github.com/ohmykreee/kre3-landing/blob/main/LICENSE).
 - Assets & Branding: All Rights Reserved. This includes logos, graphics, and design files which may not be reused or redistributed without permission.
