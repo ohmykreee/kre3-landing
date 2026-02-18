@@ -1,23 +1,23 @@
 <script lang="ts">
-  import { siteconfig } from "$lib/config/_loader"
-  import { getBg } from "$lib/utils/get-page-state.svelte"
+  import { siteconfig } from '$lib/config/_loader'
+  import { getBg } from '$lib/utils/get-page-state.svelte'
 
   export interface Props {
-    title :string
-    html :string
+    title: string
+    html: string
   }
 
-  let { title, html } :Props = $props()
-  let currTheme :string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let { title, html }: Props = $props()
+  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
-<div class="container" style:--curr-border-color={currTheme ?? "initial"}>
+<div class="container" style:--curr-border-color={currTheme ?? 'initial'}>
   <h2>{title}</h2>
   {@html html}
 </div>
 
 <style>
-	@import '$lib/styles/_variable.css';
+  @import '$lib/styles/_variable.css';
 
   .container {
     padding: 2rem;
@@ -38,7 +38,7 @@
     font-weight: 700;
   }
   .container :global(h3::before) {
-    content: "> ";
+    content: '> ';
   }
   .container :global(h4) {
     font-size: 1.125rem;
@@ -47,11 +47,11 @@
   }
   .container :global(a) {
     font-weight: 600;
-    color: var(--curr-border-color, var(--border-color))
+    color: var(--curr-border-color, var(--border-color));
   }
 
   .container :global(span) {
     font-weight: 600;
-    color: var(--curr-border-color, var(--border-color))
+    color: var(--curr-border-color, var(--border-color));
   }
 </style>

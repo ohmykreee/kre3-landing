@@ -1,19 +1,25 @@
-<script lang='ts'>
-  import { siteconfig } from "$lib/config/_loader"
-  import { getBg, getTerminal } from "$lib/utils/get-page-state.svelte"
-  import { fly } from "svelte/transition"
+<script lang="ts">
+  import { siteconfig } from '$lib/config/_loader'
+  import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
+  import { fly } from 'svelte/transition'
   import useEmblaCarousel from 'embla-carousel-svelte'
   import Autoplay from 'embla-carousel-autoplay'
-  import type { EmblaCarouselType  } from 'embla-carousel'
-  import Icon from "$lib/components/Icon.svelte"
-  import { faAngleLeft, faAngleRight, faL } from "@fortawesome/free-solid-svg-icons"
+  import type { EmblaCarouselType } from 'embla-carousel'
+  import Icon from '$lib/components/Icon.svelte'
+  import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import clickToOpen from '$lib/assets/click-to-open.png'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
-  let emblaApi :EmblaCarouselType | undefined
-  let offsetX :number = $state(0)
-  let offsetY :number = $state(0)
-  const dragState :{startX: number, startY: number, initialX :number, initialY :number, isDrag :boolean} = {
+  let emblaApi: EmblaCarouselType | undefined
+  let offsetX: number = $state(0)
+  let offsetY: number = $state(0)
+  const dragState: {
+    startX: number
+    startY: number
+    initialX: number
+    initialY: number
+    isDrag: boolean
+  } = {
     startX: 0, // startX, startY is used to calculate mouse move distance
     startY: 0,
     initialX: 0, // initialX, initialY is used to store last window offset
@@ -38,7 +44,7 @@
   const goToNext = () => emblaApi?.scrollNext()
 
   // do drag init
-  function handlePointerDown(e :PointerEvent) {
+  function handlePointerDown(e: PointerEvent) {
     if (window.innerWidth > 800) {
       dragState.isDrag = true
       dragState.startX = e.clientX
@@ -48,7 +54,7 @@
     }
   }
 
-  function handlePointerMove(e :PointerEvent) {
+  function handlePointerMove(e: PointerEvent) {
     if (!dragState.isDrag) return
     const dx = e.clientX - dragState.startX
     const dy = e.clientY - dragState.startY
@@ -56,7 +62,7 @@
     offsetY = dragState.initialY + dy
   }
 
-  function handlePointerUp(e :PointerEvent) {
+  function handlePointerUp(e: PointerEvent) {
     if (!dragState.isDrag) return
     dragState.isDrag = false
     dragState.initialX = $state.snapshot(offsetX)
@@ -68,18 +74,37 @@
 
 <div class="controller_container" style:--offset-x="{offsetX}px" style:--offset-y="{offsetY}px">
   {#if getTerminal.isClosed === true}
-    <img src={clickToOpen} role="none" alt="Click me to re-open Terminal" class="reopen_btn" onclick={() => getTerminal.isClosed = false} transition:fly={{ y: 10, duration: 300 }} />
+    <img
+      src={clickToOpen}
+      role="none"
+      alt="Click me to re-open Terminal"
+      class="reopen_btn"
+      onclick={() => (getTerminal.isClosed = false)}
+      transition:fly={{ y: 10, duration: 300 }}
+    />
   {/if}
 
   <div class="controller_wrapper">
-    <div class="controller_title" role="none" onpointerdown={handlePointerDown} onpointermove={handlePointerMove} onpointerup={handlePointerUp} onpointercancel={handlePointerUp}>
-      Project: <br /> {currBg.title}
+    <div
+      class="controller_title"
+      role="none"
+      onpointerdown={handlePointerDown}
+      onpointermove={handlePointerMove}
+      onpointerup={handlePointerUp}
+      onpointercancel={handlePointerUp}
+    >
+      Project: <br />
+      {currBg.title}
     </div>
 
-    <div class="embla__viewport" use:useEmblaCarousel={{options: {loop: true}, plugins: [Autoplay({ delay: 15000 })]}} onemblaInit={onInit}>
+    <div
+      class="embla__viewport"
+      use:useEmblaCarousel={{ options: { loop: true }, plugins: [Autoplay({ delay: 15000 })] }}
+      onemblaInit={onInit}
+    >
       <div class="embla__container">
         {#each siteconfig.profile.bg as bg (bg.title)}
-        <div class="embla__slide"><img src={bg.imgUrl} alt={bg.title} class="slide_img" /></div>
+          <div class="embla__slide"><img src={bg.imgUrl} alt={bg.title} class="slide_img" /></div>
         {/each}
       </div>
     </div>
@@ -89,9 +114,8 @@
   </div>
 </div>
 
-
 <style>
-	@import '$lib/styles/_variable.css';
+  @import '$lib/styles/_variable.css';
 
   .controller_container {
     position: relative;
@@ -99,10 +123,10 @@
 
   .controller_wrapper {
     width: calc(100vw - 32px);
-		height: 20rem;
-		margin-bottom: 1rem;
+    height: 20rem;
+    margin-bottom: 1rem;
     margin-left: auto;
-		margin-right: auto;
+    margin-right: auto;
     border-radius: 0.375rem;
     filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
   }
@@ -184,10 +208,10 @@
       z-index: 100;
     }
 
-		.controller_wrapper {
+    .controller_wrapper {
       width: 18rem;
       height: 12rem;
-		}
+    }
 
     .embla__slide {
       height: 12rem;
@@ -202,5 +226,5 @@
     .controller_title:active {
       cursor: grabbing;
     }
-	}
+  }
 </style>

@@ -1,9 +1,9 @@
-<script lang='ts'>
-  import { 
-      icon as faIcon, 
-      type IconDefinition, 
-      type AbstractElement 
-    } from '@fortawesome/fontawesome-svg-core'
+<script lang="ts">
+  import {
+    icon as faIcon,
+    type IconDefinition,
+    type AbstractElement
+  } from '@fortawesome/fontawesome-svg-core'
 
   interface Props {
     icon: IconDefinition
@@ -12,21 +12,16 @@
     class?: string
   }
 
-  let { 
-    icon, 
-    size = '1rem', 
-    color = 'currentColor', 
-    class: className = '' 
-  } :Props = $props()
+  let { icon, size = '1rem', color = 'currentColor', class: className = '' }: Props = $props()
 
   let renderedIcon = $derived<AbstractElement>(faIcon(icon).abstract[0])
-  
+
   let viewBox = $derived<string>(
     `0 0 ${renderedIcon.attributes.viewBox?.split(' ').slice(2).join(' ')}`
   )
 
   let paths = $derived<AbstractElement[]>(
-    (renderedIcon.children || []).filter(c => c.tag === 'path')
+    (renderedIcon.children || []).filter((c) => c.tag === 'path')
   )
 </script>
 
@@ -38,7 +33,8 @@
   fill={color}
   class={className}
 >
-  {#each paths as path}
+  <!-- ugly fix to pass lint lol, DO NOT USE INDEX AS ID!!! -->
+  {#each paths as path, i (i)}
     <path d={path.attributes.d} />
   {/each}
 </svg>

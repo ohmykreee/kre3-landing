@@ -1,36 +1,52 @@
-<script lang='ts'>
-  import { siteconfig } from "$lib/config/_loader"
+<script lang="ts">
+  import { siteconfig } from '$lib/config/_loader'
   import Icon from '$lib/components/Icon.svelte'
   import { getBg } from '$lib/utils/get-page-state.svelte'
 
-  let currTheme :string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
 <div class="container">
-  <div><span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path">~</span>$ info</div>
+  <div>
+    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path"
+      >~</span
+    >$ info
+  </div>
   <div class="bio_container">
-    <img src={siteconfig.profile.avatar} alt="Avatar" style:--curr-border-color={currTheme ?? "initial"} />
+    <img
+      src={siteconfig.profile.avatar}
+      alt="Avatar"
+      style:--curr-border-color={currTheme ?? 'initial'}
+    />
     <p class="bio_info">
       <span>Brief Introduction</span><br />
-       ------------------<br />
-      <span>Name:</span> {@html siteconfig.profile.name}<br />
-      <span>Career:</span> {@html siteconfig.profile.career}<br />
-      <span>Species:</span> {@html siteconfig.profile.species}<br />
-      <span>Mail:</span> {@html siteconfig.profile.email}<br />
+      ------------------<br />
+      <span>Name:</span>
+      {@html siteconfig.profile.name}<br />
+      <span>Career:</span>
+      {@html siteconfig.profile.career}<br />
+      <span>Species:</span>
+      {@html siteconfig.profile.species}<br />
+      <span>Mail:</span>
+      {@html siteconfig.profile.email}<br />
       <span>CPU:</span> DoggoBrain KindaStupid @ unknown<br />
       <span>GPU:</span> DoggoEyes NearSighted<br />
     </p>
   </div>
-  <div><span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path">~</span>$ ls links</div>
+  <div>
+    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path"
+      >~</span
+    >$ ls links
+  </div>
   <div class="links_container">
-    {#each siteconfig.profile.links as link}
-      <a href={link.url} rel="noreferrer" target="_blank"><Icon icon={link.icon} />{link.name}</a>
+    {#each siteconfig.profile.links as link (link.name)}
+      <a href={link.url} rel="external" target="_blank"><Icon icon={link.icon} />{link.name}</a>
     {/each}
   </div>
 </div>
 
 <style>
-	@import '$lib/styles/_variable.css';
+  @import '$lib/styles/_variable.css';
 
   .container {
     font-size: 1rem;

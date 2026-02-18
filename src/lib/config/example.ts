@@ -1,70 +1,180 @@
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
-import { faGithub, faSquareBluesky, faBilibili, faSquareTwitter, faSteam, faGit } from '@fortawesome/free-brands-svg-icons'
+import {
+  faGithub,
+  faSquareBluesky,
+  faBilibili,
+  faSquareTwitter,
+  faSteam
+} from '@fortawesome/free-brands-svg-icons'
 import { faSquareRss } from '@fortawesome/free-solid-svg-icons'
 import { fabCustomOsu } from '$lib/utils/custom-icons.svelte'
 
-const siteconfig :Config = {
+const siteconfig: Config = {
   profile: {
-    name: "Kreee (Kre<sup>3</sup>)",
-    avatar: "https://avatars.githubusercontent.com/u/76862878#how.jpg",
-    species: "Cyber Coyote",
-    email: "<a href=\"mailto:contact@kre3.net\">contact@kre3.net</a>",
-    props: "kyree@kre3.net",
-    career: "Not a student",
+    name: 'Kreee (Kre<sup>3</sup>)',
+    avatar: 'https://avatars.githubusercontent.com/u/76862878#how.jpg',
+    species: 'Cyber Coyote',
+    email: '<a href="mailto:contact@kre3.net">contact@kre3.net</a>',
+    props: 'kyree@kre3.net',
+    career: 'Not a student',
     links: [
-      {name:"GitHub", icon:faGithub, url:"https://github.com/ohmykreee"}, 
-      {name:"BlueSky", icon:faSquareBluesky, url:"https://bsky.app/profile/kreee.bsky.social"},
-      {name:"Bilibili", icon:faBilibili, url:"https://space.bilibili.com/361507684"},
-      {name:"Blog", icon:faSquareRss, url:"https://blog.kre3.net"},
-      {name:"Twitter", icon:faSquareTwitter, url:"https://twitter.com/turbokre"},
-      {name:"Steam", icon:faSteam, url:"https://steamcommunity.com/id/kreeejiang"},
-      {name:"osu!", icon:fabCustomOsu, url:"https://osu.ppy.sh/users/27746946"}
+      { name: 'GitHub', icon: faGithub, url: 'https://github.com/ohmykreee' },
+      { name: 'BlueSky', icon: faSquareBluesky, url: 'https://bsky.app/profile/kreee.bsky.social' },
+      { name: 'Bilibili', icon: faBilibili, url: 'https://space.bilibili.com/361507684' },
+      { name: 'Blog', icon: faSquareRss, url: 'https://blog.kre3.net' },
+      { name: 'Twitter', icon: faSquareTwitter, url: 'https://twitter.com/turbokre' },
+      { name: 'Steam', icon: faSteam, url: 'https://steamcommunity.com/id/kreeejiang' },
+      { name: 'osu!', icon: fabCustomOsu, url: 'https://osu.ppy.sh/users/27746946' }
     ],
     bg: [
-      {title: "test1", date: "2026.02.15", description: "Illustration by Slimane-Kadi on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png", theme: "#1a9598"},
-      {title: "test2", date: "2026.02.16", description: "Illustration by Free To Dive on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png", theme: "#4f9822"},
-      {title: "test3", date: "2026.02.17", description: "Illustration by Gabriele Romano on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png", theme: "#38639f"},
-      {title: "test4", date: "2026.02.18", description: "Illustration by Annie Spratt on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png", theme: "#755179"},
-      {title: "test5", date: "2026.02.19", description: "Illustration by Graficon Stuff on Unsplash", imgUrl: "https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png"},
+      {
+        title: 'test1',
+        date: '2026.02.15',
+        description: 'Illustration by Slimane-Kadi on Unsplash',
+        imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
+        theme: '#1a9598'
+      },
+      {
+        title: 'test2',
+        date: '2026.02.16',
+        description: 'Illustration by Free To Dive on Unsplash',
+        imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
+        theme: '#4f9822'
+      },
+      {
+        title: 'test3',
+        date: '2026.02.17',
+        description: 'Illustration by Gabriele Romano on Unsplash',
+        imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
+        theme: '#38639f'
+      },
+      {
+        title: 'test4',
+        date: '2026.02.18',
+        description: 'Illustration by Annie Spratt on Unsplash',
+        imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
+        theme: '#755179'
+      },
+      {
+        title: 'test5',
+        date: '2026.02.19',
+        description: 'Illustration by Graficon Stuff on Unsplash',
+        imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+      }
     ]
   },
   portfolio: [
     {
-      title: "test collection 1",
-      description: "this is a test collection, for test only",
+      title: 'test collection 1',
+      description: 'this is a test collection, for test only',
       item: [
-      {title: "test1", date: "2026.02.15", description: "Illustration by Slimane-Kadi on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png"},
-      {title: "test2", date: "2026.02.16", description: "Illustration by Free To Dive on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png"},
-      {title: "test3", date: "2026.02.17", description: "Illustration by Gabriele Romano on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png"},
-      {title: "test4", date: "2026.02.18", description: "Illustration by Annie Spratt on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png"},
-      {title: "test5", date: "2026.02.19", description: "Illustration by Graficon Stuff on Unsplash", imgUrl: "https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png"},
+        {
+          title: 'test1',
+          date: '2026.02.15',
+          description: 'Illustration by Slimane-Kadi on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+        },
+        {
+          title: 'test2',
+          date: '2026.02.16',
+          description: 'Illustration by Free To Dive on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+        },
+        {
+          title: 'test3',
+          date: '2026.02.17',
+          description: 'Illustration by Gabriele Romano on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+        },
+        {
+          title: 'test4',
+          date: '2026.02.18',
+          description: 'Illustration by Annie Spratt on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+        },
+        {
+          title: 'test5',
+          date: '2026.02.19',
+          description: 'Illustration by Graficon Stuff on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+        }
       ]
     },
     {
-      title: "test collection 2",
-      description: "this is a test collection, for test only",
+      title: 'test collection 2',
+      description: 'this is a test collection, for test only',
       item: [
-      {title: "test1", date: "2026.02.15", description: "Illustration by Slimane-Kadi on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png"},
-      {title: "test2", date: "2026.02.16", description: "Illustration by Free To Dive on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png"},
-      {title: "test3", date: "2026.02.17", description: "Illustration by Gabriele Romano on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png"},
-      {title: "test4", date: "2026.02.18", description: "Illustration by Annie Spratt on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png"},
-      {title: "test5", date: "2026.02.19", description: "Illustration by Graficon Stuff on Unsplash", imgUrl: "https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png"},
+        {
+          title: 'test1',
+          date: '2026.02.15',
+          description: 'Illustration by Slimane-Kadi on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+        },
+        {
+          title: 'test2',
+          date: '2026.02.16',
+          description: 'Illustration by Free To Dive on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+        },
+        {
+          title: 'test3',
+          date: '2026.02.17',
+          description: 'Illustration by Gabriele Romano on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+        },
+        {
+          title: 'test4',
+          date: '2026.02.18',
+          description: 'Illustration by Annie Spratt on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+        },
+        {
+          title: 'test5',
+          date: '2026.02.19',
+          description: 'Illustration by Graficon Stuff on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+        }
       ]
     },
     {
-      title: "test collection 3",
-      description: "this is a test collection, for test only",
+      title: 'test collection 3',
+      description: 'this is a test collection, for test only',
       item: [
-      {title: "test1", date: "2026.02.15", description: "Illustration by Slimane-Kadi on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png"},
-      {title: "test2", date: "2026.02.16", description: "Illustration by Free To Dive on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png"},
-      {title: "test3", date: "2026.02.17", description: "Illustration by Gabriele Romano on Unsplash", imgUrl: "https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png"},
-      {title: "test4", date: "2026.02.18", description: "Illustration by Annie Spratt on Unsplash", imgUrl: "https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png"},
-      {title: "test5", date: "2026.02.19", description: "Illustration by Graficon Stuff on Unsplash", imgUrl: "https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png"},
+        {
+          title: 'test1',
+          date: '2026.02.15',
+          description: 'Illustration by Slimane-Kadi on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png'
+        },
+        {
+          title: 'test2',
+          date: '2026.02.16',
+          description: 'Illustration by Free To Dive on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png'
+        },
+        {
+          title: 'test3',
+          date: '2026.02.17',
+          description: 'Illustration by Gabriele Romano on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png'
+        },
+        {
+          title: 'test4',
+          date: '2026.02.18',
+          description: 'Illustration by Annie Spratt on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png'
+        },
+        {
+          title: 'test5',
+          date: '2026.02.19',
+          description: 'Illustration by Graficon Stuff on Unsplash',
+          imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png'
+        }
       ]
-    },
+    }
   ],
   about: {
-    title: "About me",
+    title: 'About me',
     content: `
     <h3>This is Woof-Barker</h3>
     Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark Woof Woof Bark Bark
@@ -73,45 +183,45 @@ const siteconfig :Config = {
     <br /><a href="/">A very nice a tag for testing</a>
     `
   },
-  baseurl: "https://kre3.net"
+  baseurl: 'https://kre3.net'
 }
 
 export interface Config {
-  profile :ProfileConfig
+  profile: ProfileConfig
 
-  portfolio :ProtfolioCollectionConfig[]
+  portfolio: ProtfolioCollectionConfig[]
 
-  about :{
-    title :string
-    content :string
+  about: {
+    title: string
+    content: string
   }
 
-  baseurl :string
+  baseurl: string
 }
 
 interface ProfileConfig {
-  name :string
-  avatar :string
-  species :string
-  email :string
-  links :{icon: IconDefinition, name :string, url :string}[]
-  props :string
-  career :string
-  bg :ArtworkInfo[]
+  name: string
+  avatar: string
+  species: string
+  email: string
+  links: { icon: IconDefinition; name: string; url: string }[]
+  props: string
+  career: string
+  bg: ArtworkInfo[]
 }
 
 interface ProtfolioCollectionConfig {
-  title :string
-  description :string
-  item :ArtworkInfo[]
+  title: string
+  description: string
+  item: ArtworkInfo[]
 }
 
 interface ArtworkInfo {
-  title :string
-  description? :string
-  date? :string
-  imgUrl :string
-  theme? :string
+  title: string
+  description?: string
+  date?: string
+  imgUrl: string
+  theme?: string
 }
 
 export default siteconfig
