@@ -1,0 +1,32 @@
+name: CI Checks
+
+on:
+  push:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Prepare workspace
+        run: npm install --inlude=dev
+
+      - name: Clone config file from Repo
+        run: |
+          eval `ssh-agent -s`
+          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
+          git clone ${{ secrets.CONFIG_REPO_URL }} src/lib/config/default
+        continue-on-error: true
+
+      - name: Project check
+        run: npm run lint
