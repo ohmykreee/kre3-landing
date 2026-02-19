@@ -23,8 +23,12 @@ jobs:
 
       - name: Clone config file from Repo
         run: |
-          eval `ssh-agent -s`
-          ssh-add - <<< '${{ secrets.PRIVATE_SSH_KEY }}'
+          if [ -n "${{ secrets.PRIVATE_SSH_KEY }}" ]; then
+            eval `ssh-agent -s`
+            echo "${{ secrets.PRIVATE_SSH_KEY }}" | ssh-add -
+          else
+            echo "SSH Key is empty, skipping ssh-add..."
+          fi
           git clone ${{ secrets.CONFIG_REPO_URL }} src/lib/config/default
         continue-on-error: true
 
