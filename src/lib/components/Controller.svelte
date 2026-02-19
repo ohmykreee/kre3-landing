@@ -7,7 +7,9 @@
   import type { EmblaCarouselType } from 'embla-carousel'
   import Icon from '$lib/components/Icon.svelte'
   import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
-  import clickToOpen from '$lib/assets/click-to-open.png'
+  import loop0 from '$lib/assets/click-to-open/loop0.webp'
+  import loop1 from '$lib/assets/click-to-open/loop1.webp'
+  import LoopImg from './LoopImg.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
   let emblaApi: EmblaCarouselType | undefined
@@ -74,14 +76,19 @@
 
 <div class="controller_container" style:--offset-x="{offsetX}px" style:--offset-y="{offsetY}px">
   {#if getTerminal.isClosed === true}
-    <img
-      src={clickToOpen}
-      role="none"
-      alt="Click me to re-open Terminal"
+    <div
       class="reopen_btn"
+      role="none"
       onclick={() => (getTerminal.isClosed = false)}
-      transition:fly={{ y: 10, duration: 300 }}
-    />
+      in:fly={{ y: 10, duration: 300 }}
+    >
+      <LoopImg
+        imgs={[loop0, loop1]}
+        alt="Click me to re-open main window"
+        interval={1000}
+        width="18rem"
+      />
+    </div>
   {/if}
 
   <div class="controller_wrapper">
@@ -109,8 +116,12 @@
       </div>
     </div>
 
-    <button class="nav_btn nav_left" onclick={goToPrev}><Icon icon={faAngleLeft} /></button>
-    <button class="nav_btn nav_right" onclick={goToNext}><Icon icon={faAngleRight} /></button>
+    <button class="nav_btn nav_left" onclick={goToPrev} aria-label="Previous Slide">
+      <Icon icon={faAngleLeft} />
+    </button>
+    <button class="nav_btn nav_right" onclick={goToNext} aria-label="Next Slide">
+      <Icon icon={faAngleRight} />
+    </button>
   </div>
 </div>
 
@@ -193,10 +204,10 @@
   }
 
   .reopen_btn {
-    width: 18rem;
-    z-index: -10;
+    position: relative;
     cursor: pointer;
-    margin-bottom: -10px;
+    margin-bottom: -8px;
+    z-index: 2;
   }
 
   @media (min-width: 800px) {
