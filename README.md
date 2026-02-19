@@ -1,5 +1,10 @@
 # Kre3-landing
 
+![CI Checks](https://github.com/ohmykreee/kre3-landing/actions/workflows/lint.yaml/badge.svg)
+![CD Deploy](https://github.com/ohmykreee/kre3-landing/actions/workflows/deploy.yaml/badge.svg)
+![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=flat&logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)
+
 My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & SvelteKit.
 
 ## How to Build
@@ -27,7 +32,7 @@ BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave
 
 The workflows files here do cloning your config file from a repo and do a `npm run lint` first, when no error present then do `npm run build` and publish static file to Cloudflare Pages.
 
-1. To clone your config file from your repo, you should provide `CONFIG_REPO_URL` in your "Actions secrets and variables". If your repo is private, you need to : 1. Create a new SSH key pair, 2. Put the public key in the private repo's Deploy keys, 3. Put the private key in this repo's Actions secrets `PRIVATE_SSH_KEY`.
+1. To clone your config file from your repo, you should provide `CONFIG_REPO_URL` in your "Actions secrets and variables". If your repo is private, you need to : 1. Create a new SSH key pair, 2. Put the public key in the private repo's Deploy keys, 3. Put the private key in this repo's Actions secrets `PRIVATE_SSH_KEY`. (If you use private repo, the `CONFIG_REPO_URL` should use this format: `git@github.com:USERNAME/REPO_NAME.git`)
 2. To publish static file to Cloudflare Pages, you should provide secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, and **env** `CLOUDFLARE_PROJECT_NAME`.
 
 ## License & trademark
