@@ -2,6 +2,13 @@ name: CI Checks
 
 on:
   push:
+  workflow_dispatch:
+    inputs:
+      lint_only:
+        description: 'Do lint only (no deploy)'
+        required: true
+        type: boolean
+        default: true
 
 jobs:
   lint:
@@ -34,3 +41,12 @@ jobs:
 
       - name: Project check
         run: npm run lint
+
+      - name: Call Deploy()
+        if: >-
+          success() && 
+          (
+            github.ref == 'refs/heads/main' || 
+            (github.event_name == 'workflow_dispatch' && inputs.lint_only == false)
+          )
+        uses: ./.github/workflows/deploy.yaml
