@@ -3,7 +3,6 @@
   import { fade } from 'svelte/transition'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
-  import favicon from '$lib/assets/favicon.svg'
   import ogimage from '$lib/assets/cover.jpg'
   import '@fontsource-variable/ubuntu-sans-mono'
 
@@ -16,7 +15,6 @@
 </script>
 
 <svelte:head>
-  <link rel="icon" href={favicon} />
   <meta
     name="description"
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."

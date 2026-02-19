@@ -26,7 +26,7 @@ BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave
 
 4. change the code the config file not covered and happy hacking,
 
-5. `npm run dev -- --bind=0.0.0.0` to run a dev server binding 0.0.0.0, `npm run lint` to do lint and format check, `npm run format` to use prettier to format, `npm run build` to generate static site file to `build` casue it's a SSG project.
+5. `npm run dev -- --host=0.0.0.0` to run a dev server binding 0.0.0.0, `npm run lint` to do lint and format check, `npm run format` to use prettier to format, `npm run build` to generate static site file to `build` casue it's a SSG project.
 
 ### About Github CI/CD
 

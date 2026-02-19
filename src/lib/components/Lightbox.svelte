@@ -85,6 +85,7 @@
     color: inherit;
     text-align: inherit;
     z-index: 2;
+    cursor: pointer;
   }
 
   .gallery img {
