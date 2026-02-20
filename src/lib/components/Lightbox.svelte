@@ -110,11 +110,11 @@
     background-size: cover;
     border-radius: 0.375rem;
     transform-origin: 10% 50%;
-    transition: transform 0.4s ease-out;
+    transition: transform 0.2s ease-out;
   }
 
   .gallery:hover::after {
-    transform: rotate(2deg);
+    transform: rotate(3deg);
   }
 
   .gallery p {
@@ -123,7 +123,12 @@
     left: 0px;
     width: 100%;
     z-index: 10;
-    background: linear-gradient(to top, rgb(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
     margin: 0;
     padding: 1rem;
     border-radius: 0 0 0.375rem 0.375rem;

@@ -151,7 +151,12 @@
     z-index: 10;
     font-size: 1rem;
     border-radius: 0.375rem 0.375rem 0 0;
-    background: linear-gradient(to bottom, rgb(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.7) 50%,
+      rgba(0, 0, 0, 0) 100%
+    );
   }
 
   .nav_btn {
