@@ -1,4 +1,4 @@
-name: CI Checks
+name: Lint & Deploy
 
 on:
   push:
@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      deployments: write
 
     steps:
       - name: Checkout Repo
@@ -42,11 +43,18 @@ jobs:
       - name: Project check
         run: npm run lint
 
-      - name: Call Deploy()
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
         if: >-
           success() && 
           (
             github.ref == 'refs/heads/main' || 
             (github.event_name == 'workflow_dispatch' && inputs.lint_only == false)
           )
-        uses: ./.github/workflows/deploy.yaml
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build --project-name=${{ env.CLOUDFLARE_PROJECT_NAME }} --branch main
