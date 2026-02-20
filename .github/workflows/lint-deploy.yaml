@@ -1,4 +1,4 @@
-name: CI Checks
+name: Lint & Deploy
 
 on:
   push:
@@ -43,9 +43,18 @@ jobs:
       - name: Project check
         run: npm run lint
 
-  deploy:
-    if: >-
-      success() && 
-      (github.ref == 'refs/heads/main' || 
-      (github.event_name == 'workflow_dispatch' && inputs.lint_only == false))
-    uses: ./.github/workflows/deploy.yaml
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        if: >-
+          success() && 
+          (
+            github.ref == 'refs/heads/main' || 
+            (github.event_name == 'workflow_dispatch' && inputs.lint_only == false)
+          )
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy build --project-name=${{ env.CLOUDFLARE_PROJECT_NAME }} --branch main
