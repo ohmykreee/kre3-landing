@@ -42,11 +42,9 @@ jobs:
       - name: Project check
         run: npm run lint
 
-      - name: Call Deploy()
-        if: >-
-          success() && 
-          (
-            github.ref == 'refs/heads/main' || 
-            (github.event_name == 'workflow_dispatch' && inputs.lint_only == false)
-          )
-        uses: ./.github/workflows/deploy.yaml
+  deploy:
+    if: >-
+      success() && 
+      (github.ref == 'refs/heads/main' || 
+      (github.event_name == 'workflow_dispatch' && inputs.lint_only == false))
+    uses: ./.github/workflows/deploy.yaml
