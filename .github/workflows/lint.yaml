@@ -1,0 +1,52 @@
+name: CI Checks
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      lint_only:
+        description: 'Do lint only (no deploy)'
+        required: true
+        type: boolean
+        default: true
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Prepare workspace
+        run: npm install --include=dev
+
+      - name: Clone config file from Repo
+        run: |
+          if [ -n "${{ secrets.PRIVATE_SSH_KEY }}" ]; then
+            eval `ssh-agent -s`
+            echo "${{ secrets.PRIVATE_SSH_KEY }}" | ssh-add -
+          else
+            echo "SSH Key is empty, skipping ssh-add..."
+          fi
+          git clone ${{ secrets.CONFIG_REPO_URL }} src/lib/config/default
+        continue-on-error: true
+
+      - name: Project check
+        run: npm run lint
+
+      - name: Call Deploy()
+        if: >-
+          success() && 
+          (
+            github.ref == 'refs/heads/main' || 
+            (github.event_name == 'workflow_dispatch' && inputs.lint_only == false)
+          )
+        uses: ./.github/workflows/deploy.yaml

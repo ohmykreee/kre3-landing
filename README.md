@@ -1,42 +1,41 @@
-# sv
+# Kre3-landing
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+![CI Checks](https://github.com/ohmykreee/kre3-landing/actions/workflows/lint.yaml/badge.svg)
+![CD Deploy](https://github.com/ohmykreee/kre3-landing/actions/workflows/deploy.yaml/badge.svg)
+![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=flat&logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=flat&logo=typescript&logoColor=white)
 
-## Creating a project
+My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & SvelteKit.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How to Build
 
-```sh
-# create a new project
-npx sv create my-app
-```
+### Environment
 
-To recreate this project with the same configuration:
+- node === 24.13.1 (higher minor version is OK, higher major version might be OK due to backwards compatibility)
+- npm (you can use your own fav package manager cause the `package.json` and `package-lock.json` are npm standardized)
 
-```sh
-# recreate this project
-npx sv create --template minimal --types ts --install npm kre3-landing
-```
+### Setup Project
 
-## Developing
+1. run `git clone https://github.com/ohmykreee/kre3-landing` to clone the whole project,
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+2. run `npm install --include=dev` to install all the deps,
 
-```sh
-npm run dev
+3. copy `src/lib/config/example.ts` to `src/lib/config/default/default.ts`, and change to your own info,
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave `default.ts` empty, or the site will not work. (the `_loader.ts` will first try to load `default.ts` then `example.ts` when it isn't exist.)
 
-## Building
+4. change the code the config file not covered and happy hacking,
 
-To create a production version of your app:
+5. `npm run dev -- --host=0.0.0.0` to run a dev server binding 0.0.0.0, `npm run lint` to do lint and format check, `npm run format` to use prettier to format, `npm run build` to generate static site file to `build` casue it's a SSG project.
 
-```sh
-npm run build
-```
+### About Github CI/CD
 
-You can preview the production build with `npm run preview`.
+The workflows files here do cloning your config file from a repo and do a `npm run lint` first, when no error present then do `npm run build` and publish static file to Cloudflare Pages.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+1. To clone your config file from your repo, you should provide `CONFIG_REPO_URL` in your "Actions secrets and variables". If your repo is private, you need to : 1. Create a new SSH key pair, 2. Put the public key in the private repo's Deploy keys, 3. Put the private key in this repo's Actions secrets `PRIVATE_SSH_KEY`. (If you use private repo, the `CONFIG_REPO_URL` should use this format: `git@github.com:USERNAME/REPO_NAME.git`)
+2. To publish static file to Cloudflare Pages, you should provide secrets `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`, and **env** `CLOUDFLARE_PROJECT_NAME`.
+
+## License & trademark
+
+- Code: Released under the [MIT license](https://github.com/ohmykreee/kre3-landing/blob/main/LICENSE).
+- Assets & Branding: All Rights Reserved. This includes logos, graphics, and design files which may not be reused or redistributed without permission.
