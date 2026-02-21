@@ -1,6 +1,7 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import { defineConfig } from 'vite'
 import RemoteAssets from 'vite-plugin-remote-assets'
+import cssnano from 'cssnano'
 
 export default defineConfig({
   plugins: [
@@ -26,5 +27,14 @@ export default defineConfig({
   ],
   build: {
     sourcemap: false
+  },
+  css: {
+    postcss: {
+      plugins: [
+        cssnano({
+          preset: 'default'
+        })
+      ]
+    }
   }
 })
