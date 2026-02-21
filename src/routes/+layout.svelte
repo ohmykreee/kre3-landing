@@ -5,6 +5,7 @@
 
   import ogimage from '$lib/assets/cover.jpg'
   import '@fontsource-variable/ubuntu-sans-mono'
+  import ubuntuSansMonoWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
 
   import Controller from '$lib/components/Controller.svelte'
   import Terminal from '$lib/components/Terminal.svelte'
@@ -15,6 +16,13 @@
 </script>
 
 <svelte:head>
+  <link
+    rel="preload"
+    as="font"
+    type="font/woff2"
+    href={ubuntuSansMonoWoff2}
+    crossorigin="anonymous"
+  />
   <meta
     name="description"
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."
