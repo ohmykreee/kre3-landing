@@ -39,6 +39,13 @@
 <Terminal {children} />
 <Controller />
 <Footer />
+<svg style="position: absolute; height: 0; width: 0;">
+  <defs>
+    <filter id="perfect-blur" x="0" y="0" width="100%" height="100%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2" edgeMode="duplicate" />
+    </filter>
+  </defs>
+</svg>
 
 <style>
   @import '$lib/styles/_variable.css';
@@ -84,25 +91,11 @@
     background-position-x: 50%;
     background-position-y: 50%;
     z-index: -100;
-  }
-
-  .bg::after {
-    content: '';
-    display: block;
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    -webkit-backdrop-filter: blur(2px);
-    backdrop-filter: blur(2px);
-    background-color: rgba(0, 0, 0, 0.3);
+    filter: brightness(0.7) blur(2px);
     transition: all 0.3s ease;
   }
 
-  .bg.nodim::after {
-    background-color: rgba(0, 0, 0, 0);
-    backdrop-filter: blur(0px);
-    -webkit-backdrop-filter: blur(0px);
+  .bg.nodim {
+    filter: brightness(1) blur(0px);
   }
 </style>
