@@ -73,7 +73,7 @@
 
 <svelte:head>
   <title
-    >{pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? 'Err'} | Turbo Energy Coyote</title
+    >{pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Coyote</title
   >
 </svelte:head>
 
@@ -95,7 +95,7 @@
         onpointercancel={handlePointerUp}
       >
         {#if !pinnedTabs.some((item) => item.route === page.url.pathname)}
-          <h1 class="title_btn_pressed">Err</h1>
+          <h1 class="title_btn_pressed">404</h1>
         {/if}
         {#each pinnedTabs as tab (tab.name)}
           {#if page.url.pathname === tab.route}
