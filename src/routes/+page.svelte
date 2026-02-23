@@ -46,8 +46,6 @@
 </div>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .container {
     font-size: 1rem;
     font-weight: 500;

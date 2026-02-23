@@ -116,8 +116,6 @@
 <Controller />
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .terminal_container {
     display: flex;
     flex-direction: column;

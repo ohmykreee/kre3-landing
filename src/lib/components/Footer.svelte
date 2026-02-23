@@ -13,8 +13,6 @@
 </footer>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .footer {
     width: calc(100vw - 32px);
     font-size: 0.85rem;

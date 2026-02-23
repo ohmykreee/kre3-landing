@@ -17,8 +17,6 @@
 </div>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .error_container {
     display: flex;
     flex-direction: column;
