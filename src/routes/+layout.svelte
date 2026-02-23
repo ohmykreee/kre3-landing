@@ -4,10 +4,9 @@
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
   import ogimage from '$lib/assets/cover.jpg'
-  import '@fontsource-variable/ubuntu-sans-mono'
+  import '@fontsource-variable/ubuntu-sans-mono/wght'
   import ubuntuSansMonoWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
 
-  import Controller from '$lib/components/Controller.svelte'
   import Terminal from '$lib/components/Terminal.svelte'
   import Footer from '$lib/components/Footer.svelte'
 
@@ -45,15 +44,7 @@
   ></div>
 {/key}
 <Terminal {children} />
-<Controller />
 <Footer />
-<svg style="position: absolute; height: 0; width: 0;">
-  <defs>
-    <filter id="perfect-blur" x="0" y="0" width="100%" height="100%">
-      <feGaussianBlur in="SourceGraphic" stdDeviation="2" edgeMode="duplicate" />
-    </filter>
-  </defs>
-</svg>
 
 <style>
   @import '$lib/styles/_variable.css';
