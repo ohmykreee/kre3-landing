@@ -7,7 +7,6 @@
   import '@fontsource-variable/ubuntu-sans-mono/wght'
   import ubuntuSansMonoWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
 
-  import Controller from '$lib/components/Controller.svelte'
   import Terminal from '$lib/components/Terminal.svelte'
   import Footer from '$lib/components/Footer.svelte'
 
@@ -45,7 +44,6 @@
   ></div>
 {/key}
 <Terminal {children} />
-<Controller />
 <Footer />
 
 <style>

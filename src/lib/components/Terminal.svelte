@@ -6,6 +6,7 @@
   import { faXmark } from '@fortawesome/free-solid-svg-icons'
   import { page } from '$app/state'
   import { resolve } from '$app/paths'
+  import Controller from '$lib/components/Controller.svelte'
 
   let { children } = $props()
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
@@ -112,6 +113,7 @@
     <div class="terminal_window">{@render children?.()}</div>
   </div>
 {/if}
+<Controller />
 
 <style>
   @import '$lib/styles/_variable.css';
