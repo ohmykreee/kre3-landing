@@ -17,8 +17,6 @@
 </div>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .container {
     padding: 2rem;
     font-size: 1rem;

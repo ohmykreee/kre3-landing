@@ -126,8 +126,6 @@
 </div>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .controller_container {
     position: relative;
   }

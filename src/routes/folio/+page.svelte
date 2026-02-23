@@ -10,8 +10,6 @@
 </div>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .container {
     padding: 3rem 2rem;
     display: grid;

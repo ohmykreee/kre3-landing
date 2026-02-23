@@ -68,8 +68,6 @@
 </button>
 
 <style>
-  @import '$lib/styles/_variable.css';
-
   .gallery {
     display: block;
     box-sizing: border-box;
