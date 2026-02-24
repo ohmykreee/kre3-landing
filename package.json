@@ -36,6 +36,7 @@
 		"vite-plugin-remote-assets": "^2.1.0"
 	},
 	"dependencies": {
+		"@fontsource-variable/jetbrains-mono": "^5.2.8",
 		"@fontsource-variable/ubuntu-sans-mono": "^5.2.10",
 		"@fortawesome/fontawesome-svg-core": "^7.2.0",
 		"@fortawesome/free-brands-svg-icons": "^7.2.0",

@@ -4,8 +4,10 @@
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
   import ogimage from '$lib/assets/cover.jpg'
-  import '@fontsource-variable/ubuntu-sans-mono/wght'
-  import ubuntuSansMonoWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
+  // import '@fontsource-variable/ubuntu-sans-mono/wght'
+  // import PreloadWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
+  import '@fontsource-variable/jetbrains-mono/wght'
+  import PreloadWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
 
   import Terminal from '$lib/components/Terminal.svelte'
   import Footer from '$lib/components/Footer.svelte'
@@ -15,13 +17,7 @@
 </script>
 
 <svelte:head>
-  <link
-    rel="preload"
-    as="font"
-    type="font/woff2"
-    href={ubuntuSansMonoWoff2}
-    crossorigin="anonymous"
-  />
+  <link rel="preload" as="font" type="font/woff2" href={PreloadWoff2} crossorigin="anonymous" />
   <meta
     name="description"
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."
@@ -55,7 +51,7 @@
 
   :global(body) {
     display: flow-root;
-    font-family: 'Ubuntu Sans Mono Variable', monospace;
+    font-family: 'JetBrains Mono Variable', monospace;
     color: var(--text-color);
     overflow-x: hidden;
     padding: 0;
