@@ -119,16 +119,15 @@
   .terminal_container {
     display: flex;
     flex-direction: column;
-    width: calc(100vw - 32px);
+    width: calc(100lvw - 32px);
     min-height: 30rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
-    color: var(--curr-border-color, var(--border-color));
+    margin: 2rem auto 1rem auto;
     border-radius: 0.375rem;
-    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
-    box-shadow: 0 0 0 0.75px;
+    box-shadow:
+      0 0 0 0.75px var(--curr-border-color, var(--border-color)),
+      0 4px 8px -2px rgba(0, 0, 0, 0.4),
+      0 15px 25px -5px rgba(0, 0, 0, 0.3),
+      0 35px 50px -15px rgba(0, 0, 0, 0.2);
   }
 
   .terminal_title {

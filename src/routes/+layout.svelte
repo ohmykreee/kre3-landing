@@ -61,7 +61,7 @@
     padding: 0;
     margin: 0;
     background-color: var(--bg-color);
-    min-height: 100vh;
+    min-height: 100lvh;
     scroll-behavior: smooth;
   }
 
@@ -77,20 +77,15 @@
 
   .bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     padding: 0;
     margin: 0;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-position-x: 50%;
-    background-position-y: 50%;
     z-index: -100;
-    filter: brightness(0.7) blur(2px);
+    filter: brightness(0.5) blur(5px);
     transition: all 0.3s ease;
   }
 

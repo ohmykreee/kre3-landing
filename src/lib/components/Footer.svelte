@@ -14,17 +14,9 @@
 
 <style>
   .footer {
-    width: calc(100vw - 32px);
-    font-size: 0.85rem;
-    line-height: 1.5rem;
+    width: 100%;
+    font-size: 0.75rem;
     text-align: center;
     color: var(--text-color);
-    margin: 2rem auto;
-  }
-
-  @media (min-width: 800px) {
-    .footer {
-      width: calc(800px - 16px);
-    }
   }
 </style>
