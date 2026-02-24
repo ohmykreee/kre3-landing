@@ -126,18 +126,17 @@
 </div>
 
 <style>
-  .controller_container {
-    position: relative;
-  }
-
   .controller_wrapper {
-    width: calc(100vw - 32px);
+    position: relative;
+    width: calc(100lvw - 32px);
     height: 20rem;
-    margin-bottom: 1rem;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 0 auto 1rem auto;
     border-radius: 0.375rem;
-    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+    z-index: 1;
+    box-shadow:
+      0 4px 8px -2px rgba(0, 0, 0, 0.4),
+      0 15px 25px -5px rgba(0, 0, 0, 0.3),
+      0 35px 50px -15px rgba(0, 0, 0, 0.2);
   }
 
   .controller_title {
@@ -145,7 +144,7 @@
     top: 0px;
     left: 0px;
     width: 100%;
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1.5rem;
     z-index: 10;
     font-size: 1rem;
     border-radius: 0.375rem 0.375rem 0 0;
@@ -164,7 +163,6 @@
     z-index: 10;
     background: transparent;
     border: none;
-    font-size: 2rem;
     color: var(--text-color);
     cursor: pointer;
     padding: 1rem;
@@ -209,7 +207,7 @@
   .reopen_btn {
     position: relative;
     cursor: pointer;
-    margin-bottom: -8px;
+    margin-bottom: -0.5rem;
     z-index: 2;
   }
 

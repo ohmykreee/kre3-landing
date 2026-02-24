@@ -52,7 +52,7 @@
     line-height: 1.5rem;
     overflow-wrap: normal;
     word-break: normal;
-    margin: 0.25rem;
+    margin: 1rem;
   }
 
   .terminal_domain {
@@ -80,7 +80,7 @@
     margin-top: 1rem;
     color: var(--curr-border-color, var(--border-color));
     box-shadow: 0 0 0 2px;
-    line-height: 30vw;
+    line-height: 30lvw;
   }
 
   .bio_info {
@@ -92,8 +92,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     column-gap: 1rem;
-    margin-top: 0.25rem;
-    margin-bottom: 1rem;
+    margin-top: 0.25rem 0 1rem 0;
   }
 
   .links_container a {
@@ -106,7 +105,7 @@
   }
 
   .links_container :global(svg) {
-    margin-right: 0.25rem;
+    margin-right: 0.5rem;
   }
 
   @media (min-width: 800px) {
@@ -118,9 +117,6 @@
       height: 13rem;
       margin: 1.5rem 3rem 2.5rem 3rem;
       line-height: 13rem;
-    }
-    .links_container a {
-      padding: 0.25rem 0;
     }
   }
 </style>

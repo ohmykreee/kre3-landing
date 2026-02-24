@@ -4,8 +4,10 @@
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
   import ogimage from '$lib/assets/cover.jpg'
-  import '@fontsource-variable/ubuntu-sans-mono/wght'
-  import ubuntuSansMonoWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
+  // import '@fontsource-variable/ubuntu-sans-mono/wght'
+  // import PreloadWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
+  import '@fontsource-variable/jetbrains-mono/wght'
+  import PreloadWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
 
   import Terminal from '$lib/components/Terminal.svelte'
   import Footer from '$lib/components/Footer.svelte'
@@ -15,13 +17,7 @@
 </script>
 
 <svelte:head>
-  <link
-    rel="preload"
-    as="font"
-    type="font/woff2"
-    href={ubuntuSansMonoWoff2}
-    crossorigin="anonymous"
-  />
+  <link rel="preload" as="font" type="font/woff2" href={PreloadWoff2} crossorigin="anonymous" />
   <meta
     name="description"
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."
@@ -55,13 +51,13 @@
 
   :global(body) {
     display: flow-root;
-    font-family: 'Ubuntu Sans Mono Variable', monospace;
+    font-family: 'JetBrains Mono Variable', monospace;
     color: var(--text-color);
     overflow-x: hidden;
     padding: 0;
     margin: 0;
     background-color: var(--bg-color);
-    min-height: 100vh;
+    min-height: 100lvh;
     scroll-behavior: smooth;
   }
 
@@ -77,20 +73,15 @@
 
   .bg {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     padding: 0;
     margin: 0;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-    background-position-x: 50%;
-    background-position-y: 50%;
     z-index: -100;
-    filter: brightness(0.7) blur(2px);
+    filter: brightness(0.5) blur(5px);
     transition: all 0.3s ease;
   }
 

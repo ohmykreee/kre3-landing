@@ -83,6 +83,7 @@
     color: inherit;
     text-align: inherit;
     cursor: pointer;
+    z-index: 1;
   }
 
   .gallery img {
@@ -95,7 +96,7 @@
     filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
   }
 
-  .gallery::before {
+  .gallery::after {
     content: '';
     position: absolute;
     top: 0;
@@ -107,9 +108,10 @@
     border-radius: 0.375rem;
     transform-origin: 10% 50%;
     transition: transform 0.2s ease-out;
+    z-index: -1;
   }
 
-  .gallery:hover::before {
+  .gallery:hover::after {
     transform: rotate(3deg);
   }
 
