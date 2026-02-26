@@ -26,7 +26,12 @@ export default defineConfig({
     sveltekit()
   ],
   build: {
-    sourcemap: false
+    sourcemap: false,
+    assetsInlineLimit: (filePath) => {
+      if (filePath.endsWith('.woff2') || filePath.endsWith('.woff')) {
+        return false // opt out web fonts
+      }
+    }
   },
   css: {
     postcss: {
