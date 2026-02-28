@@ -2,14 +2,16 @@
   import { page } from '$app/state'
   import { siteconfig } from '$lib/config/_loader'
   import { getBg } from '$lib/utils/get-page-state.svelte'
-  import avatar from '$lib/assets/avatar.jpg'
-  import { resolve } from '$app/paths'
+  // import avatar from '$lib/assets/avatar.jpg'
+  // import { resolve } from '$app/paths'
+  import Dayun from '$lib/components/Dayun.svelte'
 
   let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
 <div class="error_container" style:--curr-border-color={currTheme ?? 'initial'}>
-  <a href={resolve('/')}><img src={avatar} alt="Click to return main page" /></a>
+  <!-- <a href={resolve('/')}><img src={avatar} alt="Click to return main page" /></a> -->
+  <Dayun />
   <p>
     {page.status} | {page.error?.message}<br />
     You can use the navigation above to go back to Home.
