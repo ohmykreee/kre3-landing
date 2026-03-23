@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { siteconfig } from '$lib/config/_loader'
+  import { getBg } from '$lib/utils/get-page-state.svelte'
   import type { ProtfolioCollectionConfig } from '$lib/config/_loader'
   import PhotoSwipeLightbox from 'photoswipe/lightbox'
   import 'photoswipe/style.css'
@@ -12,6 +14,7 @@
     height: number
     alt: string
   }
+  let currBg = $derived(siteconfig.profile.bg[getBg.index])
   let { collection }: Props = $props()
   let lightbox: PhotoSwipeLightbox | undefined
   let images: Image[] = $derived(
@@ -60,10 +63,15 @@
     lightbox?.loadAndOpen(0)
   }}
   style:--back-img-url="url({collection.item[1].imgUrl})"
+  style:--curr-border-color={currBg.theme}
 >
-  <div>
-    <img alt={collection.description} src={collection.item[0].imgUrl} />
-    <p>{collection.title}</p>
+  <div class="folder_back"></div>
+  <div class="thumbnail_wrapper">
+    <img class="thumbnail" alt={collection.description} src={collection.item[0].imgUrl} />
+  </div>
+  <div class="folder_front">
+    <p class="p_title">{collection.title}</p>
+    <p class="p_details">{collection.description}</p>
   </div>
 </button>
 
@@ -76,6 +84,8 @@
     border: none;
     padding: 0;
     margin: 0;
+    aspect-ratio: 3 / 2;
+    height: auto;
     width: 100%;
     appearance: none;
     -webkit-appearance: none;
@@ -84,19 +94,31 @@
     text-align: inherit;
     cursor: pointer;
     z-index: 1;
+    transition: transform 0.1s ease-out;
   }
-
-  .gallery img {
+  .gallery:hover {
+    transform: translateY(-1%);
+  }
+  .thumbnail_wrapper {
+    position: relative;
+    width: 90%;
+    margin: 0 auto;
+    z-index: 0;
+  }
+  .thumbnail {
+    position: relative;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 0.375rem;
-    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
+    border: 0.25rem solid rgb(230, 230, 230);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: -5% auto 0 auto;
+    z-index: 2;
+    transition: transform 0.1s ease-out;
   }
-
-  .gallery::after {
+  .thumbnail_wrapper::after {
     content: '';
     position: absolute;
     top: 0;
@@ -105,33 +127,66 @@
     height: 100%;
     background-image: var(--back-img-url);
     background-size: cover;
-    border-radius: 0.375rem;
-    transform-origin: 10% 50%;
-    transition: transform 0.2s ease-out;
-    z-index: -1;
-  }
-
-  .gallery:hover::after {
+    border: 0.25rem solid rgb(230, 230, 230);
+    transform-origin: bottom right;
     transform: rotate(3deg);
+    transition: transform 0.1s ease-out;
+    z-index: 1;
   }
-
-  .gallery p {
+  .gallery:hover .thumbnail_wrapper::after {
+    transform: rotate(8deg);
+  }
+  .gallery:hover .thumbnail {
+    transform: translateY(-2%);
+  }
+  .folder_back {
     position: absolute;
-    bottom: 0px;
-    left: 0px;
-    width: 100%;
-    z-index: 10;
+    inset: 0;
+    z-index: -2;
+    border-radius: 0.5rem;
     background: linear-gradient(
-      to top,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.7) 50%,
-      rgba(0, 0, 0, 0) 100%
+      180deg,
+      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 50%),
+      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 55%)
     );
-    margin: 0;
-    padding: 1rem;
-    border-radius: 0 0 0.375rem 0.375rem;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
   }
-
+  .folder_front {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background-image: linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 15%) 0%,
+      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 30%) 100%
+    );
+    filter: drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.25));
+    border-radius: 0.5rem;
+    clip-path: polygon(0 0, 30% 0, 40% 20%, 100% 20%, 100% 100%, 0 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.5rem 1rem;
+    box-sizing: border-box;
+  }
+  .p_title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.2;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .p_details {
+    font-size: 0.75rem;
+    margin: 0.25rem 0 0 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: color-mix(in srgb, var(--text-color), black 30%);
+  }
   :global(.pswp__custom-caption) {
     background: rgba(0, 0, 0, 0.6);
     font-size: 1rem;
