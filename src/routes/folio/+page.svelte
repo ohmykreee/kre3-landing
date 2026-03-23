@@ -20,7 +20,7 @@
   @media (min-width: 800px) {
     .container {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      column-gap: 3rem;
+      column-gap: 4rem;
     }
   }
 </style>
