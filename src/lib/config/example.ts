@@ -30,7 +30,7 @@ const siteconfig: Config = {
     bg: [
       {
         title: 'test1',
-        date: '2026.02.15',
+        date: '2026-02-15',
         description: 'Illustration by Slimane-Kadi on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
         theme: '#1a9598',
@@ -39,7 +39,7 @@ const siteconfig: Config = {
       },
       {
         title: 'test2',
-        date: '2026.02.16',
+        date: '2026-02-16',
         description: 'Illustration by Free To Dive on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
         theme: '#4f9822',
@@ -48,7 +48,7 @@ const siteconfig: Config = {
       },
       {
         title: 'test3',
-        date: '2026.02.17',
+        date: '2026-02-17',
         description: 'Illustration by Gabriele Romano on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
         theme: '#38639f',
@@ -57,7 +57,7 @@ const siteconfig: Config = {
       },
       {
         title: 'test4',
-        date: '2026.02.18',
+        date: '2026-02-18',
         description: 'Illustration by Annie Spratt on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
         theme: '#755179',
@@ -66,7 +66,7 @@ const siteconfig: Config = {
       },
       {
         title: 'test5',
-        date: '2026.02.19',
+        date: '2026-02-19',
         description: 'Illustration by Graficon Stuff on Unsplash',
         imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
         width: 699,
@@ -81,7 +81,7 @@ const siteconfig: Config = {
       item: [
         {
           title: 'test1',
-          date: '2026.02.15',
+          date: '2026-02-15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
           theme: '#1a9598',
@@ -90,7 +90,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test2',
-          date: '2026.02.16',
+          date: '2026-02-16',
           description: 'Illustration by Free To Dive on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
           theme: '#4f9822',
@@ -99,7 +99,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test3',
-          date: '2026.02.17',
+          date: '2026-02-17',
           description: 'Illustration by Gabriele Romano on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
           theme: '#38639f',
@@ -108,7 +108,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test4',
-          date: '2026.02.18',
+          date: '2026-02-18',
           description: 'Illustration by Annie Spratt on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
           theme: '#755179',
@@ -117,7 +117,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test5',
-          date: '2026.02.19',
+          date: '2026-02-19',
           description: 'Illustration by Graficon Stuff on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
           width: 699,
@@ -131,7 +131,7 @@ const siteconfig: Config = {
       item: [
         {
           title: 'test1',
-          date: '2026.02.15',
+          date: '2026-02-15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
           theme: '#1a9598',
@@ -140,7 +140,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test2',
-          date: '2026.02.16',
+          date: '2026-02-16',
           description: 'Illustration by Free To Dive on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
           theme: '#4f9822',
@@ -149,7 +149,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test3',
-          date: '2026.02.17',
+          date: '2026-02-17',
           description: 'Illustration by Gabriele Romano on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
           theme: '#38639f',
@@ -158,7 +158,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test4',
-          date: '2026.02.18',
+          date: '2026-02-18',
           description: 'Illustration by Annie Spratt on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
           theme: '#755179',
@@ -167,7 +167,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test5',
-          date: '2026.02.19',
+          date: '2026-02-19',
           description: 'Illustration by Graficon Stuff on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
           width: 699,
@@ -181,7 +181,7 @@ const siteconfig: Config = {
       item: [
         {
           title: 'test1',
-          date: '2026.02.15',
+          date: '2026-02-15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
           theme: '#1a9598',
@@ -190,7 +190,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test2',
-          date: '2026.02.16',
+          date: '2026-02-16',
           description: 'Illustration by Free To Dive on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
           theme: '#4f9822',
@@ -199,7 +199,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test3',
-          date: '2026.02.17',
+          date: '2026-02-17',
           description: 'Illustration by Gabriele Romano on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
           theme: '#38639f',
@@ -208,7 +208,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test4',
-          date: '2026.02.18',
+          date: '2026-02-18',
           description: 'Illustration by Annie Spratt on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
           theme: '#755179',
@@ -217,7 +217,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test5',
-          date: '2026.02.19',
+          date: '2026-02-19',
           description: 'Illustration by Graficon Stuff on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
           width: 699,
@@ -231,7 +231,7 @@ const siteconfig: Config = {
       item: [
         {
           title: 'test1',
-          date: '2026.02.15',
+          date: '2026-02-15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
           theme: '#1a9598',
@@ -240,7 +240,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test2',
-          date: '2026.02.16',
+          date: '2026-02-16',
           description: 'Illustration by Free To Dive on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
           theme: '#4f9822',
@@ -249,7 +249,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test3',
-          date: '2026.02.17',
+          date: '2026-02-17',
           description: 'Illustration by Gabriele Romano on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
           theme: '#38639f',
@@ -258,7 +258,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test4',
-          date: '2026.02.18',
+          date: '2026-02-18',
           description: 'Illustration by Annie Spratt on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
           theme: '#755179',
@@ -267,7 +267,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test5',
-          date: '2026.02.19',
+          date: '2026-02-19',
           description: 'Illustration by Graficon Stuff on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
           width: 699,
@@ -281,7 +281,7 @@ const siteconfig: Config = {
       item: [
         {
           title: 'test1',
-          date: '2026.02.15',
+          date: '2026-02-15',
           description: 'Illustration by Slimane-Kadi on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769291971615-fd378bb112bf#why.png',
           theme: '#1a9598',
@@ -290,7 +290,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test2',
-          date: '2026.02.16',
+          date: '2026-02-16',
           description: 'Illustration by Free To Dive on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758151882209-4ef9a302b3d1#why.png',
           theme: '#4f9822',
@@ -299,7 +299,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test3',
-          date: '2026.02.17',
+          date: '2026-02-17',
           description: 'Illustration by Gabriele Romano on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1769320709544-0a1505bfddf6#why.png',
           theme: '#38639f',
@@ -308,7 +308,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test4',
-          date: '2026.02.18',
+          date: '2026-02-18',
           description: 'Illustration by Annie Spratt on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1758381178586-984420c9c0c1#why.png',
           theme: '#755179',
@@ -317,7 +317,7 @@ const siteconfig: Config = {
         },
         {
           title: 'test5',
-          date: '2026.02.19',
+          date: '2026-02-19',
           description: 'Illustration by Graficon Stuff on Unsplash',
           imgUrl: 'https://images.unsplash.com/vector-1761569284479-f47d1565f8e0#why.png',
           width: 699,
