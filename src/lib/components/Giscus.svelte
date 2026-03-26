@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Attachment } from 'svelte/attachments'
   import type { GiscusConfig } from '$lib/config/_loader'
 
   interface Props {
@@ -26,23 +27,22 @@
     'data-lang': config.lang || 'en',
     'data-loading': loading || 'eager'
   })
-  function loadGiscus(node: HTMLElement) {
+
+  const loadGiscus: Attachment = (element) => {
     const script: HTMLElement = document.createElement('script')
     Object.entries(attrs).forEach(([key, value]) => {
       script.setAttribute(key, value)
     })
-    node.appendChild(script)
-    return {
-      destroy() {
-        if (script.parentNode) {
-          script.parentNode.removeChild(script)
-        }
+    element.appendChild(script)
+    return () => {
+      if (script.parentNode) {
+        script.parentNode.removeChild(script)
       }
     }
   }
 </script>
 
-<div class="giscus_container" use:loadGiscus></div>
+<div class="giscus_container" {@attach loadGiscus}></div>
 
 <style>
   .giscus_container {
