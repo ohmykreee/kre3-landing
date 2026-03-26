@@ -21,6 +21,7 @@ export interface Config {
     content: string
   }
   baseurl: string
+  giscus?: GiscusConfig
 }
 
 export interface ProfileConfig {
@@ -48,4 +49,19 @@ export interface ArtworkInfo {
   description?: string
   date?: string
   theme?: string
+}
+
+export interface GiscusConfig {
+  repo: string
+  repoId: string
+  category: string
+  categoryId: string
+  mapping: 'pathname' | 'url' | 'title' | 'og:title' | 'specific' | 'number'
+  term?: string
+  strict?: '1' | '0'
+  reactionsEnabled?: '1' | '0'
+  emitMetadata?: '0' | '1'
+  inputPosition?: 'buttom' | 'top'
+  theme?: string
+  lang?: string
 }
