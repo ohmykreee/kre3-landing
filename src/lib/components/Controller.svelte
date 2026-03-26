@@ -2,9 +2,10 @@
   import { siteconfig } from '$lib/config/_loader'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
   import { fly } from 'svelte/transition'
-  import useEmblaCarousel from 'embla-carousel-svelte'
+  import EmblaCarousel from 'embla-carousel'
   import Autoplay from 'embla-carousel-autoplay'
   import type { EmblaCarouselType } from 'embla-carousel'
+  import type { Attachment } from 'svelte/attachments'
   import Icon from '$lib/components/Icon.svelte'
   import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import loop0 from '$lib/assets/click-to-open/loop0.webp'
@@ -35,13 +36,17 @@
     getBg.index = emblaApi.selectedScrollSnap()
   }
 
-  const onInit = (event: CustomEvent<EmblaCarouselType>) => {
-    emblaApi = event.detail
+  const loadEmbla: Attachment = (element) => {
+    emblaApi = EmblaCarousel(element as HTMLElement, { loop: true }, [Autoplay({ delay: 15000 })])
     emblaApi.on('select', updateIndex)
     emblaApi.on('reInit', updateIndex)
     updateIndex()
     emblaApi.plugins().autoplay?.play()
+    return () => {
+      emblaApi?.destroy()
+    }
   }
+
   const goToPrev = () => emblaApi?.scrollPrev()
   const goToNext = () => emblaApi?.scrollNext()
 
@@ -104,11 +109,7 @@
       {currBg.title}
     </div>
 
-    <div
-      class="embla__viewport"
-      use:useEmblaCarousel={{ options: { loop: true }, plugins: [Autoplay({ delay: 15000 })] }}
-      onemblaInit={onInit}
-    >
+    <div class="embla__viewport" {@attach loadEmbla}>
       <div class="embla__container">
         {#each siteconfig.profile.bg as bg (bg.title)}
           <div class="embla__slide"><img src={bg.imgUrl} alt={bg.title} class="slide_img" /></div>
