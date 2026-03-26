@@ -336,7 +336,17 @@ const siteconfig: Config = {
     <br /><a href="/">A very nice a tag for testing</a>
     `
   },
-  baseurl: 'https://kre3.net'
+  baseurl: 'https://kre3.net',
+  giscus: {
+    repo: 'ohmykreee/kre3-landing',
+    repoId: 'R_kgDORSbL2g',
+    category: 'Announcements',
+    categoryId: 'DIC_kwDORSbL2s4C5T0A',
+    mapping: 'specific',
+    term: '📟 Guestbook',
+    strict: '1',
+    theme: 'dark'
+  }
 }
 
 export default siteconfig
