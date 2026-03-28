@@ -1,4 +1,5 @@
 import type { Config } from '$lib/config/_loader'
+import { examplePals } from './example.pals'
 
 import {
   faGithub,
@@ -337,6 +338,7 @@ const siteconfig: Config = {
     `
   },
   baseurl: 'https://kre3.net',
+  pals: examplePals, // You can load config like Object from external file.
   giscus: {
     repo: 'ohmykreee/kre3-landing',
     repoId: 'R_kgDORSbL2g',

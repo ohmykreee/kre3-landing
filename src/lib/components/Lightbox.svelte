@@ -14,7 +14,7 @@
     height: number
     alt: string
   }
-  let currBg = $derived(siteconfig.profile.bg[getBg.index])
+  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
   let { collection }: Props = $props()
   let lightbox: PhotoSwipeLightbox | undefined
   let images: Image[] = $derived(
@@ -63,7 +63,7 @@
     lightbox?.loadAndOpen(0)
   }}
   style:--back-img-url="url({collection.item[1].imgUrl})"
-  style:--curr-border-color={currBg.theme}
+  style:--curr-theme-color={currTheme}
 >
   <div class="folder_back"></div>
   <div class="thumbnail_wrapper">
@@ -146,8 +146,8 @@
     border-radius: 0.5rem;
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 50%),
-      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 55%)
+      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), black 50%),
+      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), black 55%)
     );
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
   }
@@ -158,8 +158,8 @@
     height: 40%;
     background-image: linear-gradient(
       135deg,
-      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 15%) 0%,
-      color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 30%) 100%
+      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), black 15%) 0%,
+      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), black 30%) 100%
     );
     filter: drop-shadow(0 -4px 8px rgba(0, 0, 0, 0.25));
     border-radius: 0.5rem;

@@ -9,15 +9,16 @@
   import Controller from '$lib/components/Controller.svelte'
 
   let { children } = $props()
-  let currBg = $derived(siteconfig.profile.bg[getBg.index])
+  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
   interface pinnedTab {
     name: string
-    route: '/' | '/folio' | '/about'
+    route: '/' | '/folio' | '/about' | '/pals'
   }
   const pinnedTabs: pinnedTab[] = [
     { name: 'Home', route: '/' },
     { name: 'Folio', route: '/folio' },
-    { name: 'About', route: '/about' }
+    { name: 'About', route: '/about' },
+    { name: 'Pals', route: '/pals' }
   ]
 
   // do drag init
@@ -81,7 +82,7 @@
 {#if getTerminal.isClosed === false}
   <div
     class="terminal_container"
-    style:--curr-border-color={currBg.theme ?? 'initial'}
+    style:--curr-border-color={currTheme ?? 'initial'}
     style:--offset-x="{offsetX}px"
     style:--offset-y="{offsetY}px"
     transition:fly={{ y: 10, duration: 300 }}

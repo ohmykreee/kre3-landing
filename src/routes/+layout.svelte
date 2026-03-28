@@ -51,7 +51,7 @@
 
   :global(body) {
     display: flow-root;
-    font-family: 'JetBrains Mono Variable', monospace;
+    font-family: 'JetBrains Mono Variable', sans-serif;
     color: var(--text-color);
     overflow-x: hidden;
     padding: 0;

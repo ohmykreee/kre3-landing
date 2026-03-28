@@ -21,6 +21,7 @@ export interface Config {
     content: string
   }
   baseurl: string
+  pals: PalInfo[]
   giscus?: GiscusConfig
 }
 
@@ -64,4 +65,12 @@ export interface GiscusConfig {
   inputPosition?: 'buttom' | 'top'
   theme?: string
   lang?: string
+}
+
+export interface PalInfo {
+  name: string
+  description: string
+  url: string
+  avatar: string
+  tag?: string
 }
