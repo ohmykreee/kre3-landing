@@ -36,13 +36,12 @@
     position: relative;
     overflow: hidden;
     flex-direction: row;
-    aspect-ratio: 3 / 1;
     width: 100%;
-    height: auto;
+    height: 6.5rem;
     text-decoration: none;
     border-radius: 0.5rem;
     box-shadow: 0 0 0 1px var(--curr-border-color, var(--border-color));
-    padding: 0.5rem 0 0.5rem 0.5rem;
+    padding: 1rem;
     box-sizing: border-box;
     z-index: 1;
   }
@@ -54,7 +53,7 @@
     z-index: -1;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.2s ease-out;
+    transition: transform 0.3s ease-out;
   }
   .container:hover::before {
     transform: scaleX(1);
@@ -78,15 +77,15 @@
     border-radius: 9999px;
     flex-shrink: 0;
     align-self: center;
-    margin-right: 0.5rem;
+    margin-right: 1rem;
     transform: scale(1);
     transform-origin: center left;
     opacity: 1;
     transition:
-      transform 0.2s ease-out,
-      margin 0.2s ease-out,
-      height 0.2s ease-out,
-      opacity 0.1s ease-out;
+      transform 0.4s ease-out,
+      margin 0.4s ease-out,
+      height 0.4s ease-out,
+      opacity 0.3s ease-out;
   }
   .arrow {
     display: flex;
@@ -104,12 +103,12 @@
   .name {
     margin: 0;
     width: 100%;
-    font-size: 1rem;
+    font-size: 1.25rem;
   }
   .description {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     width: 100%;
-    margin: 0.25rem 0;
+    margin: 0.2rem 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     box-orient: vertical;
@@ -118,5 +117,20 @@
     overflow: hidden;
     text-overflow: ellipsis;
     color: color-mix(in srgb, var(--text-color), black 30%);
+  }
+  @media (min-width: 800px) {
+    .container {
+      height: 5rem;
+      padding: 0.5rem;
+    }
+    .avatar {
+      margin-right: 0.5rem;
+    }
+    .name {
+      font-size: 1rem;
+    }
+    .description {
+      font-size: 0.75rem;
+    }
   }
 </style>
