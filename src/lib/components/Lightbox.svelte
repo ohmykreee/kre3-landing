@@ -103,10 +103,8 @@
     position: relative;
     width: 90%;
     margin: 0 auto;
-    /* 优化：删除 z-index: 0，默认值不会创建新的层叠上下文，减少层级复杂度 */
   }
   .thumbnail {
-    /* 优化：删除 position: relative，此元素没有定位子元素也不需要提升层级，无需创建层叠上下文 */
     aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
@@ -115,7 +113,6 @@
     border: 0.25rem solid rgb(230, 230, 230);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin: -5% auto 0 auto;
-    /* 优化：删除 z-index: 2，使用 DOM 顺序即可实现层级关系，减少层叠上下文复杂度 */
     transition: transform 0.1s ease-out;
   }
   .thumbnail_wrapper::after {
@@ -131,7 +128,7 @@
     transform-origin: bottom right;
     transform: rotate(3deg);
     transition: transform 0.1s ease-out;
-    /* 优化：删除 z-index: 1，::after 伪元素天然位于内容之后，使用 DOM 顺序即可 */
+    z-index: -1;
   }
   .gallery:hover .thumbnail_wrapper::after {
     transform: rotate(8deg);
