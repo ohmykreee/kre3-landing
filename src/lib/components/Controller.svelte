@@ -142,8 +142,8 @@
 
   .controller_title {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     width: 100%;
     padding: 0.5rem 1.5rem;
     z-index: 10;

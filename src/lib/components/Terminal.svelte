@@ -133,7 +133,6 @@
 
   .terminal_title {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -151,7 +150,6 @@
     flex-grow: 1;
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
     align-items: flex-end;
   }
 
@@ -163,13 +161,13 @@
     margin: 0 0 0 0.5rem;
     padding: 0.4rem 1rem 0.25rem 1rem;
     border-radius: 0.125rem 0.125rem 0 0;
+    transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .title_btn_pressed {
     white-space: nowrap;
     font-size: 1rem;
     line-height: 1.75rem;
-    font-weight: inherit;
     text-decoration: none;
     font-weight: 500;
     margin: 0 0 0 0.5rem;
@@ -182,7 +180,6 @@
 
   .title_btn:hover {
     background-color: var(--title-btn-hover);
-    transition: 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .close_btn {

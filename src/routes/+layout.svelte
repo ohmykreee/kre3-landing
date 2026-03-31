@@ -74,18 +74,16 @@
   .bg {
     position: fixed;
     inset: 0;
-    padding: 0;
-    margin: 0;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: center;
     z-index: -100;
     filter: brightness(0.5) blur(5px);
     transition: all 0.3s ease;
   }
 
   .bg.nodim {
-    filter: brightness(1) blur(0px);
+    filter: brightness(1) blur(0);
   }
 </style>

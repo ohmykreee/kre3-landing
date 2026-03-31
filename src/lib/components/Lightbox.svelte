@@ -103,10 +103,8 @@
     position: relative;
     width: 90%;
     margin: 0 auto;
-    z-index: 0;
   }
   .thumbnail {
-    position: relative;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     display: block;
@@ -115,7 +113,6 @@
     border: 0.25rem solid rgb(230, 230, 230);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     margin: -5% auto 0 auto;
-    z-index: 2;
     transition: transform 0.1s ease-out;
   }
   .thumbnail_wrapper::after {
@@ -131,7 +128,7 @@
     transform-origin: bottom right;
     transform: rotate(3deg);
     transition: transform 0.1s ease-out;
-    z-index: 1;
+    z-index: -1;
   }
   .gallery:hover .thumbnail_wrapper::after {
     transform: rotate(8deg);

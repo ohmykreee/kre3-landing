@@ -80,7 +80,6 @@
     margin-top: 1rem;
     color: var(--curr-border-color, var(--border-color));
     box-shadow: 0 0 0 2px;
-    line-height: 30lvw;
   }
 
   .bio_info {
@@ -89,15 +88,14 @@
 
   .links_container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     column-gap: 1rem;
-    margin-top: 0.25rem 0 1rem 0;
+    margin: 0.25rem 0 1rem 0;
   }
 
   .links_container a {
     text-decoration: none;
-    padding: 0.5rem 0.5rem;
+    padding: 0.5rem;
   }
 
   .links_container a:hover {
@@ -116,7 +114,6 @@
       width: 13rem;
       height: 13rem;
       margin: 1.5rem 3rem 2.5rem 3rem;
-      line-height: 13rem;
     }
   }
 </style>

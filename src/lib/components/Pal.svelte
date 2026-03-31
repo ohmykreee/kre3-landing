@@ -35,7 +35,6 @@
     display: flex;
     position: relative;
     overflow: hidden;
-    flex-direction: row;
     width: 100%;
     height: 6.5rem;
     text-decoration: none;
@@ -53,7 +52,7 @@
     z-index: -1;
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform 0.3s ease-out;
+    transition: transform 0.2s ease-out;
   }
   .container:hover::before {
     transform: scaleX(1);
@@ -78,19 +77,16 @@
     flex-shrink: 0;
     align-self: center;
     margin-right: 1rem;
-    transform: scale(1);
     transform-origin: center left;
-    opacity: 1;
     transition:
-      transform 0.4s ease-out,
-      margin 0.4s ease-out,
-      height 0.4s ease-out,
-      opacity 0.3s ease-out;
+      transform 0.3s ease-out,
+      margin 0.3s ease-out,
+      height 0.3s ease-out,
+      opacity 0.2s ease-out;
   }
   .arrow {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    align-items: center;
     height: 100%;
     visibility: hidden;
   }
@@ -111,7 +107,6 @@
     margin: 0.2rem 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
     overflow: hidden;

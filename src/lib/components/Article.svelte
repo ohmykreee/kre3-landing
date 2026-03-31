@@ -21,8 +21,6 @@
     padding: 2rem;
     font-size: 1rem;
     line-height: 1.75rem;
-    overflow-wrap: normal;
-    word-break: normal;
   }
   .container h2 {
     font-size: 2.25rem;
