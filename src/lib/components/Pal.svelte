@@ -35,7 +35,7 @@
     display: flex;
     position: relative;
     overflow: hidden;
-    flex-direction: row;
+    /* 优化：flex-direction: row 是默认值，删除冗余 */
     width: 100%;
     height: 6.5rem;
     text-decoration: none;
@@ -78,9 +78,8 @@
     flex-shrink: 0;
     align-self: center;
     margin-right: 1rem;
-    transform: scale(1);
+    /* 优化：删除 transform: scale(1) 和 opacity: 1，二者都是默认值，无需显式设置 */
     transform-origin: center left;
-    opacity: 1;
     transition:
       transform 0.4s ease-out,
       margin 0.4s ease-out,
@@ -89,8 +88,8 @@
   }
   .arrow {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* 优化：删除 flex-direction: column，单个子元素垂直居中使用 align-items: center 更直观 */
+    align-items: center;
     height: 100%;
     visibility: hidden;
   }
@@ -111,7 +110,7 @@
     margin: 0.2rem 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    box-orient: vertical;
+    /* 优化：删除 box-orient: vertical，这是非标准属性且已被 -webkit-box-orient 覆盖 */
     -webkit-line-clamp: 2;
     line-clamp: 2;
     overflow: hidden;

@@ -142,8 +142,9 @@
 
   .controller_title {
     position: absolute;
-    top: 0px;
-    left: 0px;
+    /* 优化：top/left 的 0px 简化为 0，数值 0 不需要单位 */
+    top: 0;
+    left: 0;
     width: 100%;
     padding: 0.5rem 1.5rem;
     z-index: 10;

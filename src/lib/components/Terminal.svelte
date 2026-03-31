@@ -133,7 +133,7 @@
 
   .terminal_title {
     display: flex;
-    flex-direction: row;
+    /* 优化：flex-direction: row 是默认值，删除冗余 */
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
@@ -151,7 +151,7 @@
     flex-grow: 1;
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
+    /* 优化：flex-direction: row 是默认值，删除冗余 */
     align-items: flex-end;
   }
 
@@ -163,13 +163,15 @@
     margin: 0 0 0 0.5rem;
     padding: 0.4rem 1rem 0.25rem 1rem;
     border-radius: 0.125rem 0.125rem 0 0;
+    /* 修复：transition 从 :hover 移到基类，确保鼠标移出时也有过渡效果 */
+    transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .title_btn_pressed {
     white-space: nowrap;
     font-size: 1rem;
     line-height: 1.75rem;
-    font-weight: inherit;
+    /* 优化：删除冗余的 font-weight: inherit，因为后续会被 font-weight: 500 覆盖 */
     text-decoration: none;
     font-weight: 500;
     margin: 0 0 0 0.5rem;
@@ -182,7 +184,6 @@
 
   .title_btn:hover {
     background-color: var(--title-btn-hover);
-    transition: 0.1s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .close_btn {

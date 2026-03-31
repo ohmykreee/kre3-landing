@@ -21,8 +21,7 @@
     padding: 2rem;
     font-size: 1rem;
     line-height: 1.75rem;
-    overflow-wrap: normal;
-    word-break: normal;
+    /* 优化：删除 overflow-wrap: normal 和 word-break: normal，二者都是默认值，无需显式设置 */
   }
   .container h2 {
     font-size: 2.25rem;

@@ -80,7 +80,7 @@
     margin-top: 1rem;
     color: var(--curr-border-color, var(--border-color));
     box-shadow: 0 0 0 2px;
-    line-height: 30lvw;
+    /* 优化：删除 line-height，img 元素不需要行高 */
   }
 
   .bio_info {
@@ -89,15 +89,17 @@
 
   .links_container {
     display: flex;
-    flex-direction: row;
+    /* 优化：flex-direction: row 是默认值，删除冗余 */
     flex-wrap: wrap;
     column-gap: 1rem;
-    margin-top: 0.25rem 0 1rem 0;
+    /* 修复：原 margin-top 语法错误，应使用 margin 简写 */
+    margin: 0.25rem 0 1rem 0;
   }
 
   .links_container a {
     text-decoration: none;
-    padding: 0.5rem 0.5rem;
+    /* 优化：padding: 0.5rem 0.5rem 简化为 padding: 0.5rem */
+    padding: 0.5rem;
   }
 
   .links_container a:hover {
@@ -116,7 +118,7 @@
       width: 13rem;
       height: 13rem;
       margin: 1.5rem 3rem 2.5rem 3rem;
-      line-height: 13rem;
+      /* 优化：删除 line-height，img 元素不需要行高 */
     }
   }
 </style>

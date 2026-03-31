@@ -74,18 +74,19 @@
   .bg {
     position: fixed;
     inset: 0;
-    padding: 0;
-    margin: 0;
+    /* 优化：删除 padding: 0 和 margin: 0，fixed 定位配合 inset: 0 时不需要重置盒模型 */
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    /* 优化：center center 简化为 center */
+    background-position: center;
     z-index: -100;
     filter: brightness(0.5) blur(5px);
     transition: all 0.3s ease;
   }
 
   .bg.nodim {
-    filter: brightness(1) blur(0px);
+    /* 优化：blur(0px) 简化为 blur(0)，数值 0 不需要单位 */
+    filter: brightness(1) blur(0);
   }
 </style>
