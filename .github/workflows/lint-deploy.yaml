@@ -27,7 +27,7 @@ jobs:
           node-version: 24
 
       - name: Prepare workspace
-        run: npm install --include=dev
+        run: npm ci --ignore-scripts --include=dev
 
       - name: Clone config file from Repo
         run: |
