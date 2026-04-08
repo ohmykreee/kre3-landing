@@ -34,9 +34,10 @@
     </p>
   </div>
   <div>
-    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path"
-      >~</span
-    >$ ls links
+    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path">
+      ~
+    </span>
+    $ ls links
   </div>
   <div class="links_container">
     {#each siteconfig.profile.links as link (link.name)}
@@ -110,6 +111,7 @@
     .bio_container {
       flex-direction: row;
     }
+
     .bio_container img {
       width: 13rem;
       height: 13rem;

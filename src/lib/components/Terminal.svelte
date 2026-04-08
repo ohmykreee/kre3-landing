@@ -7,6 +7,7 @@
   import { page } from '$app/state'
   import { resolve } from '$app/paths'
   import Controller from '$lib/components/Controller.svelte'
+  import { createDrag } from '$lib/utils/use-drag.svelte'
 
   let { children } = $props()
   let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
@@ -21,49 +22,7 @@
     { name: 'Pals', route: '/pals' }
   ]
 
-  // do drag init
-  let offsetX: number = $state(0)
-  let offsetY: number = $state(0)
-  const dragState: {
-    startX: number
-    startY: number
-    initialX: number
-    initialY: number
-    isDrag: boolean
-  } = {
-    startX: 0, // startX, startY is used to calculate mouse move distance
-    startY: 0,
-    initialX: 0, // initialX, initialY is used to store last window offset
-    initialY: 0,
-    isDrag: false
-  }
-
-  function handlePointerDown(e: PointerEvent) {
-    if (window.innerWidth > 800) {
-      dragState.isDrag = true
-      dragState.startX = e.clientX
-      dragState.startY = e.clientY
-      const target = e.target as HTMLElement
-      target.setPointerCapture(e.pointerId)
-    }
-  }
-
-  function handlePointerMove(e: PointerEvent) {
-    if (!dragState.isDrag) return
-    const dx = e.clientX - dragState.startX
-    const dy = e.clientY - dragState.startY
-    offsetX = dragState.initialX + dx
-    offsetY = dragState.initialY + dy
-  }
-
-  function handlePointerUp(e: PointerEvent) {
-    if (!dragState.isDrag) return
-    dragState.isDrag = false
-    dragState.initialX = $state.snapshot(offsetX)
-    dragState.initialY = $state.snapshot(offsetY)
-    const target = e.target as HTMLElement
-    target.releasePointerCapture(e.pointerId)
-  }
+  const drag = createDrag()
 
   // do Terminal close function
   function doCloseTerminal() {
@@ -79,23 +38,16 @@
   >
 </svelte:head>
 
-{#if getTerminal.isClosed === false}
+{#if !getTerminal.isClosed}
   <div
     class="terminal_container"
     style:--curr-border-color={currTheme ?? 'initial'}
-    style:--offset-x="{offsetX}px"
-    style:--offset-y="{offsetY}px"
+    style:--offset-x="{drag.offsetX}px"
+    style:--offset-y="{drag.offsetY}px"
     transition:fly={{ y: 10, duration: 300 }}
   >
     <div class="terminal_title">
-      <div
-        class="title_container"
-        role="none"
-        onpointerdown={handlePointerDown}
-        onpointermove={handlePointerMove}
-        onpointerup={handlePointerUp}
-        onpointercancel={handlePointerUp}
-      >
+      <div class="title_container" role="none" {@attach drag.doDrag}>
         {#if !pinnedTabs.some((item) => item.route === page.url.pathname)}
           <h1 class="title_btn_pressed">404</h1>
         {/if}

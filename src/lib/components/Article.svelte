@@ -22,25 +22,30 @@
     font-size: 1rem;
     line-height: 1.75rem;
   }
+
   .container h2 {
     font-size: 2.25rem;
     line-height: 2.5rem;
     font-weight: 700;
     text-transform: capitalize;
   }
+
   .container :global(h3) {
     font-size: 1.5rem;
     line-height: 2rem;
     font-weight: 700;
   }
+
   .container :global(h3::before) {
     content: '> ';
   }
+
   .container :global(h4) {
     font-size: 1.125rem;
     line-height: 1.75rem;
     font-weight: 700;
   }
+
   .container :global(a) {
     font-weight: 600;
     color: var(--curr-border-color, var(--border-color));
