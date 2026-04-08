@@ -17,8 +17,8 @@ export function genie(node: Element, { duration, length = 150 }: Props) {
           opacity: ${eased};
           clip-path: polygon(0% 0%, 100% 0%, 100% 100%, ${ieased * 95}% 100%);
           transform: translate(
-            calc(var(--offset-x, 0px) + ${ieased} * ${length}px),
-            calc(var(--offset-y, 0px) + ${ieased} * ${length}px))
+            calc(var(--offset-x, 0px) + ${ieased * length}px),
+            calc(var(--offset-y, 0px) + ${ieased * length}px))
             scale(${eased});`
     }
   }
