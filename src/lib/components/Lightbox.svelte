@@ -96,14 +96,17 @@
     z-index: 1;
     transition: transform 0.1s ease-out;
   }
+
   .gallery:hover {
     transform: translateY(-1%);
   }
+
   .thumbnail_wrapper {
     position: relative;
     width: 90%;
     margin: 0 auto;
   }
+
   .thumbnail {
     aspect-ratio: 16 / 9;
     object-fit: cover;
@@ -115,6 +118,7 @@
     margin: -5% auto 0 auto;
     transition: transform 0.1s ease-out;
   }
+
   .thumbnail_wrapper::after {
     content: '';
     position: absolute;
@@ -130,12 +134,15 @@
     transition: transform 0.1s ease-out;
     z-index: -1;
   }
+
   .gallery:hover .thumbnail_wrapper::after {
     transform: rotate(8deg);
   }
+
   .gallery:hover .thumbnail {
     transform: translateY(-2%);
   }
+
   .folder_back {
     position: absolute;
     inset: 0;
@@ -148,6 +155,7 @@
     );
     box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
   }
+
   .folder_front {
     position: absolute;
     bottom: 0;
@@ -167,6 +175,7 @@
     padding: 0.5rem 1rem;
     box-sizing: border-box;
   }
+
   .p_title {
     font-size: 1.15rem;
     font-weight: 700;
@@ -176,6 +185,7 @@
     white-space: nowrap;
     overflow: hidden;
   }
+
   .p_details {
     font-size: 0.75rem;
     margin: 0.25rem 0 0 0;
@@ -184,6 +194,7 @@
     text-overflow: ellipsis;
     color: color-mix(in srgb, var(--text-color), black 30%);
   }
+
   :global(.pswp__custom-caption) {
     background: rgba(0, 0, 0, 0.6);
     font-size: 1rem;
