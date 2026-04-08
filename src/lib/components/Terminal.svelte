@@ -2,7 +2,6 @@
   import { siteconfig } from '$lib/config/_loader'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
   import Icon from './Icon.svelte'
-  // import { fly } from 'svelte/transition'
   import { genie } from '$lib/utils/genie-effect.svelte'
   import { faXmark } from '@fortawesome/free-solid-svg-icons'
   import { page } from '$app/state'

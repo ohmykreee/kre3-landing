@@ -22,3 +22,6 @@ export function genie(node: Element, { duration }: Props) {
     }
   }
 }
+
+// If you want to let Terminal fly to the corner of the window:
+// transform: translate(calc(var(--offset-x, 0px) + ${ieased} * (50dvw - var(--offset-x, 0px) + 392px)), calc(var(--offset-y, 0px) + ${ieased}*( 75dvh - var(--offset-y, 0px) ))) scale(${eased});
