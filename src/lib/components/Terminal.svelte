@@ -2,7 +2,7 @@
   import { siteconfig } from '$lib/config/_loader'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
   import Icon from './Icon.svelte'
-  import { fly } from 'svelte/transition'
+  import { genie } from '$lib/utils/genie-effect.svelte'
   import { faXmark } from '@fortawesome/free-solid-svg-icons'
   import { page } from '$app/state'
   import { resolve } from '$app/paths'
@@ -44,7 +44,7 @@
     style:--curr-border-color={currTheme ?? 'initial'}
     style:--offset-x="{drag.offsetX}px"
     style:--offset-y="{drag.offsetY}px"
-    transition:fly={{ y: 10, duration: 300 }}
+    transition:genie={{ duration: 600 }}
   >
     <div class="terminal_title">
       <div class="title_container" role="none" {@attach drag.doDrag}>
