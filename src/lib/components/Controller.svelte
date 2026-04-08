@@ -11,24 +11,10 @@
   import loop0 from '$lib/assets/click-to-open/loop0.webp'
   import loop1 from '$lib/assets/click-to-open/loop1.webp'
   import LoopImg from './LoopImg.svelte'
+  import { createDrag } from '$lib/utils/use-drag.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
   let emblaApi: EmblaCarouselType | undefined
-  let offsetX: number = $state(0)
-  let offsetY: number = $state(0)
-  const dragState: {
-    startX: number
-    startY: number
-    initialX: number
-    initialY: number
-    isDrag: boolean
-  } = {
-    startX: 0, // startX, startY is used to calculate mouse move distance
-    startY: 0,
-    initialX: 0, // initialX, initialY is used to store last window offset
-    initialY: 0,
-    isDrag: false
-  }
 
   // do embla-carousel init
   const updateIndex = () => {
@@ -50,36 +36,14 @@
   const goToPrev = () => emblaApi?.scrollPrev()
   const goToNext = () => emblaApi?.scrollNext()
 
-  // do drag init
-  function handlePointerDown(e: PointerEvent) {
-    if (window.innerWidth > 800) {
-      dragState.isDrag = true
-      dragState.startX = e.clientX
-      dragState.startY = e.clientY
-      const target = e.target as HTMLElement
-      target.setPointerCapture(e.pointerId)
-    }
-  }
-
-  function handlePointerMove(e: PointerEvent) {
-    if (!dragState.isDrag) return
-    const dx = e.clientX - dragState.startX
-    const dy = e.clientY - dragState.startY
-    offsetX = dragState.initialX + dx
-    offsetY = dragState.initialY + dy
-  }
-
-  function handlePointerUp(e: PointerEvent) {
-    if (!dragState.isDrag) return
-    dragState.isDrag = false
-    dragState.initialX = $state.snapshot(offsetX)
-    dragState.initialY = $state.snapshot(offsetY)
-    const target = e.target as HTMLElement
-    target.releasePointerCapture(e.pointerId)
-  }
+  const drag = createDrag()
 </script>
 
-<div class="controller_container" style:--offset-x="{offsetX}px" style:--offset-y="{offsetY}px">
+<div
+  class="controller_container"
+  style:--offset-x="{drag.offsetX}px"
+  style:--offset-y="{drag.offsetY}px"
+>
   {#if getTerminal.isClosed === true}
     <div
       class="reopen_btn"
@@ -97,14 +61,7 @@
   {/if}
 
   <div class="controller_wrapper">
-    <div
-      class="controller_title"
-      role="none"
-      onpointerdown={handlePointerDown}
-      onpointermove={handlePointerMove}
-      onpointerup={handlePointerUp}
-      onpointercancel={handlePointerUp}
-    >
+    <div class="controller_title" role="none" {@attach drag.doDrag}>
       Project: <br />
       {currBg.title}
     </div>
