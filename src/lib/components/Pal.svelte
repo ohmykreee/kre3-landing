@@ -21,11 +21,12 @@
   target="_blank"
   class="container"
   style:--curr-border-color={currTheme ?? 'initial'}
+  title={name}
 >
-  <img src={avatar} alt={name + "'s avatar"} class="avatar" />
+  <img src={avatar} alt={name + "'s home page"} class="avatar" />
   <div class="info">
     <p class="name">{name}</p>
-    <p class="description">{description}</p>
+    <p class="description" title={description}>{description}</p>
   </div>
   <div class="arrow"><Icon icon={faAngleRight} size="1rem" /></div>
 </a>

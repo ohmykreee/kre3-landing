@@ -64,6 +64,8 @@
   }}
   style:--back-img-url="url({collection.item[1].imgUrl})"
   style:--curr-theme-color={currTheme}
+  title={collection.title}
+  aria-label={`Collection name: ${collection.title}, description: ${collection.description}`}
 >
   <div class="folder_back"></div>
   <div class="thumbnail_wrapper">
@@ -71,7 +73,7 @@
   </div>
   <div class="folder_front">
     <p class="p_title">{collection.title}</p>
-    <p class="p_details">{collection.description}</p>
+    <p class="p_details" title={collection.description}>{collection.description}</p>
   </div>
 </button>
 

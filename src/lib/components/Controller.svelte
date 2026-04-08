@@ -56,6 +56,7 @@
         alt="Click me to re-open main window"
         interval={1000}
         width="18rem"
+        title="You found me!"
       />
     </div>
   {/if}
