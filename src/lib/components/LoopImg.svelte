@@ -5,9 +5,10 @@
     interval?: number
     width?: string
     height?: string
+    title?: string
   }
 
-  let { imgs, alt, interval = 1000, width, height }: Props = $props()
+  let { imgs, alt, interval = 1000, width, height, title }: Props = $props()
   let index: number = $state(0)
   let img: string = $derived(imgs[index])
 
@@ -33,4 +34,4 @@
   })
 </script>
 
-<img src={img} {alt} style:width style:height />
+<img src={img} {alt} style:width style:height {title} />
