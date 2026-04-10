@@ -63,8 +63,11 @@
         <p class="noscript">
           Please enable Javascript to use comments (powered by <a
             href="https://giscus.app/"
-            rel="external">Giscus</a
-          >)
+            rel="external"
+          >
+            Giscus
+          </a>
+          )
         </p>
       </noscript>
     </div>

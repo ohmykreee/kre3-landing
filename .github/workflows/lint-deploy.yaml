@@ -26,8 +26,13 @@ jobs:
         with:
           node-version: 24
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v5
+        with:
+          version: 10
+
       - name: Prepare workspace
-        run: npm ci --ignore-scripts --include=dev && npx svelte-kit sync
+        run: pnpm i --frozen-lockfile --ignore-scripts
 
       - name: Clone config file from Repo
         run: |
@@ -41,10 +46,10 @@ jobs:
         continue-on-error: true
 
       - name: Project check
-        run: npm run lint
+        run: pnpm prepare && pnpm lint
 
       - name: Build project
-        run: npm run build
+        run: pnpm build
 
       - name: Deploy to Cloudflare Pages
         if: >-
