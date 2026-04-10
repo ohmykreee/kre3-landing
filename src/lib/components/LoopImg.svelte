@@ -9,8 +9,8 @@
   }
 
   let { imgs, alt, interval = 1000, width, height, title }: Props = $props()
-  let index: number = $state(0)
-  let img: string = $derived(imgs[index])
+  let index = $state<number>(0)
+  let img = $derived<string>(imgs[index])
 
   $effect(() => {
     let id: number

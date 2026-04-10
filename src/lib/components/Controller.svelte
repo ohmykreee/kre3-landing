@@ -22,8 +22,8 @@
     getBg.index = emblaApi.selectedScrollSnap()
   }
 
-  const loadEmbla: Attachment = (element) => {
-    emblaApi = EmblaCarousel(element as HTMLElement, { loop: true }, [Autoplay({ delay: 15000 })])
+  const loadEmbla: Attachment<HTMLElement> = (element) => {
+    emblaApi = EmblaCarousel(element, { loop: true }, [Autoplay({ delay: 15000 })])
     emblaApi.on('select', updateIndex)
     emblaApi.on('reInit', updateIndex)
     updateIndex()

@@ -30,8 +30,8 @@
     'data-loading': loading || 'eager'
   })
 
-  const loadGiscus: Attachment = (element) => {
-    const script: HTMLElement = document.createElement('script')
+  const loadGiscus: Attachment<HTMLElement> = (element) => {
+    const script = document.createElement('script')
     Object.entries(attrs).forEach(([key, value]) => {
       script.setAttribute(key, value)
     })

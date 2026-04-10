@@ -14,10 +14,10 @@
     height: number
     alt: string
   }
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
   let { collection }: Props = $props()
-  let lightbox: PhotoSwipeLightbox | undefined
-  let images: Image[] = $derived(
+  let lightbox: InstanceType<typeof PhotoSwipeLightbox> | undefined
+  let images = $derived<Image[]>(
     collection.item.map((image) => ({
       src: image.imgUrl,
       width: image.width,

@@ -3,7 +3,7 @@
   import Icon from '$lib/components/Icon.svelte'
   import { getBg } from '$lib/utils/get-page-state.svelte'
 
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
 <div class="container">
