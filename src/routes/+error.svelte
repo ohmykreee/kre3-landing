@@ -11,7 +11,8 @@
 <div class="error_container" style:--curr-border-color={currTheme ?? 'initial'}>
   <a href={resolve('/')}><img src={avatar} alt="Click to return main page" /></a>
   <p>
-    {page.status} | {page.error?.message}<br />
+    {page.status} | {page.error?.message}
+    <br />
     You can use the navigation above to go back to Home.
   </p>
 </div>

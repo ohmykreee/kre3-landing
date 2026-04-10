@@ -33,9 +33,9 @@
 </script>
 
 <svelte:head>
-  <title
-    >{pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Coyote</title
-  >
+  <title>
+    {pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Coyote
+  </title>
 </svelte:head>
 
 {#if !getTerminal.isClosed}

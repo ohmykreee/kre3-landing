@@ -8,9 +8,10 @@
 
 <div class="container">
   <div>
-    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path"
-      >~</span
-    >$ info
+    <span class="terminal_domain">{siteconfig.profile.props}</span>
+    :
+    <span class="terminal_path">~</span>
+    $ info
   </div>
   <div class="bio_container">
     <img
@@ -19,24 +20,34 @@
       style:--curr-border-color={currTheme ?? 'initial'}
     />
     <p class="bio_info">
-      <span>Brief Introduction</span><br />
-      ------------------<br />
+      <span>Brief Introduction</span>
+      <br />
+      ------------------
+      <br />
       <span>Name:</span>
-      {@html siteconfig.profile.name}<br />
+      {@html siteconfig.profile.name}
+      <br />
       <span>Career:</span>
-      {@html siteconfig.profile.career}<br />
+      {@html siteconfig.profile.career}
+      <br />
       <span>Species:</span>
-      {@html siteconfig.profile.species}<br />
+      {@html siteconfig.profile.species}
+      <br />
       <span>Mail:</span>
-      {@html siteconfig.profile.email}<br />
-      <span>CPU:</span> DoggoBrain KindaStupid @ unknown<br />
-      <span>GPU:</span> DoggoEyes NearSighted<br />
+      {@html siteconfig.profile.email}
+      <br />
+      <span>CPU:</span>
+      DoggoBrain KindaStupid @ unknown
+      <br />
+      <span>GPU:</span>
+      DoggoEyes NearSighted
+      <br />
     </p>
   </div>
   <div>
-    <span class="terminal_domain">{siteconfig.profile.props}</span>:<span class="terminal_path">
-      ~
-    </span>
+    <span class="terminal_domain">{siteconfig.profile.props}</span>
+    :
+    <span class="terminal_path">~</span>
     $ ls links
   </div>
   <div class="links_container">
