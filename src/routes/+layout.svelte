@@ -19,22 +19,21 @@
   let offsetY = $state<number>(0)
 
   const screenCenter = { x: 0, y: 0 }
-  const multiplier = 1
   function updateScreenCenter() {
     screenCenter.x = window.innerWidth / 2
     screenCenter.y = window.innerHeight / 2
   }
   function calcOffsetByMouse(e: MouseEvent) {
-    const x = ((e.clientX - screenCenter.x) / screenCenter.x) * multiplier
-    const y = ((e.clientY - screenCenter.y) / screenCenter.y) * multiplier
+    const x = (e.clientX - screenCenter.x) / screenCenter.x
+    const y = (e.clientY - screenCenter.y) / screenCenter.y
     offsetX = Number(x.toFixed(3))
     offsetY = Number(y.toFixed(3))
   }
   function calcOffsetByOrientation(e: DeviceOrientationEvent) {
     const x = (e.gamma ?? 0) / 45
-    const y = ((e.beta ?? 45) - 45) / 75
-    const xClamped = Math.max(-1, Math.min(1, x)) * multiplier
-    const yClamped = Math.max(-1, Math.min(1, y)) * multiplier
+    const y = ((e.beta ?? 30) - 30) / 60
+    const xClamped = Math.max(-1, Math.min(1, x)) * 3
+    const yClamped = Math.max(-1, Math.min(1, y)) * 3
     offsetX = Number(xClamped.toFixed(3))
     offsetY = Number(yClamped.toFixed(3))
   }
@@ -123,7 +122,7 @@
 
   .bg {
     position: fixed;
-    inset: -2%;
+    inset: -3%;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
