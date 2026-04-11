@@ -32,11 +32,18 @@
   }
   function calcOffsetByOrientation(e: DeviceOrientationEvent) {
     const x = e.gamma ?? 0 / 45
-    const y = ((e.beta ?? 90) - 90) / 45
+    const y = ((e.beta ?? 45) - 45) / 75
     const xClamped = Math.max(-1, Math.min(1, x)) * multiplier
     const yClamped = Math.max(-1, Math.min(1, y)) * multiplier
     offsetX = Number(xClamped.toFixed(3))
     offsetY = Number(yClamped.toFixed(3))
+    console.log(`x: ${x}, y: ${y}`)
+  }
+  function resetOffset(e: MouseEvent) {
+    if (!e.relatedTarget) {
+      offsetX = 0
+      offsetY = 0
+    }
   }
 
   $effect(() => {
@@ -47,6 +54,7 @@
       window.addEventListener('resize', updateScreenCenter, { signal })
       updateScreenCenter()
       window.addEventListener('mousemove', calcOffsetByMouse, { signal })
+      window.addEventListener('mouseout', resetOffset, { signal })
     } else {
       window.addEventListener('deviceorientation', calcOffsetByOrientation, { signal })
     }
