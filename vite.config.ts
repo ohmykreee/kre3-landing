@@ -17,7 +17,7 @@ export default defineConfig({
         if (code.includes('/static/assets')) {
           const regex = /(?:\.\.\/)+static\/assets\//g
           return {
-            code: code.replace(regex, '/assets/'), // Ugly fix of assets path error for SSG
+            code: code.replace(regex, './assets/'), // Ugly fix of assets path error for SSG
             map: null
           }
         }
