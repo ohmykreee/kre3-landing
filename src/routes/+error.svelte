@@ -5,7 +5,7 @@
   import avatar from '$lib/assets/avatar.jpg'
   import { resolve } from '$app/paths'
 
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
 <div class="error_container" style:--curr-border-color={currTheme ?? 'initial'}>

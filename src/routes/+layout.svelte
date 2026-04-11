@@ -14,6 +14,55 @@
 
   let { children } = $props()
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
+
+  let offsetX = $state<number>(0)
+  let offsetY = $state<number>(0)
+
+  const screenCenter = { x: 0, y: 0 }
+  const multiplier = 1
+  function updateScreenCenter() {
+    screenCenter.x = window.innerWidth / 2
+    screenCenter.y = window.innerHeight / 2
+  }
+  function calcOffsetByMouse(e: MouseEvent) {
+    const x = ((e.clientX - screenCenter.x) / screenCenter.x) * multiplier
+    const y = ((e.clientY - screenCenter.y) / screenCenter.y) * multiplier
+    offsetX = Number(x.toFixed(3))
+    offsetY = Number(y.toFixed(3))
+  }
+  function calcOffsetByOrientation(e: DeviceOrientationEvent) {
+    const x = e.gamma ?? 0 / 45
+    const y = ((e.beta ?? 45) - 45) / 75
+    const xClamped = Math.max(-1, Math.min(1, x)) * multiplier
+    const yClamped = Math.max(-1, Math.min(1, y)) * multiplier
+    offsetX = Number(xClamped.toFixed(3))
+    offsetY = Number(yClamped.toFixed(3))
+    console.log(`x: ${x}, y: ${y}`)
+  }
+  function resetOffset(e: MouseEvent) {
+    if (!e.relatedTarget) {
+      offsetX = 0
+      offsetY = 0
+    }
+  }
+
+  $effect(() => {
+    const controller = new AbortController()
+    const { signal } = controller
+
+    if (window.matchMedia('(pointer: fine)').matches) {
+      window.addEventListener('resize', updateScreenCenter, { signal })
+      updateScreenCenter()
+      window.addEventListener('mousemove', calcOffsetByMouse, { signal })
+      window.addEventListener('mouseout', resetOffset, { signal })
+    } else {
+      window.addEventListener('deviceorientation', calcOffsetByOrientation, { signal })
+    }
+
+    return () => {
+      controller.abort()
+    }
+  })
 </script>
 
 <svelte:head>
@@ -37,6 +86,8 @@
     class={['bg', getTerminal.isClosed ? 'nodim' : '']}
     style:--curr-bg-url="url({currBg.imgUrl})"
     transition:fade
+    style:--offset-x="{offsetX}%"
+    style:--offset-y="{offsetY}%"
   ></div>
 {/key}
 <Terminal {children} />
@@ -73,14 +124,17 @@
 
   .bg {
     position: fixed;
-    inset: 0;
+    inset: -2%;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     z-index: -100;
     filter: brightness(0.5) blur(5px);
-    transition: all 0.3s ease;
+    transform: translate(var(--offset-x, 0), var(--offset-y, 0));
+    transition:
+      filter 0.3s ease,
+      transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .bg.nodim {

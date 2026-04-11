@@ -8,12 +8,18 @@
   import { resolve } from '$app/paths'
   import Controller from '$lib/components/Controller.svelte'
   import { createDrag } from '$lib/utils/use-drag.svelte'
+  import type { Pathname } from '$app/types'
+  import type { Snippet } from 'svelte'
 
-  let { children } = $props()
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  interface Props {
+    children: Snippet<[]>
+  }
+
+  let { children }: Props = $props()
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
   interface pinnedTab {
     name: string
-    route: '/' | '/folio' | '/about' | '/pals'
+    route: Pathname
   }
   const pinnedTabs: pinnedTab[] = [
     { name: 'Home', route: '/' },

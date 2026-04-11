@@ -30,8 +30,8 @@ export function createDrag() {
       if (!dragState.isDrag) return
       const dx = e.clientX - dragState.startX
       const dy = e.clientY - dragState.startY
-      offsetX = dragState.initialX + dx
-      offsetY = dragState.initialY + dy
+      offsetX = Number((dragState.initialX + dx).toFixed(3))
+      offsetY = Number((dragState.initialY + dy).toFixed(3))
     }
 
     function handlePointerUp(e: PointerEvent) {

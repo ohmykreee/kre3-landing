@@ -8,7 +8,7 @@
   }
 
   let { title, html }: Props = $props()
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
 </script>
 
 <div class="container" style:--curr-border-color={currTheme ?? 'initial'}>

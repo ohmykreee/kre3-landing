@@ -11,7 +11,7 @@
     avatar: string
   }
 
-  let currTheme: string | undefined = $derived(siteconfig.profile.bg[getBg.index].theme)
+  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
   let { name, description, url, avatar }: Props = $props()
 </script>
 

@@ -33,7 +33,7 @@
   fill={color}
   class={className}
 >
-  <!-- ugly fix to pass lint lol, DO NOT USE INDEX AS ID!!! -->
+  <!-- TODO: ugly fix to pass lint lol, DO NOT USE INDEX AS ID!!! -->
   {#each paths as path, i ('#' + i)}
     <path d={path.attributes.d} />
   {/each}
