@@ -7,7 +7,7 @@
 </script>
 
 <div class="container">
-  <div>
+  <div class="terminal_prompt">
     <span class="terminal_domain">{siteconfig.profile.props}</span>
     :
     <span class="terminal_path">~</span>
@@ -44,7 +44,7 @@
       <br />
     </p>
   </div>
-  <div>
+  <div class="terminal_prompt">
     <span class="terminal_domain">{siteconfig.profile.props}</span>
     :
     <span class="terminal_path">~</span>
@@ -67,9 +67,14 @@
     margin: 1rem;
   }
 
+  .terminal_prompt {
+    display: flex;
+  }
+
   .terminal_domain {
     color: var(--terminal-domain);
   }
+
   .terminal_path {
     color: var(--terminal-path);
   }
