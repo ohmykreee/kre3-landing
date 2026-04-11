@@ -30,12 +30,18 @@
     offsetY = Number(y.toFixed(3))
   }
   function calcOffsetByOrientation(e: DeviceOrientationEvent) {
-    const x = (e.gamma ?? 0) / 45
-    const y = ((e.beta ?? 30) - 30) / 60
-    const xClamped = Math.max(-1, Math.min(1, x)) * 3
-    const yClamped = Math.max(-1, Math.min(1, y)) * 3
-    offsetX = Number(xClamped.toFixed(3))
-    offsetY = Number(yClamped.toFixed(3))
+    // By calculate 3D vector projection to solve gimbal lock
+    const rad = Math.PI / 180
+    const beta = e.beta ?? 0
+    const gamma = e.gamma ?? 0
+    const tiltX = Math.cos(beta * rad) * Math.sin(gamma * rad)
+    const tiltY = Math.sin(beta * rad)
+
+    const x = Math.max(-1, Math.min(1, tiltX / 0.5)) * 3
+    const y = Math.max(-1, Math.min(1, (tiltY - 0.16) / 0.66)) * 3
+
+    offsetX = Number(x.toFixed(3))
+    offsetY = Number(y.toFixed(3))
   }
   function resetOffset(e: MouseEvent) {
     if (!e.relatedTarget) {
