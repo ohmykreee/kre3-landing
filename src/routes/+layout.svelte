@@ -1,6 +1,8 @@
 <script lang="ts">
   import { siteconfig } from '$lib/config/_loader'
   import { fade } from 'svelte/transition'
+  import { Tween } from 'svelte/motion'
+  import { cubicOut } from 'svelte/easing'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
   import ogimage from '$lib/assets/cover.jpg'
@@ -15,8 +17,12 @@
   let { children } = $props()
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
 
-  let offsetX = $state<number>(0)
-  let offsetY = $state<number>(0)
+  const TweenConfig = {
+    duration: 400,
+    easing: cubicOut
+  }
+  let offsetX = new Tween(0, TweenConfig)
+  let offsetY = new Tween(0, TweenConfig)
 
   const screenCenter = { x: 0, y: 0 }
   function updateScreenCenter() {
@@ -26,8 +32,8 @@
   function calcOffsetByMouse(e: MouseEvent) {
     const x = (e.clientX - screenCenter.x) / screenCenter.x
     const y = (e.clientY - screenCenter.y) / screenCenter.y
-    offsetX = Number(x.toFixed(3))
-    offsetY = Number(y.toFixed(3))
+    offsetX.target = Number(x.toFixed(3))
+    offsetY.target = Number(y.toFixed(3))
   }
   function calcOffsetByOrientation(e: DeviceOrientationEvent) {
     // By calculate 3D vector projection to solve gimbal lock
@@ -40,13 +46,13 @@
     const x = Math.max(-1, Math.min(1, tiltX / 0.5)) * 3
     const y = Math.max(-1, Math.min(1, (tiltY - 0.16) / 0.66)) * 3
 
-    offsetX = Number(x.toFixed(3))
-    offsetY = Number(y.toFixed(3))
+    offsetX.target = Number(x.toFixed(3))
+    offsetY.target = Number(y.toFixed(3))
   }
   function resetOffset(e: MouseEvent) {
     if (!e.relatedTarget) {
-      offsetX = 0
-      offsetY = 0
+      offsetX.target = 0
+      offsetY.target = 0
     }
   }
 
@@ -90,8 +96,8 @@
     class={['bg', getTerminal.isClosed ? 'nodim' : '']}
     style:--curr-bg-url="url({currBg.imgUrl})"
     transition:fade
-    style:--offset-x="{offsetX}%"
-    style:--offset-y="{offsetY}%"
+    style:--offset-x="{offsetX.current}%"
+    style:--offset-y="{offsetY.current}%"
   ></div>
 {/key}
 <Terminal {children} />
@@ -136,9 +142,7 @@
     z-index: -100;
     filter: brightness(0.5) blur(5px);
     transform: translate(var(--offset-x, 0), var(--offset-y, 0));
-    transition:
-      filter 0.3s ease,
-      transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: filter 0.3s ease;
   }
 
   .bg.nodim {
