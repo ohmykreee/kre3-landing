@@ -1,16 +1,7 @@
 import type { IconDefinition } from '@fortawesome/fontawesome-svg-core'
+import config from '$site-config'
 
-// Select available config file
-const configs = import.meta.glob<Config>(
-  ['/src/lib/config/example.ts', '/src/lib/config/default/default.ts'],
-  {
-    eager: true,
-    import: 'default'
-  }
-)
-
-export const siteconfig: Config =
-  configs['/src/lib/config/default/default.ts'] || configs['/src/lib/config/example.ts']
+export const siteconfig: Config = config
 
 // config types definitions
 export interface Config {
