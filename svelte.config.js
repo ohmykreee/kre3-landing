@@ -1,5 +1,18 @@
 // import adapter from '@sveltejs/adapter-auto';
 import adapter from '@sveltejs/adapter-static'
+import path from 'path'
+import { readFileSync } from 'fs'
+
+const target = () => {
+  const examplePath = 'src/lib/config/example.ts'
+  const defaultPath = 'src/lib/config/default/default.ts'
+  try {
+    const content = readFileSync(path.resolve(process.cwd(), defaultPath), { encoding: 'utf8' })
+    return content && process.env.MODE !== 'test' ? defaultPath : examplePath
+  } catch {
+    return examplePath
+  }
+}
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -16,7 +29,10 @@ const config = {
       precompress: false,
       strict: true
     }),
-    inlineStyleThreshold: 2048
+    inlineStyleThreshold: 2048,
+    alias: {
+      '$site-config': target()
+    }
   }
 }
 

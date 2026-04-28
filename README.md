@@ -27,6 +27,8 @@ BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave
 
 5. `pnpm dev --host=0.0.0.0` to run a dev server binding 0.0.0.0, `pnpm lint` to do lint and format check, `pnpm format` to use prettier to format, `pnpm build` to generate static site file to `build` casue it's a SSG project.
 
+6. use `MODE=test pnpm dev --host=0.0.0.0` to handily select example config file.
+
 ### About Github CI/CD
 
 The workflows files here do cloning your config file from a repo and do a `pnpm lint` first, when no error present then do `pnpm build` and publish static file to Cloudflare Pages.
