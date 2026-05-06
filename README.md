@@ -17,7 +17,7 @@ My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & Svelt
 
 1. run `git clone https://github.com/ohmykreee/kre3-landing` to clone the whole project,
 
-2. run `pnpm i --ignore-scripts` to install all the deps,
+2. run `pnpm i` to install all the deps,
 
 3. copy `src/lib/config/example.ts` to `src/lib/config/default/default.ts`, and change to your own info,
 
