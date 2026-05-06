@@ -27,12 +27,12 @@ jobs:
           node-version: 24
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v5
+        uses: pnpm/action-setup@v6
         with:
-          version: 10
+          version: 11
 
       - name: Prepare workspace
-        run: pnpm i --frozen-lockfile --ignore-scripts
+        run: pnpm ci --ignore-scripts
 
       - name: Clone config file from Repo
         run: |
