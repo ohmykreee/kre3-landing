@@ -82,7 +82,7 @@
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."
   />
   <link rel="canonical" href={siteconfig.baseurl} />
-  <meta property="og:title" content="TurboKre - Turbo Energy Coyote" />
+  <meta property="og:title" content="TurboKre - Turbo Energy Canine" />
   <meta
     property="og:description"
     content="Discover a portfolio that blends creative soul with logical craft. View my latest artistic projects and creative coding works."

@@ -15,7 +15,7 @@ const siteconfig: Config = {
   profile: {
     name: 'TurboKre (Kre<sup>3</sup>)',
     avatar: 'https://avatars.githubusercontent.com/u/76862878#how.jpg',
-    species: 'Cyber Coyote',
+    species: 'Generic Canine',
     email: '<a href="mailto:contact@kre3.net">contact@kre3.net</a>',
     props: 'kyree@kre3.net',
     career: 'Not a student',
