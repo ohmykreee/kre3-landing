@@ -11,7 +11,7 @@ My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & Svelt
 ### Environment
 
 - node === 24.13.1 (higher minor version is OK, higher major version might be OK due to backwards compatibility)
-- pnpm === 10.33.0 (or higher)
+- pnpm === 11.0.6 (or higher)
 
 ### Setup Project
 
