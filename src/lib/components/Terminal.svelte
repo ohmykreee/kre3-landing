@@ -40,7 +40,7 @@
 
 <svelte:head>
   <title>
-    {pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Coyote
+    {pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Canine
   </title>
 </svelte:head>
 
