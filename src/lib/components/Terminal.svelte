@@ -89,6 +89,11 @@
       0 35px 50px -15px rgba(0, 0, 0, 0.2);
   }
 
+  .terminal_container :global(:focus-visible) {
+    outline: 2px solid var(--curr-border-color, var(--border-color));
+    outline-offset: 2px;
+  }
+
   .terminal_title {
     display: flex;
     justify-content: center;
@@ -109,6 +114,34 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: flex-end;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(
+        in srgb,
+        var(--curr-border-color, var(--border-color)),
+        transparent 55%
+      )
+      transparent;
+  }
+
+  .title_container::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .title_container::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .title_container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .title_container::-webkit-scrollbar-thumb {
+    border-radius: 9999px;
+    background-color: color-mix(
+      in srgb,
+      var(--curr-border-color, var(--border-color)),
+      transparent 45%
+    );
   }
 
   .title_btn {
@@ -138,6 +171,10 @@
 
   .title_btn:hover {
     background-color: var(--title-btn-hover);
+  }
+
+  .title_btn:focus-visible {
+    outline-offset: -2px;
   }
 
   .close_btn {

@@ -194,11 +194,6 @@
       background-color 0.18s ease;
   }
 
-  .work_card:focus-visible {
-    outline: 2px solid var(--curr-theme-color, var(--border-color));
-    outline-offset: 2px;
-  }
-
   .work_image {
     display: block;
     width: 100%;

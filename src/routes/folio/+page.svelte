@@ -197,11 +197,6 @@
     );
   }
 
-  .collection_button:focus-visible {
-    outline: 2px solid var(--curr-theme-color, var(--border-color));
-    outline-offset: 2px;
-  }
-
   .collection_number {
     font-size: 0.7rem;
     color: var(--curr-theme-color, var(--border-color));
