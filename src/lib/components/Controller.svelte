@@ -14,7 +14,10 @@
   import { createDrag } from '$lib/utils/use-drag.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
+  const total = siteconfig.profile.bg.length
   let emblaApi: EmblaCarouselType | undefined
+
+  const pad = (value: number) => String(value).padStart(2, '0')
 
   // do embla-carousel init
   const updateIndex = () => {
@@ -30,6 +33,7 @@
     emblaApi.plugins().autoplay?.play()
     return () => {
       emblaApi?.destroy()
+      emblaApi = undefined
     }
   }
 
@@ -37,108 +41,150 @@
   const goToNext = () => emblaApi?.scrollNext()
 
   const drag = createDrag()
+  const reopen = () => (getTerminal.isClosed = false)
 </script>
 
-<div
-  class="controller_container"
-  style:--offset-x="{drag.offsetX}px"
-  style:--offset-y="{drag.offsetY}px"
->
-  {#if getTerminal.isClosed === true}
-    <div
-      class="reopen_btn"
-      role="none"
-      onclick={() => (getTerminal.isClosed = false)}
-      in:fly={{ y: 10, duration: 300 }}
-    >
-      <LoopImg
-        imgs={[loop0, loop1]}
-        alt="Click me to re-open main window"
-        interval={1000}
-        width="18rem"
+<div class="dock" class:is-closed={getTerminal.isClosed}>
+  {#if getTerminal.isClosed}
+    <div class="recall" in:fly={{ y: 12, duration: 300 }}>
+      <button
+        type="button"
+        class="recall-btn"
+        onclick={reopen}
+        aria-label="Re-open workbench"
         title="You found me!"
-      />
+      >
+        <LoopImg
+          imgs={[loop0, loop1]}
+          alt="Click me to re-open main window"
+          interval={1000}
+          width="100%"
+        />
+      </button>
+      <p class="recall-label">Re-open</p>
     </div>
   {/if}
 
-  <div class="controller_wrapper">
-    <div class="controller_title" role="none" {@attach drag.doDrag}>
-      Project: <br />
-      {currBg.title}
+  <aside
+    class="controller"
+    aria-label="Now showing"
+    style:--offset-x="{drag.offsetX}px"
+    style:--offset-y="{drag.offsetY}px"
+  >
+    <div class="head" {@attach drag.doDrag}>
+      <span class="eyebrow">Now showing</span>
+      <span class="count">{pad(getBg.index + 1)} / {pad(total)}</span>
     </div>
 
-    <div class="embla__viewport" {@attach loadEmbla}>
-      <div class="embla__container">
-        {#each siteconfig.profile.bg as bg (bg.title)}
-          <div class="embla__slide"><img src={bg.imgUrl} alt={bg.title} class="slide_img" /></div>
-        {/each}
+    <div class="ln" aria-hidden="true">
+      {#each siteconfig.profile.bg as bg, index (bg.title)}
+        <span class="ln-bar" class:active={index === getBg.index}></span>
+      {/each}
+    </div>
+
+    <div class="frame">
+      <div class="embla__viewport" {@attach loadEmbla}>
+        <div class="embla__container">
+          {#each siteconfig.profile.bg as bg (bg.title)}
+            <div class="embla__slide">
+              <img src={bg.imgUrl} alt={bg.title} class="slide_img" />
+            </div>
+          {/each}
+        </div>
       </div>
     </div>
 
-    <button class="nav_btn nav_left" onclick={goToPrev} aria-label="Previous Slide">
-      <Icon icon={faAngleLeft} />
-    </button>
-    <button class="nav_btn nav_right" onclick={goToNext} aria-label="Next Slide">
-      <Icon icon={faAngleRight} />
-    </button>
-  </div>
+    <div class="caption">
+      <div class="caption-text">
+        <p class="ctl-title" title={currBg.title}>{currBg.title}</p>
+        {#if currBg.date}
+          <p class="ctl-date">{currBg.date}</p>
+        {/if}
+      </div>
+      <div class="btns">
+        <button type="button" class="nav-btn" onclick={goToPrev} aria-label="Previous Slide">
+          <Icon icon={faAngleLeft} />
+        </button>
+        <button type="button" class="nav-btn" onclick={goToNext} aria-label="Next Slide">
+          <Icon icon={faAngleRight} />
+        </button>
+      </div>
+    </div>
+  </aside>
 </div>
 
 <style>
-  .controller_wrapper {
-    position: relative;
-    width: calc(100lvw - 32px);
-    height: 20rem;
-    margin: 0 auto 1rem auto;
-    border-radius: 0.375rem;
-    z-index: 1;
-    box-shadow:
-      0 4px 8px -2px rgba(0, 0, 0, 0.4),
-      0 15px 25px -5px rgba(0, 0, 0, 0.3),
-      0 35px 50px -15px rgba(0, 0, 0, 0.2);
-  }
-
-  .controller_title {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .dock {
     width: 100%;
-    padding: 0.5rem 1.5rem;
-    z-index: 10;
-    font-size: 1rem;
-    border-radius: 0.375rem 0.375rem 0 0;
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.8) 0%,
-      rgba(0, 0, 0, 0.7) 50%,
-      rgba(0, 0, 0, 0) 100%
-    );
+    min-width: 0;
+    margin-top: clamp(20px, 3vw, 28px);
   }
 
-  .nav_btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background: transparent;
-    border: none;
-    color: var(--text-color);
-    cursor: pointer;
-    padding: 1rem;
+  .controller {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    min-width: 0;
   }
 
-  .nav_left {
-    left: 0;
+  .head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 8px;
+    user-select: none;
   }
 
-  .nav_right {
-    right: 0;
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--paper-dim);
+    text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
+  }
+
+  .count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: var(--paper-mute);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
+  }
+
+  .ln {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 22px;
+    margin: 0 0 9px;
+  }
+
+  .ln-bar {
+    width: 4px;
+    height: 9px;
+    border-radius: 1px;
+    background-color: var(--line-strong);
+    opacity: 0.7;
+  }
+
+  .ln-bar.active {
+    height: 22px;
+    background-color: var(--accent);
+    opacity: 1;
+  }
+
+  .frame {
+    overflow: hidden;
+    background-color: #0c0b0a;
   }
 
   .embla__viewport {
     overflow: hidden;
     width: 100%;
-    border-radius: 0.375rem;
   }
 
   .embla__container {
@@ -148,54 +194,261 @@
   .embla__slide {
     flex: 0 0 100%;
     min-width: 0;
-    height: 20rem;
-    display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
   }
 
   .slide_img {
     display: block;
     width: 100%;
-    height: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 320px;
     object-fit: cover;
     object-position: center;
   }
 
-  .reopen_btn {
-    position: relative;
-    cursor: pointer;
-    margin-bottom: -0.5rem;
-    z-index: 2;
+  .caption {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 8px;
+    text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
   }
 
-  @media (min-width: 800px) {
-    .controller_container {
-      position: fixed;
-      bottom: 1rem;
-      right: 1rem;
+  .caption-text {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .ctl-title {
+    margin: 0;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--paper);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .ctl-date {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--paper-mute);
+  }
+
+  .btns {
+    display: flex;
+    flex-shrink: 0;
+    gap: 2px;
+    margin: -9px -9px 0 0;
+  }
+
+  .nav-btn {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--paper-dim);
+    cursor: pointer;
+    transition: color 0.15s var(--ease);
+  }
+
+  .nav-btn:hover,
+  .nav-btn:focus-visible {
+    color: var(--paper);
+  }
+
+  .nav-btn:active {
+    color: var(--accent);
+  }
+
+  /* in-flow controller on tablets and small laptops */
+  @media (min-width: 760px) and (max-width: 1199px) {
+    .dock {
+      max-width: 640px;
+    }
+
+    .controller {
+      grid-template-columns: 230px minmax(0, 1fr);
+      grid-template-areas:
+        'head head'
+        'ln ln'
+        'frame caption';
+      column-gap: 20px;
+      align-items: start;
+    }
+
+    .head {
+      grid-area: head;
+    }
+
+    .ln {
+      grid-area: ln;
+    }
+
+    .frame {
+      grid-area: frame;
+    }
+
+    .caption {
+      grid-area: caption;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding-top: 16px;
+    }
+
+    .btns {
+      margin: 0;
+    }
+  }
+
+  /* persistent rail on desktop */
+  @media (min-width: 1200px) {
+    .dock {
+      position: sticky;
+      top: 24px;
+      width: 100%;
+      margin: 0;
+      padding-top: clamp(14px, 2.4vw, 24px);
+      padding-left: 18px;
+      border-left: 1px solid var(--line);
+    }
+
+    .controller {
+      grid-template-areas:
+        'head'
+        'ln'
+        'frame'
+        'caption';
+    }
+
+    .head {
+      grid-area: head;
+    }
+
+    .ln {
+      grid-area: ln;
+    }
+
+    .frame {
+      grid-area: frame;
+    }
+
+    .caption {
+      grid-area: caption;
+      padding-top: 8px;
+    }
+  }
+
+  /* pure artwork mode: only a small caption remains, with its own local scrim */
+  .dock.is-closed {
+    position: static;
+    width: min(360px, 100%);
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    border-left: 0;
+  }
+
+  .dock.is-closed .controller {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'head'
+      'ln'
+      'frame'
+      'caption';
+    padding: 14px 16px 12px;
+    background-color: color-mix(in srgb, var(--ink) 64%, transparent);
+    -webkit-backdrop-filter: blur(12px) saturate(1.05);
+    backdrop-filter: blur(12px) saturate(1.05);
+    border-radius: 2px;
+  }
+
+  .dock.is-closed .frame {
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .dock.is-closed .head {
+    padding-bottom: 7px;
+  }
+
+  .dock.is-closed .caption {
+    padding-top: 7px;
+    border-top: 1px solid var(--line);
+  }
+
+  .recall {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .recall-btn {
+    width: clamp(112px, 18vw, 156px);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    transition: filter 0.2s var(--ease);
+  }
+
+  .recall-btn:hover,
+  .recall-btn:focus-visible {
+    filter: brightness(1.08);
+  }
+
+  .recall-btn :global(img) {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+  }
+
+  .recall-label {
+    margin: 0;
+    padding: 4px 10px;
+    border-radius: 2px;
+    background-color: color-mix(in srgb, var(--ink) 76%, transparent);
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--paper);
+  }
+
+  /* window drag boundary matches createDrag (> 800px) */
+  @media (min-width: 801px) {
+    .controller {
       transform: translate(var(--offset-x, 0px), var(--offset-y, 0px));
-      z-index: 100;
     }
 
-    .controller_wrapper {
-      width: 18rem;
-      height: 12rem;
-    }
-
-    .embla__slide {
-      height: 12rem;
-    }
-
-    .controller_title {
+    .head {
       cursor: grab;
-      user-select: none;
       touch-action: none;
     }
 
-    .controller_title:active {
+    .head:active {
       cursor: grabbing;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-btn,
+    .recall-btn {
+      transition: none;
     }
   }
 </style>

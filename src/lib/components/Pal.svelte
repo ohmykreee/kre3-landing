@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { siteconfig } from '$lib/config/_loader'
-  import { getBg } from '$lib/utils/get-page-state.svelte'
   import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import Icon from './Icon.svelte'
 
@@ -11,135 +9,110 @@
     avatar: string
   }
 
-  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
   let { name, description, url, avatar }: Props = $props()
 </script>
 
-<a
-  href={url}
-  rel="external"
-  target="_blank"
-  class="container"
-  style:--curr-border-color={currTheme ?? 'initial'}
-  title={name}
->
-  <img src={avatar} alt={name + "'s home page"} class="avatar" />
-  <div class="info">
-    <p class="name">{name}</p>
-    <p class="description" title={description}>{description}</p>
-  </div>
-  <div class="arrow"><Icon icon={faAngleRight} size="1rem" /></div>
+<a href={url} rel="external" target="_blank" class="pal" title={name}>
+  <img
+    src={avatar}
+    alt={name + "'s home page"}
+    class="avatar"
+    width="40"
+    height="40"
+    loading="lazy"
+    decoding="async"
+  />
+
+  <span class="text">
+    <span class="name">{name}</span>
+    <span class="desc">{description}</span>
+  </span>
+
+  <span class="arrow" aria-hidden="true"><Icon icon={faAngleRight} size="0.7rem" /></span>
 </a>
 
 <style>
-  .container {
+  .pal {
     display: flex;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    height: 6.5rem;
+    align-items: center;
+    gap: 12px;
+    min-height: 60px;
+    padding: 8px 0;
+    color: inherit;
     text-decoration: none;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 0 1px var(--curr-border-color, var(--border-color));
-    padding: 1rem;
-    box-sizing: border-box;
-    z-index: 1;
-  }
-
-  .container::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: color-mix(in srgb, var(--curr-border-color, var(--border-color)), black 50%);
-    z-index: -1;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.2s ease-out;
-  }
-
-  .container:hover::before {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-
-  .container:hover .avatar {
-    transform: scale(0);
-    margin-right: 0;
-    height: 0;
-    opacity: 0;
-  }
-
-  .container:hover .arrow {
-    visibility: visible;
   }
 
   .avatar {
-    height: 100%;
-    aspect-ratio: 1;
-    width: auto;
-    object-fit: cover;
-    display: block;
-    border-radius: 9999px;
+    width: 40px;
+    height: 40px;
     flex-shrink: 0;
-    align-self: center;
-    margin-right: 1rem;
-    transform-origin: center left;
-    transition:
-      transform 0.3s ease-out,
-      margin 0.3s ease-out,
-      height 0.3s ease-out,
-      opacity 0.2s ease-out;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: color-mix(in srgb, var(--paper) 8%, transparent);
   }
 
-  .arrow {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    visibility: hidden;
-  }
-
-  .info {
+  .text {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    gap: 1px;
     min-width: 0;
   }
 
   .name {
-    margin: 0;
-    width: 100%;
-    font-size: 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--paper);
+    overflow-wrap: anywhere;
   }
 
-  .description {
-    font-size: 0.8rem;
-    width: 100%;
-    margin: 0.2rem 0;
+  .desc {
     display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+    color: var(--paper-dim);
+    overflow-wrap: anywhere;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
     line-clamp: 2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: color-mix(in srgb, var(--text-color), black 30%);
   }
 
-  @media (min-width: 800px) {
-    .container {
-      height: 5rem;
-      padding: 0.5rem;
+  .arrow {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--paper-mute);
+    opacity: 0.4;
+    transition:
+      color 0.18s var(--ease),
+      opacity 0.18s var(--ease),
+      transform 0.18s var(--ease);
+  }
+
+  .pal:hover .name,
+  .pal:focus-visible .name {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .pal:hover .arrow,
+  .pal:focus-visible .arrow {
+    color: var(--accent);
+    opacity: 1;
+    transform: translateX(2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .arrow {
+      transition: none;
     }
 
-    .avatar {
-      margin-right: 0.5rem;
-    }
-
-    .name {
-      font-size: 1rem;
-    }
-
-    .description {
-      font-size: 0.75rem;
+    .pal:hover .arrow {
+      transform: none;
     }
   }
 </style>

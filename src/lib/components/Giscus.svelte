@@ -77,23 +77,22 @@
 <style>
   .giscus_container {
     position: relative;
-    padding: 2rem;
-    min-height: 350px;
+    min-height: 320px;
+    padding: 0;
   }
 
   .bone_div {
     position: absolute;
-    inset: 2rem;
-    height: 250px;
-    border-radius: 0.5rem;
+    inset: 0;
+    height: 240px;
     background: linear-gradient(
       90deg,
-      rgba(42, 42, 42, 50%) 25%,
-      rgba(58, 58, 58, 50%) 50%,
-      rgba(42, 42, 42, 50%) 75%
+      transparent 0%,
+      color-mix(in srgb, var(--paper) 6%, transparent) 50%,
+      transparent 100%
     );
     background-size: 200% 100%;
-    animation: skeleton-pulse 1.5s infinite;
+    animation: skeleton-pulse 1.6s infinite;
   }
 
   .noscript {
