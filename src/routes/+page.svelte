@@ -48,7 +48,7 @@
     <span class="terminal_domain">{siteconfig.profile.props}</span>
     :
     <span class="terminal_path">~</span>
-    $ ls links
+    $ ls ./links
   </div>
   <div class="links_container">
     {#each siteconfig.profile.links as link (link.name)}
