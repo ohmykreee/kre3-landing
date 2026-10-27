@@ -1,6 +1,8 @@
 <script lang="ts">
   import { siteconfig } from '$lib/config/_loader'
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
+  import { flip } from 'svelte/animate'
+  import { cubicOut } from 'svelte/easing'
   import { fly } from 'svelte/transition'
   import EmblaCarousel from 'embla-carousel'
   import Autoplay from 'embla-carousel-autoplay'
@@ -11,7 +13,6 @@
   import loop0 from '$lib/assets/click-to-open/loop0.webp'
   import loop1 from '$lib/assets/click-to-open/loop1.webp'
   import LoopImg from './LoopImg.svelte'
-  import { createDrag } from '$lib/utils/use-drag.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
   const total = siteconfig.profile.bg.length
@@ -39,14 +40,62 @@
 
   const goToPrev = () => emblaApi?.scrollPrev()
   const goToNext = () => emblaApi?.scrollNext()
+  const goToSlide = (index: number) => {
+    emblaApi?.scrollTo(index)
+    emblaApi?.plugins().autoplay?.reset()
+  }
 
-  const drag = createDrag()
   const reopen = () => (getTerminal.isClosed = false)
+
+  // The controller changes from the desktop rail to a corner card when the
+  // workbench closes. Measure both layout states and slide between them instead
+  // of letting the card teleport.
+  let dockEl = $state<HTMLElement>()
+  let flipFrom: DOMRect | null = null
+  let lastClosed = getTerminal.isClosed
+  let flipAnim: Animation | null = null
+
+  $effect.pre(() => {
+    const closed = getTerminal.isClosed
+    if (closed === lastClosed) return
+    lastClosed = closed
+    flipFrom = dockEl?.getBoundingClientRect() ?? null
+  })
+
+  $effect(() => {
+    const closed = getTerminal.isClosed
+    if (!flipFrom || !dockEl) return
+    // this runs after the DOM update; bail out if the class has not caught up
+    if (closed !== dockEl.classList.contains('is-closed')) {
+      flipFrom = null
+      return
+    }
+    const from = flipFrom
+    flipFrom = null
+    flipAnim?.cancel()
+    const to = dockEl.getBoundingClientRect()
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const dx = from.left - to.left
+    const dy = from.top - to.top
+    if (Math.abs(dx) < 1 && Math.abs(dy) < 1) return
+
+    const config = flip(dockEl, { from, to }, { duration: 600, easing: cubicOut })
+    const fromTransform =
+      /transform:\s*([^;]+)/.exec(config.css?.(0, 1) ?? '')?.[1]?.trim() ?? 'none'
+    const toTransform = /transform:\s*([^;]+)/.exec(config.css?.(1, 0) ?? '')?.[1]?.trim() ?? 'none'
+
+    flipAnim = dockEl.animate([{ transform: fromTransform }, { transform: toTransform }], {
+      duration: config.duration ?? 600,
+      easing: 'cubic-bezier(0.215, 0.61, 0.355, 1)',
+      fill: 'none'
+    })
+  })
 </script>
 
-<div class="dock" class:is-closed={getTerminal.isClosed}>
+<div class="dock" class:is-closed={getTerminal.isClosed} bind:this={dockEl}>
   {#if getTerminal.isClosed}
-    <div class="recall" in:fly={{ y: 12, duration: 300 }}>
+    <div class="recall" in:fly={{ y: 10, duration: 300 }}>
       <button
         type="button"
         class="recall-btn"
@@ -61,24 +110,25 @@
           width="100%"
         />
       </button>
-      <p class="recall-label">Re-open</p>
     </div>
   {/if}
 
-  <aside
-    class="controller"
-    aria-label="Now showing"
-    style:--offset-x="{drag.offsetX}px"
-    style:--offset-y="{drag.offsetY}px"
-  >
-    <div class="head" {@attach drag.doDrag}>
+  <aside class="controller" aria-label="Now showing">
+    <div class="head">
       <span class="eyebrow">Now showing</span>
       <span class="count">{pad(getBg.index + 1)} / {pad(total)}</span>
     </div>
 
-    <div class="ln" aria-hidden="true">
+    <div class="ln" role="group" aria-label="Choose artwork">
       {#each siteconfig.profile.bg as bg, index (bg.title)}
-        <span class="ln-bar" class:active={index === getBg.index}></span>
+        <button
+          type="button"
+          class="ln-bar"
+          class:active={index === getBg.index}
+          aria-label={`Show ${bg.title}`}
+          aria-current={index === getBg.index ? 'true' : undefined}
+          onclick={() => goToSlide(index)}
+        ></button>
       {/each}
     </div>
 
@@ -164,17 +214,46 @@
   }
 
   .ln-bar {
+    position: relative;
     width: 4px;
     height: 9px;
+    padding: 0;
+    border: 0;
     border-radius: 1px;
     background-color: var(--line-strong);
     opacity: 0.7;
+    cursor: pointer;
+    transition:
+      height 0.16s var(--ease),
+      background-color 0.16s var(--ease),
+      opacity 0.16s var(--ease);
+  }
+
+  /* the bars are only 4px wide; widen the pointer target without moving them */
+  .ln-bar::before {
+    content: '';
+    position: absolute;
+    inset: -6px -3px;
+  }
+
+  .ln-bar:hover,
+  .ln-bar:focus-visible {
+    height: 12px;
+    background-color: var(--paper-mute);
+    opacity: 1;
   }
 
   .ln-bar.active {
-    height: 22px;
+    /* the selected tick matches the hovered tick height */
+    height: 12px;
     background-color: var(--accent);
     opacity: 1;
+    cursor: default;
+  }
+
+  .ln-bar.active:hover {
+    height: 12px;
+    background-color: var(--accent);
   }
 
   .frame {
@@ -349,10 +428,15 @@
     }
   }
 
-  /* pure artwork mode: only a small caption remains, with its own local scrim */
+  /* pure artwork mode: the controller is anchored to the viewport corner, not to
+     the document. A long closing workbench must not drag it below the fold. */
   .dock.is-closed {
-    position: static;
-    width: min(360px, 100%);
+    position: fixed;
+    top: auto;
+    right: var(--gutter);
+    bottom: calc(92px + clamp(16px, 4vh, 28px));
+    z-index: 3;
+    width: min(360px, calc(100vw - 2 * var(--gutter)));
     max-width: none;
     margin: 0;
     padding: 0;
@@ -390,15 +474,17 @@
   }
 
   .recall {
+    position: relative;
+    z-index: 2;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 14px;
+    align-items: flex-end;
+    justify-content: center;
+    margin: 0 0 -8px;
+    line-height: 0;
   }
 
   .recall-btn {
-    width: clamp(112px, 18vw, 156px);
+    width: min(18rem, 100%);
     padding: 0;
     border: 0;
     background: transparent;
@@ -414,35 +500,8 @@
   .recall-btn :global(img) {
     display: block;
     width: 100%;
-    border-radius: 50%;
-  }
-
-  .recall-label {
-    margin: 0;
-    padding: 4px 10px;
-    border-radius: 2px;
-    background-color: color-mix(in srgb, var(--ink) 76%, transparent);
-    font-family: var(--font-sans);
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 1.4;
-    color: var(--paper);
-  }
-
-  /* window drag boundary matches createDrag (> 800px) */
-  @media (min-width: 801px) {
-    .controller {
-      transform: translate(var(--offset-x, 0px), var(--offset-y, 0px));
-    }
-
-    .head {
-      cursor: grab;
-      touch-action: none;
-    }
-
-    .head:active {
-      cursor: grabbing;
-    }
+    aspect-ratio: 1203 / 481;
+    object-fit: contain;
   }
 
   @media (prefers-reduced-motion: reduce) {

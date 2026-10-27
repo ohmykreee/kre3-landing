@@ -156,27 +156,26 @@
 
   .stage {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: 100%;
     max-width: 1320px;
     margin-inline: auto;
     padding: clamp(16px, 2.8vh, 24px) var(--gutter) 0;
   }
 
-  /* pure artwork mode: no dim, no page chrome — just the controller over the art */
+  /* pure artwork mode: no dim, no page chrome — just the controller over the art.
+     The grid geometry itself must not change here: the closing workbench is still
+     in flow while its genie transition runs, so a layout swap would teleport it.
+     A definite height (instead of min-height) keeps the footer anchored to the
+     viewport even when the closing workbench is taller than the screen. */
   .stage.is-closed {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    justify-content: flex-end;
-    min-height: calc(100lvh - 92px);
-    max-width: none;
-    padding: 0 var(--gutter) clamp(16px, 4vh, 28px);
+    height: calc(100lvh - 92px);
+    min-height: 0;
   }
 
   /* compact main workspace + persistent "now showing" rail */
   @media (min-width: 1200px) {
-    .stage:not(.is-closed) {
+    .stage {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 280px;
       column-gap: clamp(24px, 2.4vw, 32px);

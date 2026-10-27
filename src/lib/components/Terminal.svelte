@@ -80,6 +80,7 @@
     --pad-y: clamp(12px, 2.2vw, 18px);
 
     position: relative;
+    z-index: 999;
     min-width: 0;
     padding: 0 var(--pad-x) clamp(24px, 3.2vw, 36px);
     background-color: color-mix(in srgb, var(--panel) 95%, transparent);
@@ -98,34 +99,15 @@
     background-color: color-mix(in srgb, var(--ink) 34%, transparent);
   }
 
-  /* rhythmic accent judgement line instead of a plain hairline */
+  /* solid accent judgement line instead of a segmented hairline */
   .masthead::after {
     content: '';
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
-    height: 3px;
-    background:
-      linear-gradient(
-        90deg,
-        transparent 0 12%,
-        var(--accent) 12% 16%,
-        transparent 16% 40%,
-        var(--accent) 40% 42.5%,
-        transparent 42.5% 68%,
-        var(--accent) 68% 73%,
-        transparent 73% 100%
-      ),
-      linear-gradient(90deg, var(--line) 0 100%);
-    background-repeat: no-repeat;
-    background-position:
-      0 0,
-      0 2px;
-    background-size:
-      100% 3px,
-      100% 1px;
-    opacity: 0.9;
+    height: 2px;
+    background-color: var(--accent);
   }
 
   .titlebar-drag {
