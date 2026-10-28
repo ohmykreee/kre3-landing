@@ -50,7 +50,7 @@
     min-width: 0;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 801px) {
     .list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }

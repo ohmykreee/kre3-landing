@@ -152,7 +152,7 @@
     backdrop-filter: blur(6px);
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: 801px) {
     .footer {
       padding-inline: clamp(24px, 3.4vw, 48px);
     }

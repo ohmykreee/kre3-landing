@@ -135,7 +135,7 @@
     background: transparent;
     color: var(--paper-dim);
     font-family: var(--font-sans);
-    font-size: 0.8125rem;
+    font-size: 0.9rem;
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
@@ -155,8 +155,8 @@
     position: absolute;
     left: 0;
     bottom: -4px;
-    width: 16px;
-    height: 1px;
+    width: 100%;
+    height: 2px;
     background-color: var(--accent);
     transform: scaleX(0);
     transform-origin: left center;
@@ -189,13 +189,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 2px 14px;
   }
 
   .collection-title {
     margin: 0;
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.75rem;
     font-weight: 650;
     line-height: 1.25;
     letter-spacing: -0.02em;
@@ -204,6 +203,7 @@
   }
 
   .collection-count {
+    margin-left: auto;
     font-family: var(--font-mono);
     font-size: 0.75rem;
     line-height: 1.4;

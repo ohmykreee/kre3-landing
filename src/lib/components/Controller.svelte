@@ -116,20 +116,18 @@
   <aside class="controller" aria-label="Now showing">
     <div class="head">
       <span class="eyebrow">Now showing</span>
-      <span class="count">{pad(getBg.index + 1)} / {pad(total)}</span>
-    </div>
-
-    <div class="ln" role="group" aria-label="Choose artwork">
-      {#each siteconfig.profile.bg as bg, index (bg.title)}
-        <button
-          type="button"
-          class="ln-bar"
-          class:active={index === getBg.index}
-          aria-label={`Show ${bg.title}`}
-          aria-current={index === getBg.index ? 'true' : undefined}
-          onclick={() => goToSlide(index)}
-        ></button>
-      {/each}
+      <div class="ln" role="group" aria-label="Choose artwork">
+        {#each siteconfig.profile.bg as bg, index (bg.title)}
+          <button
+            type="button"
+            class="ln-bar"
+            class:active={index === getBg.index}
+            aria-label={`Show ${bg.title}`}
+            aria-current={index === getBg.index ? 'true' : undefined}
+            onclick={() => goToSlide(index)}
+          ></button>
+        {/each}
+      </div>
     </div>
 
     <div class="frame">
@@ -181,27 +179,16 @@
     align-items: baseline;
     justify-content: space-between;
     gap: 12px;
-    padding-bottom: 8px;
+    padding: 0 2px 4px;
     user-select: none;
   }
 
   .eyebrow {
     font-family: var(--font-sans);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     font-weight: 400;
     line-height: 1.3;
     color: var(--paper-dim);
-    text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
-  }
-
-  .count {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 1.3;
-    color: var(--paper-mute);
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
     text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
   }
 
@@ -349,49 +336,8 @@
     color: var(--accent);
   }
 
-  /* in-flow controller on tablets and small laptops */
-  @media (min-width: 760px) and (max-width: 1199px) {
-    .dock {
-      max-width: 640px;
-    }
-
-    .controller {
-      grid-template-columns: 230px minmax(0, 1fr);
-      grid-template-areas:
-        'head head'
-        'ln ln'
-        'frame caption';
-      column-gap: 20px;
-      align-items: start;
-    }
-
-    .head {
-      grid-area: head;
-    }
-
-    .ln {
-      grid-area: ln;
-    }
-
-    .frame {
-      grid-area: frame;
-    }
-
-    .caption {
-      grid-area: caption;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
-      padding-top: 16px;
-    }
-
-    .btns {
-      margin: 0;
-    }
-  }
-
   /* persistent rail on desktop */
-  @media (min-width: 1200px) {
+  @media (min-width: 801px) {
     .dock {
       position: sticky;
       top: 24px;
@@ -490,11 +436,6 @@
     background: transparent;
     cursor: pointer;
     transition: filter 0.2s var(--ease);
-  }
-
-  .recall-btn:hover,
-  .recall-btn:focus-visible {
-    filter: brightness(1.08);
   }
 
   .recall-btn :global(img) {

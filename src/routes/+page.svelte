@@ -4,38 +4,34 @@
 </script>
 
 <div class="home">
+  <p class="prompt">
+    <span class="prompt-host">{siteconfig.profile.props}</span>
+    <span class="prompt-colon">:</span>
+    <span class="prompt-path">~</span>
+    <span class="prompt-dollar">$</span>
+    <span class="prompt-cmd">info</span>
+  </p>
   <header class="intro">
-    <p class="prompt">
-      <span class="prompt-host">{siteconfig.profile.props}</span>
-      <span class="prompt-colon">:</span>
-      <span class="prompt-path">~</span>
-      <span class="prompt-dollar">$</span>
-      <span class="prompt-cmd">info</span>
-    </p>
-
     <h1 class="name">{@html siteconfig.profile.name}</h1>
 
     <figure class="portrait">
       <img src={siteconfig.profile.avatar} alt="Portrait" />
     </figure>
-
-    <dl class="facts">
-      <div class="fact">
-        <dt>career</dt>
-        <dd>{@html siteconfig.profile.career}</dd>
-      </div>
-      <div class="fact">
-        <dt>species</dt>
-        <dd>{@html siteconfig.profile.species}</dd>
-      </div>
-      <div class="fact">
-        <dt>mail</dt>
-        <dd>{@html siteconfig.profile.email}</dd>
-      </div>
-    </dl>
   </header>
 
-  <div class="specs" aria-label="System specs">
+  <div class="specs" aria-label="Personal specs">
+    <p class="spec-row">
+      <span class="spec-key">Career</span>
+      <span class="spec-val">{@html siteconfig.profile.career}</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">Species</span>
+      <span class="spec-val">{@html siteconfig.profile.species}</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">Mail</span>
+      <span class="spec-val">{@html siteconfig.profile.email}</span>
+    </p>
     <p class="spec-row">
       <span class="spec-key">CPU</span>
       <span class="spec-val">DoggoBrain KindaStupid @ unknown</span>
@@ -60,7 +56,6 @@
         <li>
           <a href={link.url} rel="external" target="_blank">
             <span class="link-icon"><Icon icon={link.icon} size="0.875rem" /></span>
-            <span class="link-prefix" aria-hidden="true">./</span>
             <span class="link-name">{link.name}</span>
             <span class="link-arrow" aria-hidden="true">↗</span>
           </a>
@@ -82,7 +77,7 @@
     gap: 0 0.35ch;
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 1.125rem;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0;
@@ -107,17 +102,13 @@
   }
 
   .intro {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) clamp(112px, 16vw, 168px);
-    grid-template-areas:
-      'prompt portrait'
-      'name portrait'
-      'facts portrait';
-    column-gap: clamp(18px, 3vw, 28px);
-    align-items: start;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 24px;
   }
 
-  .intro .prompt {
+  .prompt {
     grid-area: prompt;
     margin-bottom: 14px;
   }
@@ -136,7 +127,7 @@
   }
 
   .name :global(sup) {
-    font-size: 0.38em;
+    font-size: 0.5em;
     line-height: 0;
     letter-spacing: -0.01em;
     vertical-align: super;
@@ -147,8 +138,6 @@
     position: relative;
     z-index: 1;
     isolation: isolate;
-    grid-area: portrait;
-    justify-self: end;
     width: 100%;
     margin: 0;
     transform: rotate(3.5deg);
@@ -176,52 +165,6 @@
       0 0 0 4px color-mix(in srgb, var(--accent) 54%, transparent);
   }
 
-  .facts {
-    grid-area: facts;
-    display: grid;
-    gap: 2px;
-    margin: 18px 0 0;
-  }
-
-  .fact {
-    display: grid;
-    grid-template-columns: 4.75rem minmax(0, 1fr);
-    gap: 12px;
-    align-items: baseline;
-  }
-
-  .fact dt {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    font-weight: 400;
-    line-height: 1.7;
-    color: var(--term-domain);
-  }
-
-  .fact dd {
-    margin: 0;
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    color: var(--paper);
-    overflow-wrap: anywhere;
-  }
-
-  .fact dd :global(a) {
-    text-decoration: underline;
-    text-decoration-color: var(--line-strong);
-    text-decoration-thickness: 1px;
-    text-underline-offset: 3px;
-    transition:
-      color 0.15s var(--ease),
-      text-decoration-color 0.15s var(--ease);
-  }
-
-  .fact dd :global(a:hover),
-  .fact dd :global(a:focus-visible) {
-    color: var(--accent);
-    text-decoration-color: var(--accent);
-  }
-
   .specs {
     display: grid;
     gap: 2px;
@@ -239,7 +182,8 @@
   }
 
   .spec-key {
-    width: 2.5rem;
+    font-size: 1rem;
+    width: 5rem;
     flex-shrink: 0;
     color: var(--accent);
     font-weight: 500;
@@ -247,6 +191,7 @@
   }
 
   .spec-val {
+    font-size: 1rem;
     color: var(--paper);
     overflow-wrap: anywhere;
   }
@@ -281,6 +226,7 @@
   }
 
   .link-icon {
+    font-size: 1.125rem;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -288,21 +234,15 @@
     transition: color 0.16s var(--ease);
   }
 
-  .link-prefix {
-    flex-shrink: 0;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--paper-mute);
-  }
-
   .link-name {
+    font-size: 1rem;
     min-width: 0;
     overflow-wrap: anywhere;
   }
 
   .link-arrow {
     margin-left: auto;
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1;
     color: var(--paper-mute);
     opacity: 0;
@@ -339,35 +279,38 @@
     transform: translate(0, 0);
   }
 
-  @media (min-width: 680px) {
+  @media (min-width: 801px) {
     .link-list {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-  }
-
-  @media (min-width: 1200px) {
-    .home {
-      max-width: none;
-    }
 
     .intro {
-      grid-template-columns: minmax(0, 1fr) clamp(170px, 13vw, 190px);
+      flex-direction: row;
+    }
+
+    .name {
+      flex-grow: 1;
+      min-width: 0;
     }
 
     .portrait {
-      transform: translate(calc(var(--pad-x, 32px) + 12px), -8px) rotate(3.5deg);
+      flex: 0 0 20%;
+      transform: translate(calc(var(--pad-x, 32px) - 48px), -8px) rotate(3.5deg);
     }
 
     .portrait::before {
       transform: translate(6px, 10px);
     }
+    .home {
+      max-width: none;
+    }
 
     .name {
-      font-size: clamp(4.5rem, 6vw, 5.5rem);
+      font-size: clamp(3.5rem, 4.5vw, 5.5rem);
     }
   }
 
-  @media (max-width: 679px) {
+  @media (max-width: 801px) {
     .intro {
       grid-template-areas:
         'prompt portrait'
@@ -389,8 +332,7 @@
   @media (prefers-reduced-motion: reduce) {
     .link-list a,
     .link-icon,
-    .link-arrow,
-    .fact dd :global(a) {
+    .link-arrow{
       transition: none;
     }
   }

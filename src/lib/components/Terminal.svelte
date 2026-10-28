@@ -7,7 +7,6 @@
   import { createDrag } from '$lib/utils/use-drag.svelte'
   import { getTerminal } from '$lib/utils/get-page-state.svelte'
   import { sectionMeta, sections } from '$lib/utils/sections'
-  import { siteconfig } from '$lib/config/_loader'
 
   interface Props {
     children: Snippet<[]>
@@ -17,7 +16,6 @@
 
   const drag = createDrag()
   const current = $derived(sectionMeta(page.url.pathname))
-  const brand = $derived(siteconfig.profile.name.replace(/\s*\([^)]*\)\s*$/, '').trim())
   const routePath = $derived(current.route === '/' ? '~' : `~${current.route}`)
 
   // closing is a desktop affordance, on the same boundary as createDrag
@@ -41,7 +39,7 @@
   >
     <header class="masthead">
       <div class="titlebar-drag" {@attach drag.doDrag} title="Drag to move">
-        <span class="wordmark">{brand}</span>
+        <span class="wordmark">doggobench</span>
         <span class="route-path" aria-hidden="true">{routePath}</span>
       </div>
 
@@ -53,7 +51,7 @@
           </a>
         {/each}
         {#if current.index === -1}
-          <span class="nav-link" aria-current="page">404</span>
+          <span class="nav-link" aria-current="page">{current.name}</span>
         {/if}
       </nav>
 
@@ -94,7 +92,7 @@
     align-items: center;
     gap: 0 20px;
     margin: 0 calc(-1 * var(--pad-x));
-    padding: var(--pad-y) var(--pad-x) 10px;
+    padding: calc(var(--pad-y) - 10px) var(--pad-x);
     background-color: rgba(11, 10, 9, 0.34);
     background-color: color-mix(in srgb, var(--ink) 34%, transparent);
   }
@@ -122,7 +120,7 @@
   .wordmark {
     flex-shrink: 0;
     font-family: var(--font-display);
-    font-size: 1.0625rem;
+    font-size: 1rem;
     font-weight: 650;
     line-height: 1;
     letter-spacing: -0.025em;
@@ -133,7 +131,7 @@
   .route-path {
     overflow: hidden;
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: 400;
     line-height: 1.2;
     color: var(--term-path);
@@ -158,7 +156,7 @@
     padding: 0 1px;
     color: var(--paper-dim);
     font-family: var(--font-sans);
-    font-size: 0.8125rem;
+    font-size: 1rem;
     font-weight: 450;
     line-height: 1;
     white-space: nowrap;
@@ -171,12 +169,11 @@
     left: 0;
     top: calc(50% + 0.6em);
     width: 0.9rem;
-    height: 1px;
+    height: 2px;
     background-color: var(--paper-mute);
-    transform: scaleX(0);
-    transform-origin: left center;
+    clip-path: inset(0 100% 0 0);
     transition:
-      transform 0.18s var(--ease),
+      clip-path 0.18s var(--ease),
       background-color 0.18s var(--ease);
   }
 
@@ -187,7 +184,7 @@
 
   .nav-link:hover::after,
   .nav-link:focus-visible::after {
-    transform: scaleX(1);
+    clip-path: inset(0 0 0 0);
   }
 
   .nav-link[aria-current='page'] {
@@ -196,7 +193,7 @@
 
   .nav-link[aria-current='page']::after {
     background-color: var(--accent);
-    transform: scaleX(1);
+    clip-path: inset(0 0 0 0);
   }
 
   .close {
@@ -205,8 +202,8 @@
 
   .close-dot {
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 0.75rem;
+    height: 0.75rem;
     border-radius: 50%;
     background-color: var(--close);
     box-shadow: 0 0 0 1px rgba(10, 9, 8, 0.25);
@@ -259,7 +256,7 @@
     .close:focus-visible .close-dot {
       box-shadow:
         0 0 0 1px rgba(10, 9, 8, 0.25),
-        0 0 0 5px color-mix(in srgb, var(--close) 18%, transparent);
+        0 0 0 3px color-mix(in srgb, var(--close) 30%, transparent);
       transform: scale(1.08);
     }
   }

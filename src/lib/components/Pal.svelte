@@ -43,8 +43,8 @@
   }
 
   .avatar {
-    width: 40px;
-    height: 40px;
+    width: 3rem;
+    height: 3rem;
     flex-shrink: 0;
     border-radius: 50%;
     object-fit: cover;
@@ -60,7 +60,7 @@
 
   .name {
     font-family: var(--font-sans);
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-weight: 600;
     line-height: 1.35;
     color: var(--paper);
@@ -70,7 +70,7 @@
   .desc {
     display: -webkit-box;
     overflow: hidden;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.45;
     color: var(--paper-dim);
     overflow-wrap: anywhere;
