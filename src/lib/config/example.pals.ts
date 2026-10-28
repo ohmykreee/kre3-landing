@@ -30,8 +30,7 @@ export const examplePals = [
   {
     name: 'TurboKre #5',
     url: 'https://kre3.net',
-    description:
-      'One line description.',
+    description: 'One line description.',
     avatar: 'https://avatars.githubusercontent.com/u/76862878#how.jpg'
   }
 ]

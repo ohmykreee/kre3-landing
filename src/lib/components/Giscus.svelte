@@ -77,14 +77,14 @@
 <style>
   .giscus_container {
     position: relative;
-    min-height: 320px;
+    min-height: 20rem;
     padding: 0;
   }
 
   .bone_div {
     position: absolute;
     inset: 0;
-    height: 240px;
+    height: 15rem;
     background: linear-gradient(
       90deg,
       transparent 0%,

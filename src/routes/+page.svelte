@@ -68,14 +68,14 @@
 <style>
   .home {
     min-width: 0;
-    max-width: 860px;
+    max-width: 53.75rem;
   }
 
   .prompt {
     display: flex;
     flex-wrap: wrap;
     gap: 0 0.35ch;
-    margin: 0;
+    margin: 0 0 0.875rem;
     font-family: var(--font-mono);
     font-size: 1.125rem;
     font-weight: 400;
@@ -105,16 +105,10 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    gap: 24px;
-  }
-
-  .prompt {
-    grid-area: prompt;
-    margin-bottom: 14px;
+    gap: 1.5rem;
   }
 
   .name {
-    grid-area: name;
     margin: 0;
     font-family: var(--font-display);
     font-size: clamp(2.75rem, 5.2vw, 4.5rem);
@@ -138,9 +132,9 @@
     position: relative;
     z-index: 1;
     isolation: isolate;
-    width: 100%;
-    margin: 0;
-    transform: rotate(3.5deg);
+    width: clamp(6rem, 16vw, 7rem);
+    margin: 0 0 0.625rem;
+    transform: rotate(2.5deg);
   }
 
   .portrait::before {
@@ -148,16 +142,16 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     background-color: color-mix(in srgb, var(--accent) 24%, transparent);
-    transform: translate(10px, 9px);
+    transform: translate(0.44rem, 0.44rem);
   }
 
   .portrait img {
     display: block;
     width: 100%;
     aspect-ratio: 1;
-    border-radius: 6px;
+    border-radius: 0.375rem;
     object-fit: cover;
     background-color: color-mix(in srgb, var(--paper) 8%, transparent);
     box-shadow:
@@ -167,16 +161,16 @@
 
   .specs {
     display: grid;
-    gap: 2px;
-    margin-top: clamp(20px, 2.8vw, 28px);
+    gap: 0.125rem;
+    margin-top: clamp(1.25rem, 2.8vw, 1.75rem);
   }
 
   .spec-row {
     display: flex;
-    gap: 14px;
+    gap: 0.875rem;
     margin: 0;
     font-family: var(--font-mono);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.7;
     color: var(--paper);
   }
@@ -197,17 +191,17 @@
   }
 
   .links-block {
-    margin-top: clamp(22px, 3.2vw, 30px);
+    margin-top: clamp(1.375rem, 3.2vw, 1.875rem);
   }
 
   .links-prompt {
-    margin-bottom: 4px;
+    margin-bottom: 0.25rem;
   }
 
   .link-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 16px;
+    gap: 0 1rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -216,9 +210,9 @@
   .link-list a {
     display: flex;
     align-items: center;
-    gap: 7px;
-    min-height: 44px;
-    padding: 6px 0;
+    gap: 0.44rem;
+    min-height: 2.75rem;
+    padding: 0.375rem 0;
     color: var(--paper-dim);
     font-size: 0.875rem;
     line-height: 1.3;
@@ -246,7 +240,7 @@
     line-height: 1;
     color: var(--paper-mute);
     opacity: 0;
-    transform: translate(-2px, 2px);
+    transform: translate(-0.125rem, 0.125rem);
     transition:
       opacity 0.16s var(--ease),
       transform 0.16s var(--ease),
@@ -291,48 +285,29 @@
     .name {
       flex-grow: 1;
       min-width: 0;
+      font-size: clamp(3.5rem, 4.5vw, 5.5rem);
     }
 
     .portrait {
       flex: 0 0 20%;
-      transform: translate(calc(var(--pad-x, 32px) - 48px), -8px) rotate(3.5deg);
+      width: auto;
+      margin: 0;
+      transform: translate(calc(var(--pad-x, 2rem) - 3rem), -0.5rem) rotate(3.5deg);
     }
 
     .portrait::before {
-      transform: translate(6px, 10px);
+      transform: translate(0.375rem, 0.625rem);
     }
+
     .home {
       max-width: none;
-    }
-
-    .name {
-      font-size: clamp(3.5rem, 4.5vw, 5.5rem);
-    }
-  }
-
-  @media (max-width: 801px) {
-    .intro {
-      grid-template-areas:
-        'prompt portrait'
-        'name name'
-        'facts facts';
-    }
-
-    .portrait {
-      width: clamp(96px, 16vw, 112px);
-      margin-bottom: 10px;
-      transform: rotate(2.5deg);
-    }
-
-    .portrait::before {
-      transform: translate(7px, 7px);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .link-list a,
     .link-icon,
-    .link-arrow{
+    .link-arrow {
       transition: none;
     }
   }

@@ -21,13 +21,13 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: clamp(18px, 3vw, 32px);
-    padding: clamp(4px, 2vw, 16px) 0;
+    gap: clamp(1.125rem, 3vw, 2rem);
+    padding: clamp(0.25rem, 2vw, 1rem) 0;
   }
 
   .portrait {
     flex-shrink: 0;
-    width: clamp(72px, 12vw, 96px);
+    width: clamp(4.5rem, 12vw, 6rem);
     border-radius: 50%;
   }
 
@@ -54,7 +54,7 @@
   }
 
   .message {
-    margin: 8px 0 0;
+    margin: 0.5rem 0 0;
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.5;
@@ -64,7 +64,7 @@
 
   .hint {
     max-width: 40ch;
-    margin: 14px 0 0;
+    margin: 0.875rem 0 0;
     font-family: var(--font-sans);
     font-size: 0.875rem;
     line-height: 1.6;

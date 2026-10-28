@@ -71,10 +71,10 @@
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 1360px;
+    max-width: 85rem;
     margin-inline: auto;
-    padding: 0 var(--gutter) clamp(20px, 3vw, 32px);
-    padding-top: clamp(24px, 4vh, 36px);
+    padding: 0 var(--gutter) clamp(1.25rem, 3vw, 2rem);
+    padding-top: clamp(1.5rem, 4vh, 2.25rem);
     transition: padding-top 0.6s var(--ease);
   }
 
@@ -83,8 +83,8 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: 0 24px;
-    padding-top: 6px;
+    gap: 0 1.5rem;
+    padding-top: 0.375rem;
     border-top: 1px solid var(--line);
     transition:
       background-color 0.6s var(--ease),
@@ -97,7 +97,7 @@
 
   .copy {
     margin: 0;
-    padding-block: 6px;
+    padding-block: 0.375rem;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 400;
@@ -115,7 +115,7 @@
   .source {
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 2.75rem;
     font-family: var(--font-sans);
     font-size: 0.75rem;
     font-weight: 400;
@@ -144,9 +144,9 @@
   }
 
   .footer.is-closed .inner {
-    padding: 6px 12px;
+    padding: 0.375rem 0.75rem;
     border-top-color: transparent;
-    border-radius: 2px;
+    border-radius: 0.125rem;
     background-color: color-mix(in srgb, var(--ink) 78%, transparent);
     -webkit-backdrop-filter: blur(6px);
     backdrop-filter: blur(6px);
@@ -154,7 +154,7 @@
 
   @media (min-width: 801px) {
     .footer {
-      padding-inline: clamp(24px, 3.4vw, 48px);
+      padding-inline: clamp(1.5rem, 3.4vw, 3rem);
     }
   }
 

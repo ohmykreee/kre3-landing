@@ -20,11 +20,11 @@
 <style>
   .pals {
     min-width: 0;
-    max-width: 860px;
+    max-width: 53.75rem;
   }
 
   .head {
-    margin-bottom: clamp(16px, 2.4vw, 24px);
+    margin-bottom: clamp(1rem, 2.4vw, 1.5rem);
   }
 
   .title {
@@ -40,7 +40,7 @@
   .list {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 0 clamp(24px, 4vw, 48px);
+    gap: 0 clamp(1.5rem, 4vw, 3rem);
     margin: 0;
     padding: 0;
     list-style: none;

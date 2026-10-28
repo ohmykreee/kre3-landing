@@ -138,7 +138,7 @@
               <span class="name-row">
                 <span class="name">{work.title}</span>
                 <span class="expand" aria-hidden="true">
-                  <Icon icon={faExpand} size="0.68rem" />
+                  <Icon icon={faExpand} size="0.7rem" />
                 </span>
               </span>
               {#if work.date}
@@ -162,7 +162,7 @@
 
   .works {
     column-count: 1;
-    column-gap: clamp(16px, 2vw, 22px);
+    column-gap: clamp(1rem, 2vw, 1.375rem);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -171,7 +171,7 @@
   .work_item {
     min-width: 0;
     margin: 0;
-    padding: 0 0 clamp(18px, 2.4vw, 28px);
+    padding: 0 0 clamp(1.125rem, 2.4vw, 1.75rem);
     break-inside: avoid;
   }
 
@@ -208,8 +208,8 @@
   .info {
     display: flex;
     flex-direction: column;
-    gap: 2px;
-    padding-top: 7px;
+    gap: 0.125rem;
+    padding-top: 0.44rem;
     min-width: 0;
   }
 
@@ -217,13 +217,13 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
+    gap: 0.75rem;
     min-width: 0;
   }
 
   .name {
     font-family: var(--font-sans);
-    font-size: 0.9375rem;
+    font-size: 0.95rem;
     font-weight: 600;
     line-height: 1.35;
     letter-spacing: -0.01em;
@@ -250,7 +250,7 @@
   }
 
   .desc {
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.5;
     color: var(--paper-dim);
     overflow-wrap: anywhere;
@@ -263,7 +263,7 @@
     color: var(--paper-dim);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 801px) {
     .works {
       column-count: 2;
     }
@@ -348,7 +348,7 @@
 
   :global(.pswp__custom-caption-description) {
     margin: 0.3rem 0 0;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.55;
     color: var(--paper-dim);
   }

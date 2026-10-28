@@ -78,7 +78,7 @@
     flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
-    gap: 6px 24px;
+    gap: 0.375rem 1.5rem;
   }
 
   .title {
@@ -111,15 +111,15 @@
 
   .workspace {
     display: block;
-    margin-top: clamp(20px, 3vw, 28px);
+    margin-top: clamp(1.25rem, 3vw, 1.75rem);
   }
 
   .index {
     display: flex;
     flex-wrap: wrap;
-    gap: 0 clamp(16px, 2.6vw, 24px);
+    gap: 0 clamp(1rem, 2.6vw, 1.5rem);
     min-width: 0;
-    padding-bottom: 10px;
+    padding-bottom: 0.625rem;
     border-bottom: 1px solid var(--line);
   }
 
@@ -128,9 +128,9 @@
     display: block;
     width: auto;
     max-width: 100%;
-    min-height: 44px;
+    min-height: 2.75rem;
     margin: 0;
-    padding: 4px 0 10px;
+    padding: 0.25rem 0 0.625rem;
     border: 0;
     background: transparent;
     color: var(--paper-dim);
@@ -154,7 +154,7 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -4px;
+    bottom: -0.25rem;
     width: 100%;
     height: 2px;
     background-color: var(--accent);
@@ -178,11 +178,11 @@
 
   .collection {
     min-width: 0;
-    margin-top: clamp(16px, 2.4vw, 22px);
+    margin-top: clamp(1rem, 2.4vw, 1.375rem);
   }
 
   .collection-head {
-    margin-bottom: clamp(12px, 2vw, 18px);
+    margin-bottom: clamp(0.75rem, 2vw, 1.125rem);
   }
 
   .collection-title-row {
@@ -214,14 +214,14 @@
 
   .collection-desc {
     max-width: 54ch;
-    margin: 4px 0 0;
+    margin: 0.25rem 0 0;
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--paper-dim);
   }
 
   .empty {
-    margin: clamp(24px, 3vw, 32px) 0 0;
+    margin: clamp(1.5rem, 3vw, 2rem) 0 0;
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--paper-dim);

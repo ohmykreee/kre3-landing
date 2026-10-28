@@ -35,9 +35,9 @@
   .pal {
     display: flex;
     align-items: center;
-    gap: 12px;
-    min-height: 60px;
-    padding: 8px 0;
+    gap: 0.75rem;
+    min-height: 3.75rem;
+    padding: 0.5rem 0;
     color: inherit;
     text-decoration: none;
   }
@@ -103,7 +103,7 @@
   .pal:focus-visible .arrow {
     color: var(--accent);
     opacity: 1;
-    transform: translateX(2px);
+    transform: translateX(0.125rem);
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -74,13 +74,13 @@
 
 <style>
   .workbench {
-    --pad-x: clamp(14px, 2.8vw, 32px);
-    --pad-y: clamp(12px, 2.2vw, 18px);
+    --pad-x: clamp(0.875rem, 2.8vw, 2rem);
+    --pad-y: clamp(0.75rem, 2.2vw, 1.125rem);
 
     position: relative;
     z-index: 999;
     min-width: 0;
-    padding: 0 var(--pad-x) clamp(24px, 3.2vw, 36px);
+    padding: 0 var(--pad-x) clamp(1.5rem, 3.2vw, 2.25rem);
     background-color: color-mix(in srgb, var(--panel) 95%, transparent);
   }
 
@@ -90,9 +90,9 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0 20px;
+    gap: 0 1.25rem;
     margin: 0 calc(-1 * var(--pad-x));
-    padding: calc(var(--pad-y) - 10px) var(--pad-x);
+    padding: calc(var(--pad-y) - 0.625rem) var(--pad-x);
     background-color: rgba(11, 10, 9, 0.34);
     background-color: color-mix(in srgb, var(--ink) 34%, transparent);
   }
@@ -112,9 +112,9 @@
     display: flex;
     flex: 1 1 auto;
     align-items: center;
-    gap: 12px;
+    gap: 0.75rem;
     min-width: 0;
-    min-height: 44px;
+    min-height: 2.75rem;
   }
 
   .wordmark {
@@ -144,7 +144,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0 clamp(16px, 3vw, 24px);
+    gap: 0 clamp(1rem, 3vw, 1.5rem);
     width: 100%;
   }
 
@@ -152,7 +152,7 @@
     position: relative;
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 2.75rem;
     padding: 0 1px;
     color: var(--paper-dim);
     font-family: var(--font-sans);
@@ -213,7 +213,7 @@
   }
 
   .content {
-    padding-top: clamp(20px, 2.8vw, 30px);
+    padding-top: clamp(1.25rem, 2.8vw, 1.875rem);
   }
 
   @media (min-width: 560px) {
@@ -243,9 +243,9 @@
       display: grid;
       flex-shrink: 0;
       place-items: center;
-      width: 44px;
-      height: 44px;
-      margin-left: -6px;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-left: -0.375rem;
       padding: 0;
       border: 0;
       background: transparent;

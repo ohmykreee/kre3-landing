@@ -158,9 +158,9 @@
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1320px;
+    max-width: 82.5rem;
     margin-inline: auto;
-    padding: clamp(16px, 2.8vh, 24px) var(--gutter) 0;
+    padding: clamp(1rem, 2.8vh, 1.5rem) var(--gutter) 0;
   }
 
   /* pure artwork mode: no dim, no page chrome — just the controller over the art.
@@ -169,7 +169,7 @@
      A definite height (instead of min-height) keeps the footer anchored to the
      viewport even when the closing workbench is taller than the screen. */
   .stage.is-closed {
-    height: calc(100lvh - 92px);
+    height: calc(100lvh - var(--closed-chrome));
     min-height: 0;
   }
 
@@ -177,11 +177,11 @@
   @media (min-width: 1200px) {
     .stage {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 280px;
-      column-gap: clamp(24px, 2.4vw, 32px);
+      grid-template-columns: minmax(0, 1fr) 17.5rem;
+      column-gap: clamp(1.5rem, 2.4vw, 2rem);
       align-items: start;
-      max-width: 1360px;
-      padding-inline: clamp(24px, 3.4vw, 48px);
+      max-width: 85rem;
+      padding-inline: clamp(1.5rem, 3.4vw, 3rem);
     }
   }
 </style>

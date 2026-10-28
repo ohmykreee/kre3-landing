@@ -15,10 +15,7 @@
   import LoopImg from './LoopImg.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
-  const total = siteconfig.profile.bg.length
   let emblaApi: EmblaCarouselType | undefined
-
-  const pad = (value: number) => String(value).padStart(2, '0')
 
   // do embla-carousel init
   const updateIndex = () => {
@@ -165,7 +162,7 @@
   .dock {
     width: 100%;
     min-width: 0;
-    margin-top: clamp(20px, 3vw, 28px);
+    margin-top: clamp(1.25rem, 3vw, 1.75rem);
   }
 
   .controller {
@@ -178,8 +175,8 @@
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 12px;
-    padding: 0 2px 4px;
+    gap: 0.75rem;
+    padding: 0 0.125rem 0.25rem;
     user-select: none;
   }
 
@@ -195,15 +192,15 @@
   .ln {
     display: flex;
     align-items: flex-end;
-    gap: 4px;
-    height: 22px;
-    margin: 0 0 9px;
+    gap: 0.25rem;
+    height: 1.375rem;
+    margin: 0 0 0.56rem;
   }
 
   .ln-bar {
     position: relative;
-    width: 4px;
-    height: 9px;
+    width: 0.25rem;
+    height: 0.56rem;
     padding: 0;
     border: 0;
     border-radius: 1px;
@@ -216,30 +213,30 @@
       opacity 0.16s var(--ease);
   }
 
-  /* the bars are only 4px wide; widen the pointer target without moving them */
+  /* the bars are only 0.25rem wide; widen the pointer target without moving them */
   .ln-bar::before {
     content: '';
     position: absolute;
-    inset: -6px -3px;
+    inset: -0.375rem -0.19rem;
   }
 
   .ln-bar:hover,
   .ln-bar:focus-visible {
-    height: 12px;
+    height: 0.75rem;
     background-color: var(--paper-mute);
     opacity: 1;
   }
 
   .ln-bar.active {
     /* the selected tick matches the hovered tick height */
-    height: 12px;
+    height: 0.75rem;
     background-color: var(--accent);
     opacity: 1;
     cursor: default;
   }
 
   .ln-bar.active:hover {
-    height: 12px;
+    height: 0.75rem;
     background-color: var(--accent);
   }
 
@@ -266,7 +263,7 @@
     display: block;
     width: 100%;
     aspect-ratio: 4 / 3;
-    max-height: 320px;
+    max-height: 20rem;
     object-fit: cover;
     object-position: center;
   }
@@ -275,14 +272,14 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 10px;
-    padding-top: 8px;
+    gap: 0.625rem;
+    padding-top: 0.5rem;
     text-shadow: 0 1px 10px rgba(10, 9, 8, 0.7);
   }
 
   .caption-text {
     display: grid;
-    gap: 2px;
+    gap: 0.125rem;
     min-width: 0;
   }
 
@@ -310,15 +307,15 @@
   .btns {
     display: flex;
     flex-shrink: 0;
-    gap: 2px;
-    margin: -9px -9px 0 0;
+    gap: 0.125rem;
+    margin: -0.56rem -0.56rem 0 0;
   }
 
   .nav-btn {
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
+    width: 2.75rem;
+    height: 2.75rem;
     padding: 0;
     border: 0;
     background: transparent;
@@ -340,11 +337,11 @@
   @media (min-width: 801px) {
     .dock {
       position: sticky;
-      top: 24px;
+      top: 1.5rem;
       width: 100%;
       margin: 0;
-      padding-top: clamp(14px, 2.4vw, 24px);
-      padding-left: 18px;
+      padding-top: clamp(0.875rem, 2.4vw, 1.5rem);
+      padding-left: 1.125rem;
       border-left: 1px solid var(--line);
     }
 
@@ -370,7 +367,7 @@
 
     .caption {
       grid-area: caption;
-      padding-top: 8px;
+      padding-top: 0.5rem;
     }
   }
 
@@ -380,9 +377,9 @@
     position: fixed;
     top: auto;
     right: var(--gutter);
-    bottom: calc(92px + clamp(16px, 4vh, 28px));
+    bottom: calc(var(--closed-chrome) + clamp(1rem, 4vh, 1.75rem));
     z-index: 3;
-    width: min(360px, calc(100vw - 2 * var(--gutter)));
+    width: min(22.5rem, calc(100vw - 2 * var(--gutter)));
     max-width: none;
     margin: 0;
     padding: 0;
@@ -396,11 +393,11 @@
       'ln'
       'frame'
       'caption';
-    padding: 14px 16px 12px;
+    padding: 0.875rem 1rem 0.75rem;
     background-color: color-mix(in srgb, var(--ink) 64%, transparent);
     -webkit-backdrop-filter: blur(12px) saturate(1.05);
     backdrop-filter: blur(12px) saturate(1.05);
-    border-radius: 2px;
+    border-radius: 0.125rem;
   }
 
   .dock.is-closed .frame {
@@ -411,11 +408,11 @@
   }
 
   .dock.is-closed .head {
-    padding-bottom: 7px;
+    padding-bottom: 0.44rem;
   }
 
   .dock.is-closed .caption {
-    padding-top: 7px;
+    padding-top: 0.44rem;
     border-top: 1px solid var(--line);
   }
 
@@ -425,7 +422,7 @@
     display: flex;
     align-items: flex-end;
     justify-content: center;
-    margin: 0 0 -8px;
+    margin: 0 0 -0.5rem;
     line-height: 0;
   }
 
