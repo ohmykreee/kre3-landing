@@ -19,30 +19,36 @@
       alt="Avatar"
       style:--curr-border-color={currTheme ?? 'initial'}
     />
-    <p class="bio_info">
+    <div class="bio_info">
       <span>Brief Introduction</span>
       <br />
       ------------------
       <br />
-      <span>Name:</span>
-      {@html siteconfig.profile.name}
-      <br />
-      <span>Career:</span>
-      {@html siteconfig.profile.career}
-      <br />
-      <span>Species:</span>
-      {@html siteconfig.profile.species}
-      <br />
-      <span>Mail:</span>
-      {@html siteconfig.profile.email}
-      <br />
-      <span>CPU:</span>
-      DoggoBrain KindaStupid @ unknown
-      <br />
-      <span>GPU:</span>
-      DoggoEyes NearSighted
-      <br />
-    </p>
+      <div class="bio_line">
+        <span>Name:</span>
+        {@html siteconfig.profile.name}
+      </div>
+      <div class="bio_line">
+        <span>Career:</span>
+        {@html siteconfig.profile.career}
+      </div>
+      <div class="bio_line">
+        <span>Species:</span>
+        {@html siteconfig.profile.species}
+      </div>
+      <div class="bio_line">
+        <span>Mail:</span>
+        {@html siteconfig.profile.email}
+      </div>
+      <div class="bio_line">
+        <span>CPU:</span>
+        DoggoBrain KindaStupid @ unknown
+      </div>
+      <div class="bio_line">
+        <span>GPU:</span>
+        DoggoEyes NearSighted
+      </div>
+    </div>
   </div>
   <div class="terminal_prompt">
     <span class="terminal_domain">{siteconfig.profile.props}</span>
@@ -101,6 +107,16 @@
 
   .bio_info {
     flex-grow: 1;
+    margin-top: 1rem;
+  }
+
+  .bio_line {
+    display: flex;
+  }
+
+  .bio_line span {
+    width: 6rem;
+    font-weight: 600;
   }
 
   .links_container {

@@ -12,3 +12,8 @@
   --terminal-domain: #4f9822;
   --terminal-path: #38639f;
 }
+
+::selection {
+  background: #ff6a3d;
+  color: #150f0a;
+}

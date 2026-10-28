@@ -100,8 +100,12 @@
     style:--offset-y="{offsetY.current}%"
   ></div>
 {/key}
-<Terminal {children} />
-<Footer />
+<div class="page" class:is-closed={getTerminal.isClosed}>
+  <main class="stage">
+    <Terminal {children} />
+  </main>
+  <Footer />
+</div>
 
 <style>
   @import '$lib/styles/_variable.css';
@@ -130,6 +134,21 @@
   :global(input, select, textarea, button) {
     font-family: inherit;
     color: inherit;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100lvh;
+  }
+
+  .stage {
+    min-width: 0;
+  }
+
+  .page.is-closed .stage {
+    flex: 1 1 0;
+    min-height: 0;
   }
 
   .bg {
