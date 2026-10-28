@@ -55,7 +55,7 @@
       {#each siteconfig.profile.links as link (link.name)}
         <li>
           <a href={link.url} rel="external" target="_blank">
-            <span class="link-icon"><Icon icon={link.icon} size="0.875rem" /></span>
+            <span class="link-icon"><Icon icon={link.icon} size="1rem" /></span>
             <span class="link-name">{link.name}</span>
             <span class="link-arrow" aria-hidden="true">↗</span>
           </a>
@@ -118,6 +118,7 @@
     color: var(--paper);
     text-wrap: balance;
     overflow-wrap: break-word;
+    text-align: center;
   }
 
   .name :global(sup) {
@@ -220,7 +221,6 @@
   }
 
   .link-icon {
-    font-size: 1.125rem;
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
@@ -236,6 +236,7 @@
 
   .link-arrow {
     margin-left: auto;
+    padding-right: 1rem;
     font-size: 1rem;
     line-height: 1;
     color: var(--paper-mute);

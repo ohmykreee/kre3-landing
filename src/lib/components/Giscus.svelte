@@ -59,6 +59,8 @@
 <div class="giscus_container" {@attach loadGiscus}>
   {#if !isLoaded}
     <div class="bone_div">
+      <p class="bone_label" aria-hidden="true">loading comments</p>
+      <span class="bone_line" aria-hidden="true"></span>
       <noscript>
         <p class="noscript">
           Please enable Javascript to use comments (powered by <a
@@ -77,36 +79,75 @@
 <style>
   .giscus_container {
     position: relative;
-    min-height: 20rem;
+    min-height: 12rem;
     padding: 0;
   }
 
   .bone_div {
     position: absolute;
     inset: 0;
-    height: 15rem;
+    display: grid;
+    place-content: start center;
+    gap: 0.625rem;
+    padding-top: clamp(1.5rem, 4vw, 2.5rem);
+    text-align: center;
+  }
+
+  .bone_label {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper-mute);
+  }
+
+  .bone_line {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    width: 9rem;
+    height: 1px;
+    background-color: var(--line);
+  }
+
+  .bone_line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    width: 45%;
     background: linear-gradient(
       90deg,
       transparent 0%,
-      color-mix(in srgb, var(--paper) 6%, transparent) 50%,
+      color-mix(in srgb, var(--accent) 70%, transparent) 50%,
       transparent 100%
     );
-    background-size: 200% 100%;
-    animation: skeleton-pulse 1.6s infinite;
+    animation: skeleton-sweep 1.6s var(--ease) infinite;
   }
 
   .noscript {
-    width: 100%;
-    text-align: center;
-    opacity: 0.7;
+    max-width: 32ch;
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--paper-mute);
   }
 
-  @keyframes skeleton-pulse {
+  @keyframes skeleton-sweep {
     0% {
-      background-position: 200% 0;
+      transform: translateX(-100%);
     }
     100% {
-      background-position: -200% 0;
+      transform: translateX(230%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bone_line::after {
+      animation: none;
+      opacity: 0.5;
     }
   }
 </style>

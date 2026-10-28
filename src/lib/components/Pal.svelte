@@ -33,36 +33,53 @@
 
 <style>
   .pal {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 0.75rem;
-    min-height: 3.75rem;
-    padding: 0.5rem 0;
+    min-height: 4rem;
+    margin-inline: -0.5rem;
+    padding: 0.5rem;
     color: inherit;
     text-decoration: none;
+    isolation: isolate;
+  }
+
+  .pal::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: color-mix(in srgb, var(--accent) 7%, transparent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.22s var(--ease);
   }
 
   .avatar {
-    width: 3rem;
-    height: 3rem;
+    width: 2.75rem;
+    height: 2.75rem;
     flex-shrink: 0;
     border-radius: 50%;
     object-fit: cover;
     background-color: color-mix(in srgb, var(--paper) 8%, transparent);
+    box-shadow: 0 0 0 1px var(--line);
+    transition: box-shadow 0.18s var(--ease);
   }
 
   .text {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 0.125rem;
     min-width: 0;
   }
 
   .name {
-    font-family: var(--font-sans);
+    font-family: var(--font-display);
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.35;
+    letter-spacing: -0.005em;
     color: var(--paper);
     overflow-wrap: anywhere;
   }
@@ -70,6 +87,7 @@
   .desc {
     display: -webkit-box;
     overflow: hidden;
+    font-family: var(--font-sans);
     font-size: 0.875rem;
     line-height: 1.45;
     color: var(--paper-dim);
@@ -91,6 +109,16 @@
       transform 0.18s var(--ease);
   }
 
+  .pal:hover::before,
+  .pal:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .pal:hover .avatar,
+  .pal:focus-visible .avatar {
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 55%, transparent);
+  }
+
   .pal:hover .name,
   .pal:focus-visible .name {
     text-decoration: underline;
@@ -107,6 +135,8 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .pal::before,
+    .avatar,
     .arrow {
       transition: none;
     }
