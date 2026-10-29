@@ -1,6 +1,6 @@
 <script lang="ts">
   import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
-  import Icon from './Icon.svelte'
+  import Icon from '$lib/components/Icon.svelte'
 
   interface Props {
     name: string

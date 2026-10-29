@@ -12,7 +12,7 @@
   import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import loop0 from '$lib/assets/click-to-open/loop0.webp'
   import loop1 from '$lib/assets/click-to-open/loop1.webp'
-  import LoopImg from './LoopImg.svelte'
+  import LoopImg from '$lib/components/LoopImg.svelte'
 
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
   let emblaApi: EmblaCarouselType | undefined

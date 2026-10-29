@@ -22,12 +22,12 @@
     </div>
 
     {#if headings.length > 0}
-      <nav class="toc" aria-label="On this page">
-        <p class="toc-label">On this page</p>
+      <nav class="toc" aria-label="Table of Contents">
+        <p class="toc-label">Table of Contents</p>
         <ul class="toc-list">
-          {#each headings as item (item.id)}
+          {#each headings as item, i (item.id)}
             <li>
-              <a class="toc-link" href="#{item.id}">{item.text}</a>
+              <a class="toc-link" href="#{item.id}"><div class="toc-id">[{String(i + 1).padStart(2, '0')}]</div> {item.text}</a>
             </li>
           {/each}
         </ul>
@@ -125,10 +125,25 @@
     color: var(--paper);
   }
 
-  /* Mobile first: the index is a desktop affordance only. */
   .toc {
     display: none;
   }
+
+  @media (min-width: 801px) {
+    .body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 10rem;
+      column-gap: 2rem;
+      align-items: start;
+    }
+
+    .toc {
+      position: sticky;
+      top: 1.5rem;
+      display: block;
+      padding-left: 1rem;
+      border-left: 1px solid var(--line);
+    }
 
   .toc-label {
     margin: 0 0 0.625rem;
@@ -163,21 +178,17 @@
     color: var(--accent);
   }
 
-  @media (min-width: 801px) {
-    .body {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 10rem;
-      column-gap: 2rem;
-      align-items: start;
-    }
-
-    .toc {
-      position: sticky;
-      top: 1.5rem;
-      display: block;
-      padding-left: 1rem;
-      border-left: 1px solid var(--line);
-    }
+  .toc-id {
+    display: inline-block;
+    width: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    color: var(--paper-mute);
+    text-align: left;
+  }
   }
 
   @media (prefers-reduced-motion: reduce) {

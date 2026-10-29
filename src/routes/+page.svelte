@@ -1,5 +1,6 @@
 <script lang="ts">
   import { siteconfig } from '$lib/config/_loader'
+  import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import Icon from '$lib/components/Icon.svelte'
 </script>
 
@@ -57,7 +58,7 @@
           <a href={link.url} rel="external" target="_blank">
             <span class="link-icon"><Icon icon={link.icon} size="1rem" /></span>
             <span class="link-name">{link.name}</span>
-            <span class="link-arrow" aria-hidden="true">↗</span>
+            <span class="link-arrow" aria-hidden="true"><Icon icon={faAngleRight} size="0.75rem" /></span>
           </a>
         </li>
       {/each}
@@ -77,7 +78,7 @@
     gap: 0 0.35ch;
     margin: 0 0 0.875rem;
     font-family: var(--font-mono);
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0;
@@ -237,11 +238,10 @@
   .link-arrow {
     margin-left: auto;
     padding-right: 1rem;
-    font-size: 1rem;
+    font-size: 0.75rem;
     line-height: 1;
     color: var(--paper-mute);
     opacity: 0;
-    transform: translate(-0.125rem, 0.125rem);
     transition:
       opacity 0.16s var(--ease),
       transform 0.16s var(--ease),
