@@ -19,7 +19,7 @@
   const drag = createDrag()
   const torch = createTorch()
   const current = $derived(sectionMeta(page.url.pathname))
-  const routePath = $derived(current.route === '/' ? '~' : `~${current.route}`)
+  const routePath = $derived(page.url.pathname === '/' ? '~' : `~${page.url.pathname}`)
 
   // closing is a desktop affordance, on the same boundary as createDrag
   function doCloseTerminal() {
@@ -61,7 +61,7 @@
 
       <nav class="nav" aria-label="Sections">
         {#each sections as tab (tab.name)}
-          {@const active = page.url.pathname === tab.route}
+          {@const active = current.route === tab.route}
           <a href={resolve(tab.route)} class="nav-link" aria-current={active ? 'page' : undefined}>
             {tab.name}
           </a>

@@ -1,17 +1,17 @@
 <script lang="ts">
+  import { resolve } from '$app/paths'
   import { siteconfig } from '$lib/config/_loader'
   import Lightbox from '$lib/components/Lightbox.svelte'
+  import type { PageData } from './$types'
 
-  let activeIndex = $state(0)
+  let { data }: { data: PageData } = $props()
+
+  let activeIndex = $derived(data.activeIndex)
   let activeCollection = $derived(siteconfig.portfolio[activeIndex])
   let collectionCount = $derived(siteconfig.portfolio.length)
   let totalWorks = $derived(
     siteconfig.portfolio.reduce((total, collection) => total + collection.item.length, 0)
   )
-
-  function selectCollection(index: number) {
-    activeIndex = index
-  }
 </script>
 
 <div class="folio">
@@ -32,15 +32,14 @@
     <div class="workspace">
       <nav class="index" aria-label="Collections">
         {#each siteconfig.portfolio as collection, index (collection.title + index)}
-          <button
-            type="button"
+          <a
+            href={resolve('/folio/[[collection]]', { collection: String(index + 1) })}
             class="collection-link"
-            aria-pressed={index === activeIndex}
+            aria-current={index === activeIndex ? 'page' : undefined}
             title={collection.title}
-            onclick={() => selectCollection(index)}
           >
             <span class="collection-label">{collection.title}</span>
-          </button>
+          </a>
         {/each}
       </nav>
 
@@ -139,6 +138,7 @@
     font-weight: 400;
     line-height: 1.35;
     text-align: left;
+    text-decoration: none;
     overflow-wrap: anywhere;
     cursor: pointer;
     transition: color 0.16s var(--ease);
@@ -168,11 +168,11 @@
     color: var(--paper);
   }
 
-  .collection-link[aria-pressed='true'] {
+  .collection-link[aria-current='page'] {
     color: var(--paper);
   }
 
-  .collection-link[aria-pressed='true'] .collection-label::after {
+  .collection-link[aria-current='page'] .collection-label::after {
     transform: scaleX(1);
   }
 
