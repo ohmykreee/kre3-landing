@@ -58,7 +58,9 @@
           <a href={link.url} rel="external" target="_blank">
             <span class="link-icon"><Icon icon={link.icon} size="1rem" /></span>
             <span class="link-name">{link.name}</span>
-            <span class="link-arrow" aria-hidden="true"><Icon icon={faAngleRight} size="0.75rem" /></span>
+            <span class="link-arrow" aria-hidden="true">
+              <Icon icon={faAngleRight} size="0.75rem" />
+            </span>
           </a>
         </li>
       {/each}
