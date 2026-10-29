@@ -2,6 +2,8 @@
   import { siteconfig } from '$lib/config/_loader'
   import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import Icon from '$lib/components/Icon.svelte'
+
+  const stateEmoji = siteconfig.profile.stateEmoji?.trim()
 </script>
 
 <div class="home">
@@ -17,6 +19,16 @@
 
     <figure class="portrait">
       <img src={siteconfig.profile.avatar} alt="Portrait" />
+      {#if stateEmoji}
+        <span
+          class="state-badge"
+          role="img"
+          aria-label="Current status: {stateEmoji}"
+          title="Current status: {stateEmoji}"
+        >
+          {stateEmoji}
+        </span>
+      {/if}
     </figure>
   </header>
 
@@ -133,12 +145,14 @@
   }
 
   .portrait {
+    --portrait-tilt: 2.5deg;
+
     position: relative;
     z-index: 1;
     isolation: isolate;
     width: clamp(6rem, 16vw, 7rem);
     margin: 0 0 0.625rem;
-    transform: rotate(2.5deg);
+    transform: rotate(var(--portrait-tilt));
   }
 
   .portrait::before {
@@ -161,6 +175,31 @@
     box-shadow:
       0 0 0 2px color-mix(in srgb, var(--panel) 92%, transparent),
       0 0 0 4px color-mix(in srgb, var(--accent) 54%, transparent);
+  }
+
+  /* current-state capsule, pinned to the portrait's lower-right corner */
+  .state-badge {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    height: 2.25rem;
+    padding: 0 0.625rem;
+    border: 2px solid var(--theme, var(--accent));
+    border-radius: 999px;
+    background-color: var(--panel);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--panel) 92%, transparent),
+      0 0.35rem 0.85rem rgba(10, 9, 8, 0.45);
+    font-size: 1.2rem;
+    line-height: 1;
+    transform: rotate(calc(var(--portrait-tilt) * -1));
+    transform-origin: center;
+    user-select: none;
   }
 
   .specs {
@@ -288,14 +327,16 @@
     .name {
       flex-grow: 1;
       min-width: 0;
-      font-size: clamp(3.5rem, 4.5vw, 5.5rem);
+      font-size: clamp(4rem, 4.5vw, 4.8rem);
     }
 
     .portrait {
+      --portrait-tilt: 3.5deg;
+
       flex: 0 0 20%;
       width: auto;
       margin: 0;
-      transform: translate(calc(var(--pad-x, 2rem) - 3rem), -0.5rem) rotate(3.5deg);
+      transform: translate(calc(var(--pad-x) - 5rem), -0.5rem) rotate(var(--portrait-tilt));
     }
 
     .portrait::before {

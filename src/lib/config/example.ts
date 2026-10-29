@@ -19,6 +19,7 @@ const siteconfig: Config = {
     email: '<a href="mailto:contact@kre3.net">contact@kre3.net</a>',
     props: 'kyree@kre3.net',
     career: 'Not a student',
+    stateEmoji: '🦊',
     links: [
       { name: 'GitHub', icon: faGithub, url: 'https://github.com/ohmykreee' },
       { name: 'BlueSky', icon: faSquareBluesky, url: 'https://bsky.app/profile/kreee.bsky.social' },

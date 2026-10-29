@@ -24,6 +24,7 @@ export interface ProfileConfig {
   links: { icon: IconDefinition; name: string; url: string }[]
   props: string
   career: string
+  stateEmoji?: string
   bg: ArtworkInfo[]
 }
 
