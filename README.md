@@ -23,11 +23,13 @@ My personal landing page at [kre3.net](https://kre3.net). Using Svelte 5 & Svelt
 
 BE CAUTIOUS that you must make `default.ts`'s structure correct, or DO NOT leave `default.ts` empty, or the site will not work. (the `_loader.ts` will first try to load `default.ts` then `example.ts` when it isn't exist.)
 
-4. change the code the config file not covered and happy hacking,
+4. place your own static files under `src/lib/config/default/static`, including `llms.txt`.
 
-5. `pnpm dev --host=0.0.0.0` to run a dev server binding 0.0.0.0, `pnpm lint` to do lint and format check, `pnpm format` to use prettier to format, `pnpm build` to generate static site file to `build` casue it's a SSG project.
+5. change the code the config file not covered and happy hacking,
 
-6. use `MODE=test pnpm dev --host=0.0.0.0` to handily select example config file.
+6. `pnpm dev --host=0.0.0.0` to run a dev server binding 0.0.0.0, `pnpm lint` to do lint and format check, `pnpm format` to use prettier to format, `pnpm build` to generate static site file to `build` casue it's a SSG project.
+
+7. use `MODE=test pnpm dev --host=0.0.0.0` to handily select example config file.
 
 ### About Github CI/CD
 
