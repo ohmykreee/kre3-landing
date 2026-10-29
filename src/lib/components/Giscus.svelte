@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { Attachment } from 'svelte/attachments'
   import type { GiscusConfig } from '$lib/config/_loader'
+  import { buildGiscusThemeUrl } from '$lib/utils/giscus-theme'
 
   interface Props {
     host?: string
@@ -25,16 +26,13 @@
     'data-reactions-enabled': config.reactionsEnabled || '1',
     'data-emit-metadata': config.emitMetadata || '0',
     'data-input-position': config.inputPosition || 'top',
-    'data-theme': config.theme || 'preferred_color_scheme',
     'data-lang': config.lang || 'en',
     'data-loading': loading || 'eager'
   })
 
   const loadGiscus: Attachment<HTMLElement> = (element) => {
-    const script = document.createElement('script')
-    Object.entries(attrs).forEach(([key, value]) => {
-      script.setAttribute(key, value)
-    })
+    let script: HTMLScriptElement | null = null
+    let disposed = false
 
     const giscusOrigin = host ? new URL(host).origin : 'https://giscus.app'
     const handleMessage = (event: MessageEvent) => {
@@ -46,12 +44,47 @@
     }
     window.addEventListener('message', handleMessage)
 
-    element.appendChild(script)
-    return () => {
-      window.removeEventListener('message', handleMessage)
-      if (script.parentNode) {
-        script.parentNode.removeChild(script)
+    let iframe: HTMLIFrameElement | null = null
+    const markLoaded = () => {
+      isLoaded = true
+    }
+
+    // The skeleton is only a bridge until giscus boots. After that its own
+    // (themed) loader takes over, so don't wait for a data message that may
+    // depend on a successful GitHub request.
+    const observer = new MutationObserver(() => {
+      const frame = element.querySelector<HTMLIFrameElement>('iframe.giscus-frame')
+      if (!frame) return
+
+      iframe = frame
+      observer.disconnect()
+
+      if (frame.classList.contains('giscus-frame--loading')) {
+        frame.addEventListener('load', markLoaded, { once: true })
+      } else {
+        markLoaded()
       }
+    })
+    observer.observe(element, { childList: true, subtree: true })
+
+    void buildGiscusThemeUrl(config.theme || 'dark').then((theme) => {
+      if (disposed) return
+
+      const nextScript = document.createElement('script')
+      Object.entries({ ...attrs, 'data-theme': theme }).forEach(([key, value]) => {
+        nextScript.setAttribute(key, value)
+      })
+
+      script = nextScript
+      element.appendChild(nextScript)
+    })
+
+    return () => {
+      disposed = true
+      observer.disconnect()
+      window.removeEventListener('message', handleMessage)
+      iframe?.removeEventListener('load', markLoaded)
+      script?.remove()
     }
   }
 </script>
@@ -59,7 +92,7 @@
 <div class="giscus_container" {@attach loadGiscus}>
   {#if !isLoaded}
     <div class="bone_div">
-      <p class="bone_label" aria-hidden="true">loading comments</p>
+      <p class="bone_label" aria-hidden="true">loading Giscus</p>
       <span class="bone_line" aria-hidden="true"></span>
       <noscript>
         <p class="noscript">
@@ -88,6 +121,7 @@
     inset: 0;
     display: grid;
     place-content: start center;
+    justify-items: center;
     gap: 0.625rem;
     padding-top: clamp(1.5rem, 4vw, 2.5rem);
     text-align: center;
@@ -121,7 +155,7 @@
     background: linear-gradient(
       90deg,
       transparent 0%,
-      color-mix(in srgb, var(--accent) 70%, transparent) 50%,
+      color-mix(in srgb, var(--paper-dim) 70%, transparent) 50%,
       transparent 100%
     );
     animation: skeleton-sweep 1.6s var(--ease) infinite;

@@ -2,10 +2,12 @@
   import { page } from '$app/state'
   import { resolve } from '$app/paths'
   import type { Snippet } from 'svelte'
+  import { fade } from 'svelte/transition'
 
   import { genie } from '$lib/utils/genie-effect.svelte'
   import { createDrag } from '$lib/utils/use-drag.svelte'
-  import { getTerminal } from '$lib/utils/get-page-state.svelte'
+  import { createTorch } from '$lib/utils/use-torch-effect.svelte'
+  import { getTerminal, getBg } from '$lib/utils/get-page-state.svelte'
   import { sectionMeta, sections } from '$lib/utils/sections'
 
   interface Props {
@@ -15,6 +17,7 @@
   let { children }: Props = $props()
 
   const drag = createDrag()
+  const torch = createTorch()
   const current = $derived(sectionMeta(page.url.pathname))
   const routePath = $derived(current.route === '/' ? '~' : `~${current.route}`)
 
@@ -36,7 +39,20 @@
     style:--offset-x="{drag.offsetX}px"
     style:--offset-y="{drag.offsetY}px"
     transition:genie={{ duration: 600 }}
+    {@attach torch.track}
   >
+    {#key getBg.index}
+      <div
+        class="edge-torch"
+        aria-hidden="true"
+        style:--torch-x={torch.active ? `${torch.x}px` : '-100%'}
+        style:--torch-y={torch.active ? `${torch.y}px` : '-100%'}
+        style:opacity={torch.active ? 1 : 0}
+        style:transition-duration={torch.active ? null : '0s'}
+        transition:fade
+      ></div>
+    {/key}
+
     <header class="masthead">
       <div class="titlebar-drag" {@attach drag.doDrag} title="Drag to move">
         <span class="wordmark">doggobench</span>
@@ -82,6 +98,38 @@
     min-width: 0;
     padding: 0 var(--pad-x) clamp(1.5rem, 3.2vw, 2.25rem);
     background-color: color-mix(in srgb, var(--panel) 95%, transparent);
+  }
+
+  /* Hidden perimeter line, revealed only inside the pointer's torch circle.
+     The mask falls off radially, so the border gets fainter the further it is
+     from the pointer. Keeping the ring on its own layer limits each frame's
+     repaint to this 1px border instead of the whole workbench. */
+  .edge-torch {
+    --torch-radius: clamp(9rem, 22vw, 18rem);
+
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    border: 1px solid var(--theme, var(--signal));
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+    -webkit-mask-image: radial-gradient(
+      circle var(--torch-radius) at var(--torch-x, -100%) var(--torch-y, -100%),
+      #000 0%,
+      #000 30%,
+      rgb(0 0 0 / 0.72) 58%,
+      rgb(0 0 0 / 0.28) 80%,
+      transparent 100%
+    );
+    mask-image: radial-gradient(
+      circle var(--torch-radius) at var(--torch-x, -100%) var(--torch-y, -100%),
+      #000 0%,
+      #000 30%,
+      rgb(0 0 0 / 0.72) 58%,
+      rgb(0 0 0 / 0.28) 80%,
+      transparent 100%
+    );
   }
 
   /* OS titlebar: real route path, draggable surface, red close dot */
