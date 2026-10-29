@@ -31,7 +31,7 @@ const config = {
     paths: {
       relative: false
     },
-    inlineStyleThreshold: 2048,
+    inlineStyleThreshold: 8192,
     alias: {
       '$site-config': target()
     }
