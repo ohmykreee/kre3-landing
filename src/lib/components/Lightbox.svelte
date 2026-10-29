@@ -87,7 +87,11 @@
         appendTo: 'root',
         onInit: (el) => {
           if (currTheme) {
-            el.style.setProperty('--pswp-caption-accent', currTheme)
+            /* lift the raw artwork hex until it is readable on the dark caption */
+            el.style.setProperty(
+              '--pswp-caption-accent',
+              `color-mix(in oklab, ${currTheme} 55%, #f3ede3 45%)`
+            )
           }
           const updateCaption = () => renderCaption(el)
           updateCaption()
@@ -107,41 +111,41 @@
   })
 </script>
 
-<div class="lightbox" style:--curr-theme-color={currTheme}>
+<div class="lightbox">
   {#if collection.item.length === 0}
-    <p class="empty_collection">No works in this collection yet.</p>
+    <p class="empty">No works in this collection yet.</p>
   {:else}
     <ul class="works">
       {#each collection.item as work, index (work.imgUrl + index)}
         <li class="work_item">
           <button
             type="button"
-            class="work_card"
+            class="work"
             title={work.title}
             onclick={() => lightbox?.loadAndOpen(index)}
           >
-            <img
-              class="work_image"
-              src={work.imgUrl}
-              width={work.width}
-              height={work.height}
-              alt={work.description ? `${work.title} — ${work.description}` : work.title}
-              loading={index < 2 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
-            <span class="work_body">
-              <span class="work_heading">
-                <span class="work_index">{String(index + 1).padStart(2, '0')}</span>
-                <span class="work_title">{work.title}</span>
-                <span class="work_icon" aria-hidden="true">
+            <span class="media">
+              <img
+                src={work.imgUrl}
+                width={work.width}
+                height={work.height}
+                alt={work.description ? `${work.title} — ${work.description}` : work.title}
+                loading={index < 2 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </span>
+            <span class="info">
+              <span class="name-row">
+                <span class="name">{work.title}</span>
+                <span class="expand" aria-hidden="true">
                   <Icon icon={faExpand} size="0.7rem" />
                 </span>
               </span>
               {#if work.date}
-                <span class="work_date">{work.date}</span>
+                <span class="date">{work.date}</span>
               {/if}
               {#if work.description}
-                <span class="work_description">{work.description}</span>
+                <span class="desc">{work.description}</span>
               {/if}
             </span>
           </button>
@@ -157,156 +161,152 @@
   }
 
   .works {
+    column-count: 1;
+    column-gap: clamp(1rem, 2vw, 1.375rem);
     margin: 0;
     padding: 0;
     list-style: none;
-    column-count: 1;
-    column-gap: 0.75rem;
-    min-width: 0;
   }
 
   .work_item {
-    break-inside: avoid;
-    min-width: 0;
-    margin: 0 0 0.75rem;
-  }
-
-  .work_card {
-    display: block;
-    width: 100%;
     min-width: 0;
     margin: 0;
+    padding: 0 0 clamp(1.125rem, 2.4vw, 1.75rem);
+    break-inside: avoid;
+  }
+
+  .work {
+    display: block;
+    width: 100%;
+    margin: 0;
     padding: 0;
-    overflow: hidden;
-    border: 2px solid
-      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), transparent 72%);
-    border-radius: 0.375rem;
-    background-color: rgba(0, 0, 0, 0.28);
-    color: var(--text-color);
+    border: 0;
+    background: transparent;
+    color: var(--paper);
     font: inherit;
     text-align: left;
     cursor: zoom-in;
     appearance: none;
     -webkit-appearance: none;
-    transition:
-      transform 0.18s ease,
-      border-color 0.18s ease,
-      background-color 0.18s ease;
   }
 
-  .work_image {
+  .media {
+    display: block;
+    overflow: hidden;
+    background-color: #0c0b0a;
+  }
+
+  .media img {
     display: block;
     width: 100%;
     height: auto;
-    background-color: rgba(255, 255, 255, 0.02);
+    transition:
+      filter 0.28s var(--ease),
+      opacity 0.28s var(--ease);
   }
 
-  .work_body {
-    display: block;
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding-top: 0.44rem;
     min-width: 0;
-    padding: 0.5rem 0.625rem 0.625rem;
-    border-top: 1px solid
-      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), transparent 86%);
   }
 
-  .work_heading {
+  .name-row {
     display: flex;
     align-items: baseline;
-    gap: 0.4rem;
+    justify-content: space-between;
+    gap: 0.75rem;
     min-width: 0;
   }
 
-  .work_index {
-    flex: 0 0 auto;
-    font-size: 0.7rem;
-    color: var(--curr-theme-color, var(--border-color));
-  }
-
-  .work_title {
-    min-width: 0;
-    font-size: 0.9rem;
+  .name {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
     overflow-wrap: anywhere;
   }
 
-  .work_icon {
+  .expand {
     display: inline-flex;
-    flex: 0 0 auto;
-    align-items: center;
-    align-self: center;
-    margin-left: auto;
-    color: color-mix(in srgb, var(--text-color), transparent 40%);
+    flex-shrink: 0;
+    color: var(--paper-mute);
+    opacity: 0;
+    transition:
+      color 0.18s var(--ease),
+      opacity 0.18s var(--ease);
   }
 
-  .work_date {
-    display: block;
-    margin-top: 0.15rem;
-    font-size: 0.7rem;
-    line-height: 1.3;
-    letter-spacing: 0.02em;
-    color: color-mix(in srgb, var(--text-color), transparent 45%);
-  }
-
-  .work_description {
-    display: -webkit-box;
-    margin-top: 0.3rem;
-    overflow: hidden;
+  .date {
+    font-family: var(--font-mono);
     font-size: 0.75rem;
-    line-height: 1.45;
-    color: color-mix(in srgb, var(--text-color), transparent 28%);
-    overflow-wrap: anywhere;
-    line-clamp: 2;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--paper-mute);
+    font-variant-numeric: tabular-nums;
   }
 
-  .empty_collection {
-    margin: 0;
-    padding: 0.75rem 1rem;
-    border: 1px dashed
-      color-mix(in srgb, var(--curr-theme-color, var(--border-color)), transparent 65%);
-    border-radius: 0.375rem;
-    background-color: rgba(0, 0, 0, 0.22);
-    font-size: 0.8rem;
+  .desc {
+    font-size: 0.875rem;
     line-height: 1.5;
-    color: color-mix(in srgb, var(--text-color), transparent 28%);
+    color: var(--paper-dim);
+    overflow-wrap: anywhere;
+  }
+
+  .empty {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--paper-dim);
+  }
+
+  @media (min-width: 801px) {
+    .works {
+      column-count: 2;
+    }
   }
 
   @media (hover: hover) {
-    .work_card:hover {
-      transform: translateY(-2px);
-      border-color: color-mix(
-        in srgb,
-        var(--curr-theme-color, var(--border-color)),
-        transparent 40%
-      );
-      background-color: rgba(0, 0, 0, 0.4);
+    .work:hover .media img {
+      filter: brightness(1.045);
+    }
+
+    .work:hover .name {
+      text-decoration: underline;
+      text-decoration-color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .work:hover .expand {
+      color: var(--accent);
+      opacity: 1;
     }
   }
 
-  .work_card:active {
-    transform: none;
+  .work:focus-visible {
+    outline-offset: 6px;
   }
 
-  @media (min-width: 800px) {
-    .works {
-      column-count: 2;
-      column-gap: 1rem;
-    }
+  .work:focus-visible .name {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+  }
 
-    .work_item {
-      margin-bottom: 1rem;
-    }
+  .work:focus-visible .expand {
+    color: var(--accent);
+    opacity: 1;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .work_card {
+    .media img,
+    .expand {
       transition: none;
-    }
-
-    .work_card:hover {
-      transform: none;
     }
   }
 
@@ -317,37 +317,39 @@
     box-sizing: border-box;
     width: max-content;
     max-width: min(38rem, calc(100% - 2rem));
-    padding: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
     transform: translateX(-50%);
-    border: 1px solid
-      color-mix(in srgb, var(--pswp-caption-accent, var(--border-color)), transparent 55%);
-    border-radius: 0.375rem;
-    background-color: rgba(0, 0, 0, 0.65);
-    color: var(--text-color);
-    text-align: center;
+    background-color: rgba(10, 9, 8, 0.84);
+    color: var(--paper);
+    font-family: var(--font-sans);
+    text-align: left;
     overflow-wrap: anywhere;
     white-space: normal;
   }
 
   :global(.pswp__custom-caption-title) {
     margin: 0;
+    font-family: var(--font-sans);
     font-size: 1rem;
     font-weight: 600;
-    line-height: 1.35;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
   }
 
   :global(.pswp__custom-caption-date) {
-    margin: 0.2rem 0 0;
-    font-size: 0.72rem;
-    line-height: 1.3;
-    opacity: 0.72;
+    margin: 0.3rem 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    line-height: 1.4;
+    color: var(--pswp-caption-accent, var(--paper-dim));
   }
 
   :global(.pswp__custom-caption-description) {
-    margin: 0.25rem 0 0;
-    font-size: 0.78rem;
-    line-height: 1.45;
-    opacity: 0.88;
-    overflow-wrap: anywhere;
+    margin: 0.3rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--paper-dim);
   }
 </style>

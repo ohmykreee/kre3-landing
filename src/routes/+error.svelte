@@ -1,53 +1,73 @@
 <script lang="ts">
   import { page } from '$app/state'
-  import { siteconfig } from '$lib/config/_loader'
-  import { getBg } from '$lib/utils/get-page-state.svelte'
-  import avatar from '$lib/assets/avatar.jpg'
   import { resolve } from '$app/paths'
-
-  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
+  import avatar from '$lib/assets/avatar.jpg'
 </script>
 
-<div class="error_container" style:--curr-border-color={currTheme ?? 'initial'}>
-  <a href={resolve('/')}><img src={avatar} alt="Click to return main page" /></a>
-  <p>
-    {page.status} | {page.error?.message}
-    <br />
-    You can use the navigation above to go back to Home.
-  </p>
+<div class="error_container">
+  <a class="portrait" href={resolve('/')} aria-label="Back to Home">
+    <img src={avatar} alt="Avatar" />
+  </a>
+
+  <div class="text">
+    <h1 class="status">{page.status}</h1>
+    <p class="message">{page.error?.message}</p>
+    <p class="hint">You can use the navigation above to go back to Home.</p>
+  </div>
 </div>
 
 <style>
   .error_container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1.5rem 1rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: clamp(1.125rem, 3vw, 2rem);
+    padding: clamp(0.25rem, 2vw, 1rem) 0;
   }
 
-  .error_container img {
-    border-radius: 9999px;
+  .portrait {
     flex-shrink: 0;
-    width: 30vw;
-    margin: 1.5rem 1rem;
-    color: var(--curr-border-color, var(--border-color));
-    box-shadow: 0 0 0 2px;
+    width: clamp(4.5rem, 12vw, 6rem);
+    border-radius: 50%;
   }
 
-  .error_container p {
+  .portrait img {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .text {
+    flex: 1 1 18rem;
+    min-width: 0;
+  }
+
+  .status {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 4.5vw, 3.25rem);
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--paper);
+  }
+
+  .message {
+    margin: 0.5rem 0 0;
+    font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.75rem;
-    text-align: center;
+    line-height: 1.5;
+    color: var(--paper-dim);
+    overflow-wrap: anywhere;
   }
 
-  @media (min-width: 800px) {
-    .error_container img {
-      width: 13rem;
-    }
-
-    .error_container p {
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-    }
+  .hint {
+    max-width: 40ch;
+    margin: 0.875rem 0 0;
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--paper-mute);
   }
 </style>

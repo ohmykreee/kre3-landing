@@ -1,4 +1,8 @@
 <script lang="ts">
+  import '$lib/styles/_variable.css'
+  import '@fontsource-variable/jetbrains-mono/wght'
+  import '@fontsource-variable/space-grotesk/wght'
+
   import { siteconfig } from '$lib/config/_loader'
   import { fade } from 'svelte/transition'
   import { Tween } from 'svelte/motion'
@@ -6,16 +10,16 @@
   import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
 
   import ogimage from '$lib/assets/cover.jpg'
-  // import '@fontsource-variable/ubuntu-sans-mono/wght'
-  // import PreloadWoff2 from '@fontsource-variable/ubuntu-sans-mono/files/ubuntu-sans-mono-latin-wght-normal.woff2?url'
-  import '@fontsource-variable/jetbrains-mono/wght'
-  import PreloadWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
+  import PreloadMono from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url'
+  import PreloadDisplay from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url'
 
   import Terminal from '$lib/components/Terminal.svelte'
   import Footer from '$lib/components/Footer.svelte'
+  import Controller from '$lib/components/Controller.svelte'
 
   let { children } = $props()
   let currBg = $derived(siteconfig.profile.bg[getBg.index])
+  let currTheme = $derived(currBg.theme)
 
   const TweenConfig = {
     duration: 400,
@@ -76,7 +80,8 @@
 </script>
 
 <svelte:head>
-  <link rel="preload" as="font" type="font/woff2" href={PreloadWoff2} crossorigin="anonymous" />
+  <link rel="preload" as="font" type="font/woff2" href={PreloadMono} crossorigin="anonymous" />
+  <link rel="preload" as="font" type="font/woff2" href={PreloadDisplay} crossorigin="anonymous" />
   <meta
     name="description"
     content="Here is Kreee, a freelance artist and hobbyist frontend developer dedicated to merging artistic sensibility with technical rationality. Explore my latest works and get in touch."
@@ -100,71 +105,83 @@
     style:--offset-y="{offsetY.current}%"
   ></div>
 {/key}
-<div class="page" class:is-closed={getTerminal.isClosed}>
-  <main class="stage">
-    <Terminal {children} />
-  </main>
-  <Footer />
-</div>
+
+<main class="stage theme-scope" class:is-closed={getTerminal.isClosed} style:--theme={currTheme}>
+  <Terminal {children} />
+  <Controller />
+</main>
+
+<Footer />
 
 <style>
-  @import '$lib/styles/_variable.css';
-
-  :global(*) {
-    box-sizing: border-box;
-  }
-
-  :global(body) {
-    display: flow-root;
-    font-family: 'JetBrains Mono Variable', sans-serif;
-    color: var(--text-color);
-    overflow-x: hidden;
-    padding: 0;
-    margin: 0;
-    background-color: var(--bg-color);
-    min-height: 100lvh;
-    scroll-behavior: smooth;
-  }
-
-  :global(a) {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  :global(input, select, textarea, button) {
-    font-family: inherit;
-    color: inherit;
-  }
-
-  .page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100lvh;
-  }
-
-  .stage {
-    min-width: 0;
-  }
-
-  .page.is-closed .stage {
-    flex: 1 1 0;
-    min-height: 0;
-  }
-
   .bg {
     position: fixed;
     inset: -3%;
+    z-index: -1;
     background-image: var(--curr-bg-url);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    z-index: -100;
-    filter: brightness(0.5) blur(5px);
-    transform: translate(var(--offset-x, 0), var(--offset-y, 0));
-    transition: filter 0.3s ease;
+    transform: translate(var(--offset-x, 0%), var(--offset-y, 0%));
   }
 
-  .bg.nodim {
-    filter: brightness(1) blur(0);
+  /* The graphite workspace already holds the reading column, so the scrim can
+     stay light and let the artwork live around it. */
+  .bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(10, 9, 8, 0.52) 0%,
+        rgba(10, 9, 8, 0.48) 38%,
+        rgba(10, 9, 8, 0.36) 70%,
+        rgba(10, 9, 8, 0.26) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(10, 9, 8, 0.48) 0%,
+        rgba(10, 9, 8, 0.28) 18%,
+        rgba(10, 9, 8, 0.32) 68%,
+        rgba(10, 9, 8, 0.54) 100%
+      ),
+      rgba(10, 9, 8, 0.28);
+    transition: opacity 0.5s var(--ease);
+  }
+
+  .bg.nodim::after {
+    opacity: 0;
+  }
+
+  .stage {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 82.5rem;
+    margin-inline: auto;
+    padding: clamp(1rem, 2.8vh, 1.5rem) var(--gutter) 0;
+  }
+
+  /* pure artwork mode: no dim, no page chrome — just the controller over the art.
+     The grid geometry itself must not change here: the closing workbench is still
+     in flow while its genie transition runs, so a layout swap would teleport it.
+     A definite height (instead of min-height) keeps the footer anchored to the
+     viewport even when the closing workbench is taller than the screen. */
+  .stage.is-closed {
+    height: calc(100lvh - var(--closed-chrome));
+    min-height: 0;
+  }
+
+  /* compact main workspace + persistent "now showing" rail */
+  @media (min-width: 1200px) {
+    .stage {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 17.5rem;
+      column-gap: clamp(1.5rem, 2.4vw, 2rem);
+      align-items: start;
+      max-width: 85rem;
+      padding-inline: clamp(1.5rem, 3.4vw, 3rem);
+    }
   }
 </style>

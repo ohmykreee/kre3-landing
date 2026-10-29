@@ -1,36 +1,24 @@
 <script lang="ts">
-  import { siteconfig } from '$lib/config/_loader'
-  import { getBg, getTerminal } from '$lib/utils/get-page-state.svelte'
-  import Icon from './Icon.svelte'
-  import { genie } from '$lib/utils/genie-effect.svelte'
-  import { faXmark } from '@fortawesome/free-solid-svg-icons'
   import { page } from '$app/state'
   import { resolve } from '$app/paths'
-  import Controller from '$lib/components/Controller.svelte'
-  import { createDrag } from '$lib/utils/use-drag.svelte'
-  import type { Pathname } from '$app/types'
   import type { Snippet } from 'svelte'
+
+  import { genie } from '$lib/utils/genie-effect.svelte'
+  import { createDrag } from '$lib/utils/use-drag.svelte'
+  import { getTerminal } from '$lib/utils/get-page-state.svelte'
+  import { sectionMeta, sections } from '$lib/utils/sections'
 
   interface Props {
     children: Snippet<[]>
   }
 
   let { children }: Props = $props()
-  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
-  interface pinnedTab {
-    name: string
-    route: Pathname
-  }
-  const pinnedTabs: pinnedTab[] = [
-    { name: 'Home', route: '/' },
-    { name: 'Folio', route: '/folio' },
-    { name: 'About', route: '/about' },
-    { name: 'Pals', route: '/pals' }
-  ]
 
   const drag = createDrag()
+  const current = $derived(sectionMeta(page.url.pathname))
+  const routePath = $derived(current.route === '/' ? '~' : `~${current.route}`)
 
-  // do Terminal close function
+  // closing is a desktop affordance, on the same boundary as createDrag
   function doCloseTerminal() {
     if (window.innerWidth > 800) {
       getTerminal.isClosed = true
@@ -39,191 +27,237 @@
 </script>
 
 <svelte:head>
-  <title>
-    {pinnedTabs.find((t) => t.route === page.url.pathname)?.name ?? '404'} | Turbo Energy Canine
-  </title>
+  <title>{current.name} | Turbo Energy Canine</title>
 </svelte:head>
 
 {#if !getTerminal.isClosed}
   <div
-    class="terminal_container"
-    style:--curr-border-color={currTheme ?? 'initial'}
+    class="workbench"
     style:--offset-x="{drag.offsetX}px"
     style:--offset-y="{drag.offsetY}px"
     transition:genie={{ duration: 600 }}
   >
-    <div class="terminal_title">
-      <div class="title_container" role="none" {@attach drag.doDrag}>
-        {#if !pinnedTabs.some((item) => item.route === page.url.pathname)}
-          <h1 class="title_btn_pressed">404</h1>
-        {/if}
-        {#each pinnedTabs as tab (tab.name)}
-          {#if page.url.pathname === tab.route}
-            <h1 class="title_btn_pressed">{tab.name}</h1>
-          {:else}
-            <a href={resolve(tab.route)} class="title_btn">{tab.name}</a>
-          {/if}
+    <header class="masthead">
+      <div class="titlebar-drag" {@attach drag.doDrag} title="Drag to move">
+        <span class="wordmark">doggobench</span>
+        <span class="route-path" aria-hidden="true">{routePath}</span>
+      </div>
+
+      <nav class="nav" aria-label="Sections">
+        {#each sections as tab (tab.name)}
+          {@const active = page.url.pathname === tab.route}
+          <a href={resolve(tab.route)} class="nav-link" aria-current={active ? 'page' : undefined}>
+            {tab.name}
+          </a>
         {/each}
-      </div>
-      <div class="close_btn" onclick={doCloseTerminal} role="none">
-        <Icon icon={faXmark} size="0.6rem" color="#ffff" />
-      </div>
+        {#if current.index === -1}
+          <span class="nav-link" aria-current="page">{current.name}</span>
+        {/if}
+      </nav>
+
+      <button
+        class="close"
+        type="button"
+        onclick={doCloseTerminal}
+        aria-label="Close workbench"
+        title="Close workbench"
+      >
+        <span class="close-dot" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <div class="content">
+      {@render children?.()}
     </div>
-    <div class="terminal_window">{@render children?.()}</div>
   </div>
 {/if}
-<Controller />
 
 <style>
-  .terminal_container {
-    display: flex;
-    flex-direction: column;
-    width: calc(100lvw - 32px);
-    min-height: 30rem;
-    margin: 2rem auto 1rem auto;
-    border-radius: 0.375rem;
-    box-shadow:
-      0 0 0 0.75px var(--curr-border-color, var(--border-color)),
-      0 4px 8px -2px rgba(0, 0, 0, 0.4),
-      0 15px 25px -5px rgba(0, 0, 0, 0.3),
-      0 35px 50px -15px rgba(0, 0, 0, 0.2);
+  .workbench {
+    --pad-x: clamp(0.875rem, 2.8vw, 2rem);
+    --pad-y: clamp(0.75rem, 2.2vw, 1.125rem);
+
+    position: relative;
+    z-index: 999;
+    min-width: 0;
+    padding: 0 var(--pad-x) clamp(1.5rem, 3.2vw, 2.25rem);
+    background-color: color-mix(in srgb, var(--panel) 95%, transparent);
   }
 
-  .terminal_container :global(:focus-visible) {
-    outline: 2px solid var(--curr-border-color, var(--border-color));
-    outline-offset: 2px;
-  }
-
-  .terminal_title {
+  /* OS titlebar: real route path, draggable surface, red close dot */
+  .masthead {
+    position: relative;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
-    flex-shrink: 0;
-    height: 3rem;
-    background-color: var(--title-bg-color);
-    border-radius: 0.375rem 0.375rem 0 0;
-    box-shadow: inset 0 2px 10px 0 rgba(110, 116, 113, 0.05);
-    color: var(--text-color);
+    gap: 0 1.25rem;
+    margin: 0 calc(-1 * var(--pad-x));
+    padding: calc(var(--pad-y) - 0.625rem) var(--pad-x);
+    background-color: rgba(11, 10, 9, 0.34);
+    background-color: color-mix(in srgb, var(--ink) 34%, transparent);
   }
 
-  .title_container {
-    height: inherit;
-    overflow-x: auto;
-    overflow-y: hidden;
-    flex-grow: 1;
+  /* solid accent judgement line instead of a segmented hairline */
+  .masthead::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--accent);
+  }
+
+  .titlebar-drag {
     display: flex;
-    flex-wrap: nowrap;
-    align-items: flex-end;
-    scrollbar-width: thin;
-    scrollbar-color: color-mix(
-        in srgb,
-        var(--curr-border-color, var(--border-color)),
-        transparent 55%
-      )
-      transparent;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    min-height: 2.75rem;
   }
 
-  .title_container::-webkit-scrollbar {
-    height: 4px;
+  .wordmark {
+    flex-shrink: 0;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 650;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--paper);
+    white-space: nowrap;
   }
 
-  .title_container::-webkit-scrollbar-button {
+  .route-path {
+    overflow: hidden;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--term-path);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .nav {
+    order: 3;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 clamp(1rem, 3vw, 1.5rem);
+    width: 100%;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1px;
+    color: var(--paper-dim);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 450;
+    line-height: 1;
+    white-space: nowrap;
+    transition: color 0.16s var(--ease);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: calc(50% + 0.6em);
+    width: 0.9rem;
+    height: 2px;
+    background-color: var(--paper-mute);
+    clip-path: inset(0 100% 0 0);
+    transition:
+      clip-path 0.18s var(--ease),
+      background-color 0.18s var(--ease);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--paper);
+  }
+
+  .nav-link:hover::after,
+  .nav-link:focus-visible::after {
+    clip-path: inset(0 0 0 0);
+  }
+
+  .nav-link[aria-current='page'] {
+    color: var(--paper);
+  }
+
+  .nav-link[aria-current='page']::after {
+    background-color: var(--accent);
+    clip-path: inset(0 0 0 0);
+  }
+
+  .close {
     display: none;
   }
 
-  .title_container::-webkit-scrollbar-track {
-    background: transparent;
+  .close-dot {
+    display: block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background-color: var(--close);
+    box-shadow: 0 0 0 1px rgba(10, 9, 8, 0.25);
+    transition:
+      box-shadow 0.15s var(--ease),
+      transform 0.15s var(--ease);
   }
 
-  .title_container::-webkit-scrollbar-thumb {
-    border-radius: 9999px;
-    background-color: color-mix(
-      in srgb,
-      var(--curr-border-color, var(--border-color)),
-      transparent 45%
-    );
+  .content {
+    padding-top: clamp(1.25rem, 2.8vw, 1.875rem);
   }
 
-  .title_btn {
-    font-size: 1rem;
-    line-height: 1.75rem;
-    text-decoration: none;
-    color: rgb(154, 154, 154);
-    margin: 0 0 0 0.5rem;
-    padding: 0.4rem 1rem 0.25rem 1rem;
-    border-radius: 0.125rem 0.125rem 0 0;
-    transition: background-color 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+  @media (min-width: 560px) {
+    .nav {
+      order: 0;
+      width: auto;
+      margin-left: auto;
+    }
   }
 
-  .title_btn_pressed {
-    white-space: nowrap;
-    font-size: 1rem;
-    line-height: 1.75rem;
-    text-decoration: none;
-    font-weight: 500;
-    margin: 0 0 0 0.5rem;
-    padding: 0.4rem 1rem 0.25rem 1rem;
-    border-radius: 0.125rem 0.125rem 0 0;
-    background-color: var(--title-btn-activate);
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-  }
-
-  .title_btn:hover {
-    background-color: var(--title-btn-hover);
-  }
-
-  .title_btn:focus-visible {
-    outline-offset: -2px;
-  }
-
-  .close_btn {
-    display: flex;
-    flex-shrink: 0;
-    background-color: rgb(138, 138, 138);
-    border-radius: 9999px;
-    height: 1.35rem;
-    width: 1.35rem;
-    margin: 0 1rem;
-    justify-content: center;
-    align-items: center;
-    cursor: not-allowed;
-  }
-
-  .terminal_window {
-    width: 100%;
-    flex-grow: 1;
-    background-color: var(--terminal-color);
-    border-radius: 0 0 0.375rem 0.375rem;
-    color: var(--text-color);
-  }
-
-  @media (min-width: 800px) {
-    .terminal_container {
-      width: calc(800px - 16px);
-      margin-top: 15dvh;
+  @media (min-width: 801px) {
+    .workbench {
       transform: translate(var(--offset-x, 0px), var(--offset-y, 0px));
     }
 
-    .title_btn,
-    .title_btn_pressed {
-      margin: 0 0 0 1rem;
-      padding: 0.4rem 3rem 0.25rem 3rem;
-    }
-
-    .title_container {
+    .titlebar-drag {
       cursor: grab;
-      user-select: none;
       touch-action: none;
+      user-select: none;
     }
 
-    .title_container:active {
+    .titlebar-drag:active {
       cursor: grabbing;
     }
 
-    .close_btn {
-      background-color: var(--close-btn);
+    .close {
+      display: grid;
+      flex-shrink: 0;
+      place-items: center;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-left: -0.375rem;
+      padding: 0;
+      border: 0;
+      background: transparent;
       cursor: pointer;
+    }
+
+    .close:hover .close-dot,
+    .close:focus-visible .close-dot {
+      box-shadow:
+        0 0 0 1px rgba(10, 9, 8, 0.25),
+        0 0 0 3px color-mix(in srgb, var(--close) 30%, transparent);
+      transform: scale(1.08);
     }
   }
 </style>

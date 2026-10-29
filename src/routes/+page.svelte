@@ -1,153 +1,358 @@
 <script lang="ts">
   import { siteconfig } from '$lib/config/_loader'
+  import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
   import Icon from '$lib/components/Icon.svelte'
-  import { getBg } from '$lib/utils/get-page-state.svelte'
 
-  let currTheme = $derived(siteconfig.profile.bg[getBg.index].theme)
+  const stateEmoji = siteconfig.profile.stateEmoji?.trim()
 </script>
 
-<div class="container">
-  <div class="terminal_prompt">
-    <span class="terminal_domain">{siteconfig.profile.props}</span>
-    :
-    <span class="terminal_path">~</span>
-    $ info
+<div class="home">
+  <p class="prompt">
+    <span class="prompt-host">{siteconfig.profile.props}</span>
+    <span class="prompt-colon">:</span>
+    <span class="prompt-path">~</span>
+    <span class="prompt-dollar">$</span>
+    <span class="prompt-cmd">info</span>
+  </p>
+  <header class="intro">
+    <h1 class="name">{@html siteconfig.profile.name}</h1>
+
+    <figure class="portrait">
+      <img src={siteconfig.profile.avatar} alt="Portrait" />
+      {#if stateEmoji}
+        <span
+          class="state-badge"
+          role="img"
+          aria-label="Current status: {stateEmoji}"
+          title="Current status: {stateEmoji}"
+        >
+          {stateEmoji}
+        </span>
+      {/if}
+    </figure>
+  </header>
+
+  <div class="specs" aria-label="Personal specs">
+    <p class="spec-row">
+      <span class="spec-key">Career</span>
+      <span class="spec-val">{@html siteconfig.profile.career}</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">Species</span>
+      <span class="spec-val">{@html siteconfig.profile.species}</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">Mail</span>
+      <span class="spec-val">{@html siteconfig.profile.email}</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">CPU</span>
+      <span class="spec-val">DoggoBrain KindaStupid @ unknown</span>
+    </p>
+    <p class="spec-row">
+      <span class="spec-key">GPU</span>
+      <span class="spec-val">DoggoEyes NearSighted</span>
+    </p>
   </div>
-  <div class="bio_container">
-    <img
-      src={siteconfig.profile.avatar}
-      alt="Avatar"
-      style:--curr-border-color={currTheme ?? 'initial'}
-    />
-    <div class="bio_info">
-      <span>Brief Introduction</span>
-      <br />
-      ------------------
-      <br />
-      <div class="bio_line">
-        <span>Name:</span>
-        {@html siteconfig.profile.name}
-      </div>
-      <div class="bio_line">
-        <span>Career:</span>
-        {@html siteconfig.profile.career}
-      </div>
-      <div class="bio_line">
-        <span>Species:</span>
-        {@html siteconfig.profile.species}
-      </div>
-      <div class="bio_line">
-        <span>Mail:</span>
-        {@html siteconfig.profile.email}
-      </div>
-      <div class="bio_line">
-        <span>CPU:</span>
-        DoggoBrain KindaStupid @ unknown
-      </div>
-      <div class="bio_line">
-        <span>GPU:</span>
-        DoggoEyes NearSighted
-      </div>
-    </div>
-  </div>
-  <div class="terminal_prompt">
-    <span class="terminal_domain">{siteconfig.profile.props}</span>
-    :
-    <span class="terminal_path">~</span>
-    $ ls ./links
-  </div>
-  <div class="links_container">
-    {#each siteconfig.profile.links as link (link.name)}
-      <a href={link.url} rel="external" target="_blank"><Icon icon={link.icon} />{link.name}</a>
-    {/each}
-  </div>
+
+  <section class="links-block" aria-label="Social links">
+    <p class="prompt links-prompt">
+      <span class="prompt-host">{siteconfig.profile.props}</span>
+      <span class="prompt-colon">:</span>
+      <span class="prompt-path">~</span>
+      <span class="prompt-dollar">$</span>
+      <span class="prompt-cmd">ls ./links</span>
+    </p>
+
+    <ul class="link-list">
+      {#each siteconfig.profile.links as link (link.name)}
+        <li>
+          <a href={link.url} rel="external" target="_blank">
+            <span class="link-icon"><Icon icon={link.icon} size="1rem" /></span>
+            <span class="link-name">{link.name}</span>
+            <span class="link-arrow" aria-hidden="true">
+              <Icon icon={faAngleRight} size="0.75rem" />
+            </span>
+          </a>
+        </li>
+      {/each}
+    </ul>
+  </section>
 </div>
 
 <style>
-  .container {
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5rem;
-    overflow-wrap: normal;
-    word-break: normal;
-    margin: 1rem;
+  .home {
+    min-width: 0;
+    max-width: 53.75rem;
   }
 
-  .terminal_prompt {
-    display: flex;
-  }
-
-  .terminal_domain {
-    color: var(--terminal-domain);
-  }
-
-  .terminal_path {
-    color: var(--terminal-path);
-  }
-
-  .bio_container {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .bio_container span {
-    color: var(--curr-border-color, var(--border-color));
-  }
-
-  .bio_container img {
-    border-radius: 9999px;
-    flex-shrink: 0;
-    width: 30vw;
-    height: 30vw;
-    align-self: center;
-    margin-top: 1rem;
-    color: var(--curr-border-color, var(--border-color));
-    box-shadow: 0 0 0 2px;
-  }
-
-  .bio_info {
-    flex-grow: 1;
-    margin-top: 1rem;
-  }
-
-  .bio_line {
-    display: flex;
-  }
-
-  .bio_line span {
-    width: 6rem;
-    font-weight: 600;
-  }
-
-  .links_container {
+  .prompt {
     display: flex;
     flex-wrap: wrap;
-    column-gap: 1rem;
-    margin: 0.25rem 0 1rem 0;
+    gap: 0 0.35ch;
+    margin: 0 0 0.875rem;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: 0;
+    color: var(--paper-mute);
   }
 
-  .links_container a {
-    text-decoration: none;
-    padding: 0.5rem;
+  .prompt-host {
+    color: var(--term-domain);
   }
 
-  .links_container a:hover {
+  .prompt-colon,
+  .prompt-dollar {
+    color: var(--paper-mute);
+  }
+
+  .prompt-path {
+    color: var(--term-path);
+  }
+
+  .prompt-cmd {
+    color: var(--paper-dim);
+  }
+
+  .intro {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .name {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 5.2vw, 4.5rem);
+    font-weight: 700;
+    line-height: 0.93;
+    letter-spacing: -0.04em;
+    color: var(--paper);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+    text-align: center;
+  }
+
+  .name :global(sup) {
+    font-size: 0.5em;
+    line-height: 0;
+    letter-spacing: -0.01em;
+    vertical-align: super;
+    color: var(--accent);
+  }
+
+  .portrait {
+    --portrait-tilt: 2.5deg;
+
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    width: clamp(6rem, 16vw, 7rem);
+    margin: 0 0 0.625rem;
+    transform: rotate(var(--portrait-tilt));
+  }
+
+  .portrait::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 0.375rem;
+    background-color: color-mix(in srgb, var(--accent) 24%, transparent);
+    transform: translate(0.44rem, 0.44rem);
+  }
+
+  .portrait img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 0.375rem;
+    object-fit: cover;
+    background-color: color-mix(in srgb, var(--paper) 8%, transparent);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--panel) 92%, transparent),
+      0 0 0 4px color-mix(in srgb, var(--accent) 54%, transparent);
+  }
+
+  /* current-state capsule, pinned to the portrait's lower-right corner */
+  .state-badge {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -0.5rem;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2.75rem;
+    height: 2.25rem;
+    padding: 0 0.625rem;
+    border: 2px solid var(--theme, var(--accent));
+    border-radius: 999px;
+    background-color: var(--panel);
+    box-shadow:
+      0 0 0 2px color-mix(in srgb, var(--panel) 92%, transparent),
+      0 0.35rem 0.85rem rgba(10, 9, 8, 0.45);
+    font-size: 1.2rem;
+    line-height: 1;
+    transform: rotate(calc(var(--portrait-tilt) * -1));
+    transform-origin: center;
+    user-select: none;
+  }
+
+  .specs {
+    display: grid;
+    gap: 0.125rem;
+    margin-top: clamp(1.25rem, 2.8vw, 1.75rem);
+  }
+
+  .spec-row {
+    display: flex;
+    gap: 0.875rem;
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    color: var(--paper);
+  }
+
+  .spec-key {
+    font-size: 1rem;
+    width: 5rem;
+    flex-shrink: 0;
+    color: var(--accent);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  .spec-val {
+    font-size: 1rem;
+    color: var(--paper);
+    overflow-wrap: anywhere;
+  }
+
+  .links-block {
+    margin-top: clamp(1.375rem, 3.2vw, 1.875rem);
+  }
+
+  .links-prompt {
+    margin-bottom: 0.25rem;
+  }
+
+  .link-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .link-list a {
+    display: flex;
+    align-items: center;
+    gap: 0.44rem;
+    min-height: 2.75rem;
+    padding: 0.375rem 0;
+    color: var(--paper-dim);
+    font-size: 0.875rem;
+    line-height: 1.3;
+    transition: color 0.16s var(--ease);
+  }
+
+  .link-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    color: var(--paper-mute);
+    transition: color 0.16s var(--ease);
+  }
+
+  .link-name {
+    font-size: 1rem;
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .link-arrow {
+    margin-left: auto;
+    padding-right: 1rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--paper-mute);
+    opacity: 0;
+    transition:
+      opacity 0.16s var(--ease),
+      transform 0.16s var(--ease),
+      color 0.16s var(--ease);
+  }
+
+  .link-list a:hover,
+  .link-list a:focus-visible {
+    color: var(--paper);
+  }
+
+  .link-list a:hover .link-name,
+  .link-list a:focus-visible .link-name {
     text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
   }
 
-  .links_container :global(svg) {
-    margin-right: 0.5rem;
+  .link-list a:hover .link-icon,
+  .link-list a:focus-visible .link-icon,
+  .link-list a:hover .link-arrow,
+  .link-list a:focus-visible .link-arrow {
+    color: var(--accent);
   }
 
-  @media (min-width: 800px) {
-    .bio_container {
+  .link-list a:hover .link-arrow,
+  .link-list a:focus-visible .link-arrow {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  @media (min-width: 801px) {
+    .link-list {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .intro {
       flex-direction: row;
     }
 
-    .bio_container img {
-      width: 13rem;
-      height: 13rem;
-      margin: 1.5rem 3rem 2.5rem 3rem;
+    .name {
+      flex-grow: 1;
+      min-width: 0;
+      font-size: clamp(4rem, 4.5vw, 4.8rem);
+    }
+
+    .portrait {
+      --portrait-tilt: 3.5deg;
+
+      flex: 0 0 20%;
+      width: auto;
+      margin: 0;
+      transform: translate(calc(var(--pad-x) - 5rem), -0.5rem) rotate(var(--portrait-tilt));
+    }
+
+    .portrait::before {
+      transform: translate(0.375rem, 0.625rem);
+    }
+
+    .home {
+      max-width: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .link-list a,
+    .link-icon,
+    .link-arrow {
+      transition: none;
     }
   }
 </style>

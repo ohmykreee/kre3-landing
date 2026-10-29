@@ -1,16 +1,128 @@
+/* Kre³ Studio Index — compact workspace tokens */
+
 :root {
-  --bg-color: #1e1e1e;
-  --text-color: #ffffff;
-  --border-color: #c29f25;
+  color-scheme: dark;
 
-  --title-bg-color: #262827;
-  --close-btn: #da4c2b;
-  --title-btn-activate: #3a3a3a;
-  --title-btn-hover: #313433;
+  --ink: #0b0a09;
+  --panel: #171410;
 
-  --terminal-color: rgba(0, 0, 0, 0.8);
-  --terminal-domain: #4f9822;
-  --terminal-path: #38639f;
+  --paper: #f3ede3;
+  --paper-dim: #c3baab;
+  --paper-mute: #9a9183;
+
+  --line: rgba(243, 237, 227, 0.14);
+  --line-strong: rgba(243, 237, 227, 0.26);
+
+  --signal: #ff6a3d;
+  --close: #da4c2b;
+  /* lifted from the original terminal-domain green / path blue so they stay
+     readable on the warm graphite workspace */
+  --term-domain: #7dbb5d;
+  --term-path: #8aa4df;
+
+  --font-sans:
+    'Space Grotesk Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans CJK SC', sans-serif;
+  --font-display:
+    'Space Grotesk Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans CJK SC', sans-serif;
+  --font-mono:
+    'JetBrains Mono Variable', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei',
+    'Noto Sans CJK SC', monospace;
+
+  --gutter: clamp(0.875rem, 4vw, 3rem);
+  /* Height reserved for the footer when the workbench is closed. Kept in rem so
+     the fixed controller and the full-height stage scale with the root font. */
+  --closed-chrome: 5.75rem;
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  --accent: var(--signal);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 44%, transparent);
+}
+
+/* Per-artwork accent, lifted towards paper so small text keeps its contrast. */
+.theme-scope {
+  --accent: color-mix(in oklab, var(--theme, var(--signal)) 55%, var(--paper) 45%);
+  --accent-soft: color-mix(in srgb, var(--accent) 14%, transparent);
+  --accent-line: color-mix(in srgb, var(--accent) 44%, transparent);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100lvh;
+  padding: 0;
+  background-color: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--signal);
+  color: #150f0a;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 ::selection {
