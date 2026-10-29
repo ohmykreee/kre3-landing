@@ -1,0 +1,232 @@
+/*!
+ * giscus theme for the Kre³ workspace.
+ *
+ * The file is imported with `?url` and fetched by
+ * `$lib/utils/giscus-theme.ts`, which replaces the __TOKEN__ placeholders with
+ * the computed values of the page's fixed design tokens and hands the result
+ * to giscus as a data: URL.
+ *
+ * Only UI surfaces are restyled. Markdown content (text, links and syntax
+ * highlighting) keeps the exact colors of giscus' built-in GitHub Dark theme;
+ * content backgrounds are allowed to follow the page surface tokens.
+ */
+
+main {
+  /* fixed page surfaces */
+  --gsc-panel: __PANEL__;
+  --gsc-panel-raised: color-mix(in srgb, __PANEL__ 90%, __PAPER__ 10%);
+  --gsc-panel-sunken: color-mix(in srgb, __PANEL__ 72%, __INK__ 28%);
+
+  --gsc-text: __PAPER__;
+  --gsc-text-mute: __PAPER_MUTE__;
+  --gsc-line: __LINE__;
+  --gsc-accent: __ACCENT__;
+  --gsc-accent-soft: color-mix(in srgb, __ACCENT__ 14%, transparent);
+  --gsc-accent-line: color-mix(in srgb, __ACCENT__ 44%, transparent);
+
+  /* content palette: giscus' built-in GitHub Dark theme, unchanged */
+  --color-prettylights-syntax-comment: #8b949e;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #c9d1d9;
+  --color-prettylights-syntax-markup-bold: #c9d1d9;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+  --color-prettylights-syntax-meta-diff-range: #d2a8ff;
+  --color-prettylights-syntax-brackethighlighter-angle: #8b949e;
+  --color-prettylights-syntax-sublimelinter-gutter-mark: #484f58;
+  --color-prettylights-syntax-constant-other-reference-link: #a5d6ff;
+
+  --color-fg-default: #e6edf3;
+  --color-fg-muted: #7d8590;
+  --color-fg-subtle: #6e7681;
+  --color-accent-fg: #2f81f7;
+  --color-success-fg: #3fb950;
+  --color-attention-fg: #d29922;
+  --color-attention-muted: rgb(187 128 9 / 40%);
+  --color-attention-subtle: rgb(187 128 9 / 15%);
+  --color-danger-fg: #f85149;
+  --color-danger-muted: rgb(248 81 73 / 40%);
+  --color-danger-subtle: rgb(248 81 73 / 10%);
+
+  /* themed backgrounds and borders */
+  --color-canvas-default: var(--gsc-panel);
+  --color-canvas-overlay: var(--gsc-panel-raised);
+  --color-canvas-inset: var(--gsc-panel-sunken);
+  --color-canvas-subtle: var(--gsc-panel-raised);
+  --color-border-default: var(--gsc-line);
+  --color-border-muted: color-mix(in srgb, var(--gsc-line) 72%, transparent);
+  --color-neutral-muted: color-mix(in srgb, var(--gsc-text) 9%, transparent);
+
+  /* themed controls, tabs and reactions */
+  --color-btn-text: var(--gsc-text);
+  --color-btn-bg: transparent;
+  --color-btn-border: var(--gsc-line);
+  --color-btn-shadow: 0 0 transparent;
+  --color-btn-inset-shadow: 0 0 transparent;
+  --color-btn-hover-bg: var(--gsc-accent-soft);
+  --color-btn-hover-border: var(--gsc-accent-line);
+  --color-btn-active-bg: var(--gsc-accent-soft);
+  --color-btn-active-border: var(--gsc-accent-line);
+  --color-btn-selected-bg: var(--gsc-panel);
+  --color-btn-primary-text: __INK__;
+  --color-btn-primary-bg: var(--gsc-accent);
+  --color-btn-primary-border: var(--gsc-accent-line);
+  --color-btn-primary-shadow: 0 0 transparent;
+  --color-btn-primary-inset-shadow: 0 0 transparent;
+  --color-btn-primary-hover-bg: color-mix(in srgb, var(--gsc-accent) 86%, var(--gsc-text) 14%);
+  --color-btn-primary-hover-border: var(--gsc-accent);
+  --color-btn-primary-selected-bg: color-mix(in srgb, var(--gsc-accent) 78%, var(--gsc-text) 22%);
+  --color-btn-primary-selected-shadow: 0 0 transparent;
+  --color-btn-primary-disabled-text: color-mix(in srgb, var(--gsc-text) 48%, transparent);
+  --color-btn-primary-disabled-bg: color-mix(in srgb, var(--gsc-accent) 42%, transparent);
+  --color-btn-primary-disabled-border: transparent;
+  --color-action-list-item-default-hover-bg: var(--gsc-accent-soft);
+  --color-segmented-control-bg: transparent;
+  --color-segmented-control-button-bg: var(--gsc-panel);
+  --color-segmented-control-button-selected-border: var(--gsc-accent-line);
+
+  --color-accent-emphasis: var(--gsc-accent);
+  --color-accent-muted: var(--gsc-accent-line);
+  --color-accent-subtle: var(--gsc-accent-soft);
+  --color-scale-gray-7: var(--gsc-panel-raised);
+  --color-scale-blue-8: var(--gsc-accent-soft);
+  --color-social-reaction-bg-hover: var(--gsc-accent-soft);
+  --color-social-reaction-bg-reacted-hover: var(--gsc-accent-soft);
+  --color-social-reaction-border: var(--gsc-accent-line);
+  --color-primer-shadow-inset: 0 0 transparent;
+
+  color: var(--color-fg-default);
+}
+
+/* Content surfaces may follow the page, but code keeps GitHub Dark text. */
+main .markdown pre,
+main .markdown .highlight pre {
+  background-color: var(--gsc-panel-sunken);
+}
+
+/* UI accents stay brown without recoloring markdown links. */
+main :focus-visible {
+  outline-color: var(--gsc-accent);
+}
+
+main .gsc-comment-box-tabs .color-text-secondary {
+  color: var(--gsc-text-mute);
+}
+
+main .gsc-comment-box-textarea::placeholder {
+  color: var(--gsc-text-mute);
+}
+
+main .gsc-toolbar-item {
+  color: var(--gsc-text-mute);
+}
+
+main .gsc-toolbar-item:hover,
+main .gsc-toolbar-item:focus,
+main .gsc-reactions-button.popover-only:hover,
+main .gsc-reactions-button.popover-only:focus {
+  color: var(--gsc-accent);
+}
+
+main .gsc-comment-box-write:focus-within {
+  border-color: var(--gsc-accent);
+  box-shadow: 0 0 0 2px var(--gsc-accent);
+}
+
+main .gsc-social-reaction-summary-item.has-reacted {
+  color: var(--gsc-accent);
+}
+
+main .gsc-pagination-button .color-text-link {
+  color: var(--gsc-accent);
+}
+
+/* The iframe has its own document, so its loader has to match the parent
+   skeleton here instead of inheriting the page styles. */
+main .gsc-loading {
+  flex-direction: column-reverse;
+  gap: 0.625rem;
+  padding-top: clamp(1.5rem, 4vw, 2.5rem);
+}
+
+main .gsc-loading-text {
+  width: auto;
+  font-family: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Liberation Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gsc-text-mute);
+}
+
+main .gsc-loading-image {
+  position: relative;
+  width: 9rem;
+  height: 1px;
+  overflow: hidden;
+  background-color: var(--gsc-line);
+  background-image: none;
+  background-size: 0 0;
+  border-radius: 0;
+}
+
+main .gsc-loading-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--gsc-accent) 70%, transparent) 50%,
+    transparent 100%
+  );
+  animation: gsc-loading-sweep 1.6s __EASE__ infinite;
+}
+
+@keyframes gsc-loading-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(230%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main .gsc-loading-image::after {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+main .gsc-pagination,
+main .pagination-loader-container {
+  background-image: none;
+}
+
+main .gsc-pagination {
+  border-top: 1px solid var(--gsc-line);
+}
