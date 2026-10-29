@@ -163,4 +163,26 @@
       transition: none;
     }
   }
+
+  /* translucent ink scrim, kept on its own layer so it can fade independently
+     of the flip animation */
+  .footer::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    backdrop-filter: brightness(0.8) blur(5px);
+    -webkit-backdrop-filter: brightness(0.8) blur(5px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .footer.is-closed {
+    padding-block: 1rem;
+  }
+
+  .footer.is-closed::before {
+    opacity: 1;
+  }
 </style>
