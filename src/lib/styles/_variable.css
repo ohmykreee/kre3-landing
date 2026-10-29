@@ -124,8 +124,3 @@ textarea {
     scroll-behavior: auto !important;
   }
 }
-
-::selection {
-  background: #ff6a3d;
-  color: #150f0a;
-}
