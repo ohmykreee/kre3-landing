@@ -1,0 +1,5 @@
+# TurboKre (Kre³) — Turbo Energy Canine
+
+Place your own `llms.txt` here, don't forget to follow the rules in https://llmstxt.org/ !
+
+(For test only: this file is from example folder)
