@@ -2,7 +2,7 @@
  * giscus theme for the Kre³ workspace.
  *
  * The file is imported with `?url` and fetched by
- * `$lib/utils/giscus-theme.ts`, which replaces the __TOKEN__ placeholders with
+ * `$lib/utils/render-giscus-theme.svelte.ts`, which replaces the __TOKEN__ placeholders with
  * the computed values of the page's fixed design tokens and hands the result
  * to giscus as a data: URL.
  *
