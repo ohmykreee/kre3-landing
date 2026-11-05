@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Attachment } from 'svelte/attachments'
   import type { GiscusConfig } from '$lib/config/_loader'
-  import { buildGiscusThemeUrl } from '$lib/utils/giscus-theme'
+  import { buildGiscusThemeUrl } from '$lib/utils/render-giscus-theme.svelte'
 
   interface Props {
     host?: string

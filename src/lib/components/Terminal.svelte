@@ -7,8 +7,7 @@
   import { genie } from '$lib/utils/genie-effect.svelte'
   import { createDrag } from '$lib/utils/use-drag.svelte'
   import { createTorch } from '$lib/utils/use-torch-effect.svelte'
-  import { getTerminal, getBg } from '$lib/utils/get-page-state.svelte'
-  import { sectionMeta, sections } from '$lib/utils/sections'
+  import { getTerminal, getBg, sectionMeta, sections } from '$lib/utils/get-page-state.svelte'
 
   interface Props {
     children: Snippet<[]>
